@@ -40,7 +40,7 @@ All the files are inside of ./src
 
 If you look at the "Website Schematic" inside ./documentation, it will show you where the code for each component needs to go. Each component has an associated .css file, which needs to be imported into the .js file.
 
-The App.js file is where the website is brought together. It imports all of the pages and certain modules to be displayed. The <Router> & <Switch> emulate the effect of swithing pages.
+The App.js file is where the website is brought together. It imports all of the pages and certain modules to be displayed. The "Router" & "Switch" emulate the effect of swithing pages.
 
 At the moment, the order page is routed to localhost:3000/ (not /order), this can be changed inside of App.js.
 
