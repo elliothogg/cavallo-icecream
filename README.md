@@ -5,8 +5,8 @@ Make sure you have Node and NPM installed on your machine.
 Clone the project, change into the directory and install the dependencies.
 
 ```bash
-git clone https://github.com/philnash/react-express-starter.git
-cd react-express-starter
+git clone https://nucode.ncl.ac.uk/scomp/msc-computer-science/csc8019-software-engineering-and-team-project/team5.git
+cd team5
 npm install
 ```
 
