@@ -31,6 +31,8 @@ npm run dev
 
 The React application will run on port 3000 and the server port 3001.
 
+The app also has 'hot reloading', meaning any saved changes will automatically reload the server/s.
+
 
 ## FRONT END
 
@@ -60,6 +62,9 @@ All of the code can live inside on file (index.js), but there is an option to cr
 To run the backend server, type $ npm run server.
 
  To test the methods WITHOUT sending requests from the frontend code, you can send HTTP requests to localhost:3001 using curl (in the terminal), or by using Postman.
+
+
+To sucessfully connect to our Google Cloud SQL Database, your IP Address needs to be added to the list of trusted connections.
 
 
 ## General Remarks

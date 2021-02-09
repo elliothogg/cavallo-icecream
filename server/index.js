@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
 const axios = require('axios');
+const connection = require('./database')
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -49,3 +50,27 @@ app.listen(3001, () =>
 );
 
 
+// connection.query(
+//   "CREATE TABLE People (LastName varchar(255),FirstName varchar(255))",
+//   function(error, results, fields) {
+//     if (error) throw error;
+//     console.log('records inserted')
+//   }
+// );
+
+
+// connection.query(
+//   "INSERT into People (LastName, FirstName) VALUES ('elliot', 'hogg') ",
+//   function(error, results, fields) {
+//     if (error) throw error;
+//     console.log('records inserted')
+//   }
+// );
+
+// connection.query(
+//   "SELECT * FROM People",
+//   function(error, results, fields) {
+//     if (error) throw error;
+//     console.log(results);
+//   }
+// );
