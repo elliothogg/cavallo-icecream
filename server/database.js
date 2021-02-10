@@ -17,10 +17,10 @@ const mysql = require('mysql');
 // Database Connection for Development
 
 let connection = mysql.createConnection({
-  host: '34.105.186.197',
-  user: 'root',
-  database: 'test',
-  password: 'pleasework'
+  host: 'team5.crgo2bd9ywen.eu-west-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'pleasework',
+  database: 'main'
 });
 
   connection.connect(function(err) {

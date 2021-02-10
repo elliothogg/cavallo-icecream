@@ -50,6 +50,16 @@ app.listen(3001, () =>
 );
 
 
+
+// connection.query(
+//   "CREATE DATABASE main;",
+//   function(error, results, fields) {
+//     if (error) throw error;
+//     console.log('records inserted')
+//   }
+// );
+
+
 // connection.query(
 //   "CREATE TABLE People (LastName varchar(255),FirstName varchar(255))",
 //   function(error, results, fields) {
@@ -67,10 +77,10 @@ app.listen(3001, () =>
 //   }
 // );
 
-// connection.query(
-//   "SELECT * FROM People",
-//   function(error, results, fields) {
-//     if (error) throw error;
-//     console.log(results);
-//   }
-// );
+connection.query(
+  "SELECT * FROM People",
+  function(error, results, fields) {
+    if (error) throw error;
+    console.log(results);
+  }
+);
