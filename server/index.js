@@ -8,6 +8,18 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 
+app.get('/api/check-postcode', (req, res) => {
+  const destination = req.query.destination;
+  
+  return getPostcode(destination, (err, data) => {
+    if (err) return res.send(400);//upstream request failed
+    
+    res.setHeader('Content-Type', 'application/json');
+    res.send( {distance: data });
+  });
+});
+
+
 // sends a GET request to Distance Matrix API
 function getPostcode(destinationIn, callback) {
     const hostName = 'https://maps.googleapis.com';
