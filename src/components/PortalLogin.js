@@ -31,6 +31,7 @@ class PortalLogin extends Component{
           },
           body:`username=${this.state.username}&password=${this.state.password}`
         }).then((response)=>{
+          console.log(response);
           return response.json()
         }).then((data)=>{
           console.log(data)

@@ -6,6 +6,7 @@ function CompanyPortal() {
   return (
     <div id='companyPortal-container'>
       <p>Company Portal</p>
+      <p>U:admin P:123456</p>
       <PortalLogin />
     </div>
   );
