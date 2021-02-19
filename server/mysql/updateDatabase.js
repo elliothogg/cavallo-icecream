@@ -224,6 +224,16 @@ connection.query("use main;", function(error, results, fields){
 //         console.log('----------------')
 // });
 
+// connection.query(
+//     "INSERT INTO User (Username, Password)" +
+//     "VALUES ('admin', '123456');", 
+//     function(error, results, fields){
+//         if(error)throw error;
+//         console.log(results);
+//         console.log('Insert User Finish.')
+//         console.log('----------------')
+// });
+
 connection.query("show tables;", function(error, results, fields){
     if(error)throw error;
     console.log(results);
