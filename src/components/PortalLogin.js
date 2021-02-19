@@ -23,21 +23,48 @@ class PortalLogin extends Component{
 
       handleSubmit(event) {
         event.preventDefault();
-        fetch(`/company-portal`,{
-          method:'POST',
-          headers:{
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body:`username=${this.state.username}&password=${this.state.password}`
-        }).then((response)=>{
-          console.log(response);
-          return response.json()
-        }).then((data)=>{
-          console.log(data)
-        }).catch(function(error) {
-          console.log(error)
-        })
+		var data = JSON.stringify({
+			username:this.state.username,
+			password:this.state.password
+		});
+		console.log(data);
+		fetch("/company-portal", {
+			method: 'POST', // *GET, POST, PUT, DELETE, etc.
+			mode: 'cors', // no-cors, *cors, same-origin
+			cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+			credentials: 'same-origin', // include, *same-origin, omit
+			headers: {
+				'Content-Type': 'application/json;charset=UTF-8'
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			redirect: 'follow', // manual, *follow, error
+			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+			body: JSON.stringify({
+				username: this.state.username,
+				password: this.state.password,
+				}),
+			})
+			.then((res) => {
+				return res.json().then((response) => {
+				var resData = JSON.stringify(response);
+				console.log("*************resData********************");
+				console.log(resData);
+				var jsonData = JSON.parse(resData);
+				console.log("*************jsonData********************");
+				console.log(jsonData);
+				console.log("*************dataArray********************");
+				var dataArray = jsonData.data;
+				console.log(dataArray);
+				console.log("*************dataObject********************");
+				dataArray = JSON.parse(dataArray);
+
+				
+				
+			});
+			})
+			.catch((error) => {
+				console.error(error);
+			});    
         }
 
         render() {
