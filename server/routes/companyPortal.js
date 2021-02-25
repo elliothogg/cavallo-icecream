@@ -28,7 +28,7 @@ module.exports = router;
 
 function queryUserInfo(username, password, callback){
 	console.log("queryUserInfo parameter values: " + username + "    " + password);
-    let sql = `select username, password from User where username='${username}' and password = '${password}'`;
+    let sql = `select Username, Password from CompanyUser where Username='${username}' and Password = '${password}'`;
     connection.query(sql, function(error, results, fields){
         if (error) {
             callback(error);
