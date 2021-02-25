@@ -1,0 +1,18 @@
+.background{
+  margin: 20px;
+  border-radius: 20px;
+  text-align: center;
+
+}
+
+.iceImages{
+
+  border: 1px solid black;
+  border-radius: 20px;
+
+}
+
+.productList{
+  display: block;
+
+}
