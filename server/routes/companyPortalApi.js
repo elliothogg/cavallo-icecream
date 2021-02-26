@@ -4,7 +4,7 @@ var router = express.Router();
 var connection = require('../mysql/database');
 const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
-router.post('/company-portal', urlendodedParser, function(req, res, next){
+router.post('api/company-portal', urlendodedParser, function(req, res, next){
 	var data = req.body;
 	console.log("********req.body***********");
 	console.log(data);

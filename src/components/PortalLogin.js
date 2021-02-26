@@ -28,7 +28,7 @@ class PortalLogin extends Component{
 			password:this.state.password
 		});
 		console.log(data);
-		fetch("/company-portal", {
+		fetch("api/company-portal", {
 			method: 'POST', // *GET, POST, PUT, DELETE, etc.
 			mode: 'cors', // no-cors, *cors, same-origin
 			cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
