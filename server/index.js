@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 
 const distanceAPI = require('./routes/distanceApi');
 const companyPortal = require('./routes/companyPortal');
+const restaurantInfo = require('./routes/companyInformation');
 
 const app = express();
 app.use(pino);
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.use('/distanceAPI', distanceAPI);
 app.use('/', companyPortal);
+app.use(restaurantInfo);
 
   
 app.listen(3001, () =>
