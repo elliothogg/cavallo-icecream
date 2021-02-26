@@ -10,7 +10,7 @@ router.get('/api/restaurant-information', (req, res) => {
         res.send(data);
       });
     });
-    
+
 module.exports = router;
 
     function getRestaurantInfo(callback) {

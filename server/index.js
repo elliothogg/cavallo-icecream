@@ -14,8 +14,8 @@ app.use(pino);
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.use('/distanceAPI', distanceAPI);
-app.use('/', companyPortal);
+app.use(distanceAPI);
+app.use(companyPortal);
 app.use(restaurantInfo);
 
   

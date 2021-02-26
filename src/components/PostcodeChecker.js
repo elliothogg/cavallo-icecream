@@ -17,7 +17,7 @@ class PostcodeChecker extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch(`/distanceAPI/api/check-postcode?destination=${encodeURIComponent(this.state.destination)}`)
+    fetch(`/api/check-postcode?destination=${encodeURIComponent(this.state.destination)}`)
       .then(response => response.json())
       .then(state => {
         this.setState( state ); 
