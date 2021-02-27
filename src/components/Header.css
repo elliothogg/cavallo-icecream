@@ -55,7 +55,7 @@
 }
 
 .nav-links:hover {
-  border-bottom: 4px solid red;
+  border-bottom: 4px solid violet;
   transition: all 0.2s ease-out;
 }
 
