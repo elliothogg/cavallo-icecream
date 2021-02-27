@@ -202,7 +202,7 @@ connection.query("use main;", function(error, results, fields){
 // });
 
 // connection.query("INSERT INTO RestaurantInfo (ID, RestaurantName, Address, PostCode, Email, Telephone, WeekdayOpeningTime, WeekdayClosingTime, WeekendOpeningTime, WeekendClosingTime, Slogan)"+
-//         "VALUES ('Cav01', 'Cavallo (Seaton Delaval)', 'Avenue Crescent, Seaton Delaval, Northumberland', 'NE25 0DN', 'cavallo@cavallo.com', '01111222222', '11:00:00', '18:00:00', '11:00:00', '18:00:00', 'Traditional Italian Ice Cream');", 
+//         "VALUES ('Team05', 'Cavallo (Seaton Delaval)', 'Avenue Crescent, Seaton Delaval, Northumberland', 'NE25 0DN', 'cavallo@cavallo.com', '01111222222', '11:00:00', '18:00:00', '11:00:00', '18:00:00', 'Traditional Italian Ice Cream');", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
