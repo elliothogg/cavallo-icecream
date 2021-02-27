@@ -2,7 +2,7 @@ import React from 'react';
 import './CompanyPortal.css';
 import PortalLogin from '../PortalLogin';
 
-function CompanyPortal() {
+function companyPortal() {
   return (
     <div id='companyPortal-container'>
       <p>Company Portal</p>
@@ -12,4 +12,4 @@ function CompanyPortal() {
   );
 }
 
-export default CompanyPortal;
+export default companyPortal;

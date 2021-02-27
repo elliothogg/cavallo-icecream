@@ -1,17 +1,13 @@
 import React from 'react';
 import './OrderConfirmation.css';
-import CustomerDetails from '../CustomerDetails';
-import Payment from '../Payment';
+import OrderResult from '../OrderResult';
 
-function OrderConfirmation() {
+function orderConfirmation() {
   return (
-    <div id='OrderConfirmation-Container'>
-
-      <CustomerDetails />
-      <Payment />
-
+    <div id='orderConfirmation-container'>
+      <OrderResult />
     </div>
   );
 }
 
-export default OrderConfirmation;
+export default orderConfirmation;

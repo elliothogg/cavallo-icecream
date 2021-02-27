@@ -3,7 +3,7 @@ import './Order.css';
 import PostcodeChecker from '../PostcodeChecker';
 import Menu from '../Menu';
 
-function Order() {
+function order() {
   return (
     <div id='orderPage-container'>
 
@@ -15,4 +15,4 @@ function Order() {
   );
 }
 
-export default Order;
+export default order;
