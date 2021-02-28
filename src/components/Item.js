@@ -16,7 +16,15 @@ class Item extends Component {
   incrumentDown = () => {
     //if count = 0 dont do anything, else subtract one
 
-    if (this.state.count > 0) return this.setState({count: this.state.count - 1})
+    if (this.state.count > 0) return this.setState({count: this.state.count - 1});
+    console.log('sdfsf')
+
+}
+
+addToBasket = () => {
+  console.log('add to basket');
+
+  // return {[{flavor: {flavor}, count: {count}}]};
 }
 
   render() {
@@ -26,7 +34,7 @@ class Item extends Component {
         <h1>{this.state.count}</h1>
         <h2>{this.state.flavor}</h2>
         <span><button onClick={this.incrumentDown}>-</button></span>
-        <button>Add to Basket</button>
+        <button onClick={this.addToBasket}>Add to Basket</button>
         <button onClick={this.incrumentUp}>+</button>
       </div>
     );
