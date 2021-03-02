@@ -31,11 +31,10 @@ class App extends React.Component {
 
       customerDetails: {
         name: "Gabriel"
-      }
+      },
+      setCustomerOrder: this.setCustomerOrder,
+      setCustomerDetails: this.setCustomerDetails
     }
-
-    this.setCustomerOrder = this.setCustomerOrder.bind(this);
-    this.setCustomerDetails = this.setCustomerDetails.bind(this);
   }
 
   componentDidMount() {
