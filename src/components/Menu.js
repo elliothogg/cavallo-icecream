@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import Item from './Item';
 import vanillaPic from './ItemImages/vanilla.jpeg';
 import chocoPic from './ItemImages/choco.jpeg';
@@ -8,9 +8,16 @@ import './Menu.css';
 
 
 
-
 class Menu extends Component {
+  constructor(props) {
+    super(props);
+    this.setOrders = this.setOrders;
+
+  }
+
   state = {
+    // setOrder: this.props.setOrders(),
+    // orders: this.props.orders,
     counters: [
       {id: 1, flavor: "Vanilla", count: 0, imageDir: vanillaPic},
       {id: 2, flavor: "Chocolate", count: 0, imageDir: chocoPic},
@@ -23,7 +30,7 @@ class Menu extends Component {
     return (
       <div className="productList">
 
-        {this.state.counters.map(counter => <Item className="product" key={counter.id} flavor ={counter.flavor} count={counter.count} imageDir={counter.imageDir} selected={true}/>)}
+        {this.state.counters.map(counter => <Item className="product" key={counter.id} orders = {this.state.orders} setOrder={this.state.setOrders} flavor ={counter.flavor} count={counter.count} imageDir={counter.imageDir} selected={true}/>)}
       </div>
     );
   }
