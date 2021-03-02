@@ -1,6 +1,9 @@
 import React from 'react';
 import './OrderResult.css';
 
+//Now App.js state is in this component, you can access it by doing {this.props.customerOrder.item1} or {this.props.customerDetails.name} as seen in App.js state.
+//You can use these props to populate your forms with real order and customer data.
+
 function OrderResult(props) {
   // TODO: receive props data
   // const orderDetails = props

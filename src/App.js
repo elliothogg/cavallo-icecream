@@ -8,21 +8,74 @@ import OrderConfirmation from './components/pages/OrderConfirmation';
 import CompanyPortal from './components/pages/CompanyPortal';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <>
-      <Router>
-        <Header />
-        <Switch>
-          <Route path='/' exact component={Order} />
-          <Route path='/checkout' exact component={Checkout} />
-          <Route path='/order-confirmation' component={OrderConfirmation} />
-          <Route path='/company-portal' component={CompanyPortal} />
-        </Switch>
-      <Footer />
-      </Router>
-    </>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    //We will store customers order and details in the App.js state (below is just example)
+    this.state = {
+      products: {
+
+      },
+
+      companyInfo: {
+
+      },
+
+      customerOrder: {
+        item1: {
+          flavour: 'vanilla',
+          size: 'L'
+        }
+      },
+
+      customerDetails: {
+        name: "Gabriel"
+      }
+    }
+
+    this.setCustomerOrder = this.setCustomerOrder.bind(this);
+    this.setCustomerDetails = this.setCustomerDetails.bind(this);
+  }
+
+  componentDidMount() {
+    //here we will make all GET requests to get information about companyInfo and products
+
+    //this function is called when page is loaded
+  }
+
+  //this fuction will be passed down to Menu.js where it will be called to update state about customers order stored here.
+  setCustomerOrder(customerOrder) {
+    //pass in an object with customers order (called in Menu.js)
+    this.customerOrder = customerOrder;
+  }
+
+  //this will be called in CustomerDetails.js. This will allow the App.js state to hold the customer details, which can then be passed (as props) to OrderResult.
+  setCustomerDetails(customerDetails) {
+    //pass in an object with customers details (called in CustomerDetails.js)
+    this.customerDetails = customerDetails;
+  }
+
+  //note: Header and Footer components need to be passed the companyInfo state from App.js so that they can display it.
+
+  render() {
+    return (
+      <>
+        <Router>
+          <Header />
+          <Switch>
+
+            {/* Order, Checkout, and OrderConfirmation now receive all of App.js state (as props) */}
+            <Route path='/' exact render={() => <Order {...this.state} />} />
+            <Route path='/checkout' exact render={() => <Checkout {...this.state} />} />
+            <Route path='/order-confirmation' exact render={() => <OrderConfirmation {...this.state} />} />
+            <Route path='/company-portal' component={CompanyPortal} />
+          </Switch>
+        <Footer />
+        </Router>
+      </>
+    );
+  }
 }
 
 export default App;
