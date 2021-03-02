@@ -39,9 +39,70 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //here we will make all GET requests to get information about companyInfo and products
+    //here we make all GET requests to get information about companyInfo and products
 
     //this function is called when page is loaded
+
+    fetch('/api/restaurant-information')
+    .then((res) => {
+      return res.json().then((response) => {
+      var resData = JSON.stringify(response);
+      var jsonData = JSON.parse(resData);
+      console.log("*************jsonData********************");
+      console.log(jsonData);
+      console.log("*************dataArray********************");
+      var dataArray = jsonData.data;
+      console.log(dataArray);
+    });
+    })
+    .catch((error) => {
+      console.error(error);
+    }); 
+
+    //**************To access restaurant info**************
+    //this.state = {
+    //  RestaurantInfo: {
+    //    ID: '',
+    //    RestaurantName: '',
+    //    Address: '',
+    //    PostCode: '',
+    //    Email: '',
+    //    Telephone: '',
+    //    WeekdayOpeningTime: '',
+    //    WeekdayClosingTime: '',
+    //    WeekendOpeningTime: '',
+    //    WeekendClosingTime: '',
+    //    Slogan: ''
+    //  }
+    //}
+
+
+    fetch('/api/productMenu')
+    .then((res) => {
+      return res.json().then((response) => {
+      var resData = JSON.stringify(response);
+      var jsonData = JSON.parse(resData);
+      console.log("*************jsonData********************");
+      console.log(jsonData);
+      console.log("*************dataArray********************");
+      var dataArray = jsonData.data;
+      console.log(dataArray);
+    });
+    })
+    .catch((error) => {
+      console.error(error);
+    }); 
+
+    //**************To access product menu**************
+    //this.state = {
+    //  Product: {
+    //    ProductID: '',
+    //    Description: '',
+    //    Size: '',
+    //    TotalCost: '',
+    //  }
+    //}
+
   }
 
   //this fuction will be passed down to Menu.js where it will be called to update state about customers order stored here.

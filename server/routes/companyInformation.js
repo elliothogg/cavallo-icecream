@@ -15,8 +15,21 @@ module.exports = router;
 
     function getRestaurantInfo(callback) {
         let sql = 'SELECT * FROM RestaurantInfo';
-        connection.query(sql, function(error, results, fields) {
-            if (error) callback(error);
-            else callback(undefined, results[0]);
+        connection.query(sql, function(error, results, fields){
+            if (error) {
+                callback(error);
+            } else {
+                if (results.length) {
+                    var resultJson = JSON.stringify(results);
+                    callback(null, {
+                        code: 0,
+                        data: resultJson
+                    });
+                } else {
+                    callback(null, {
+                        code: 1
+                    });
+                }
+            }
         })
     }
