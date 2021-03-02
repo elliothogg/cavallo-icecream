@@ -45,10 +45,9 @@ class App extends React.Component {
       return res.json().then((response) => {
       var resData = JSON.stringify(response);
       var jsonData = JSON.parse(resData);
-      console.log("*************jsonData********************");
+      console.log("*************restaurant-information jsonData********************");
       console.log(jsonData);
       var dataArray = jsonData.data;
-      console.log("*************state********************");
       this.setState({
         companyInfo : {
           ID : dataArray[0].ID,
@@ -76,7 +75,7 @@ class App extends React.Component {
       return res.json().then((response) => {
       var resData = JSON.stringify(response);
       var jsonData = JSON.parse(resData);
-      console.log("*************jsonData********************");
+      console.log("*************productMenu jsonData********************");
       console.log(jsonData);
       var dataArray = jsonData.data;
       console.log("*************state********************");
@@ -89,6 +88,15 @@ class App extends React.Component {
     .catch((error) => {
       console.error(error);
     }); 
+
+    //Note: 
+    //Both companyInfo and Product data are Arrays when they are sent by the BE.
+    //For companyInfo data, there is only one element in the array(dataArray[0]), 
+    //this element contails all the attributes(fields?) of the companyInfo, 
+    //and these attributes(fields?) data can also be accessed separately (see code from line 52-64).
+    //For product data, there are 45 Arrays(dataArray[0]-dataArray[44]),
+    //each of these element also contains all the attributes(fields?) of the product(PorductID, Description, Size, Totalcost)
+    //to access these attributes(fields?) data of one element, use the same way from line 52-64. 
 
   }
 
