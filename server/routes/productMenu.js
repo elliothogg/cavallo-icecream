@@ -7,14 +7,12 @@ var connection = require('../mysql/database');
 const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
 router.get('/api/productMenu', urlendodedParser, function(req, res, next){
-	var data = req.query;
-	console.log("********req.query***********");
-	console.log(data);
-
+	
     return queryProductInfo((err, data) => {
         if (err) return res.send(400);//upstream request failed
 		console.log("get success")
         res.setHeader('Content-Type', 'application/json');
+        console.log(data);
         res.send(data);
     })
 })
@@ -28,10 +26,9 @@ function queryProductInfo(callback){
             callback(error);
         } else {
             if (results.length) {
-				var resultJson = JSON.stringify(results);
                 callback(null, {
                     code: 0,
-	                data: resultJson
+	                data: results
                 });
             } else {
                 callback(null, {

@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const bodyParser = require('body-parser');
 var connection = require('../mysql/database');
+const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
-router.get('/api/restaurant-information', (req, res) => {
+router.get('/api/restaurant-information', urlendodedParser, (req, res) => {
     return getRestaurantInfo((err, data) => {
         if (err) return res.send(400);//upstream request failed
         res.setHeader('Content-Type', 'application/json');
@@ -20,10 +22,9 @@ module.exports = router;
                 callback(error);
             } else {
                 if (results.length) {
-                    var resultJson = JSON.stringify(results);
                     callback(null, {
                         code: 0,
-                        data: resultJson
+                        data: results
                     });
                 } else {
                     callback(null, {

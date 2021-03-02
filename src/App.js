@@ -15,11 +15,9 @@ class App extends React.Component {
     //We will store customers order and details in the App.js state (below is just example)
     this.state = {
       products: {
-
       },
 
       companyInfo: {
-
       },
 
       customerOrder: {
@@ -49,32 +47,29 @@ class App extends React.Component {
       var jsonData = JSON.parse(resData);
       console.log("*************jsonData********************");
       console.log(jsonData);
-      console.log("*************dataArray********************");
       var dataArray = jsonData.data;
-      console.log(dataArray);
+      console.log("*************state********************");
+      this.setState({
+        companyInfo : {
+          ID : dataArray[0].ID,
+          RestaurantName : dataArray[0].RestaurantName,
+          Address: dataArray[0].Address,
+          PostCode: dataArray[0].PostCode,
+          Email: dataArray[0].Email,
+          Telephone: dataArray[0].Telephone,
+          WeekdayOpeningTime: dataArray[0].WeekdayOpeningTime,
+          WeekdayClosingTime: dataArray[0].WeekdayClosingTime,
+          WeekendOpeningTime: dataArray[0].WeekendOpeningTime,
+          WeekendClosingTime: dataArray[0].WeekendClosingTime,
+          Slogan: dataArray[0].Slogan
+        }
+      })
+      console.log(this.state);
     });
     })
     .catch((error) => {
       console.error(error);
     }); 
-
-    //**************To access restaurant info**************
-    //this.state = {
-    //  RestaurantInfo: {
-    //    ID: '',
-    //    RestaurantName: '',
-    //    Address: '',
-    //    PostCode: '',
-    //    Email: '',
-    //    Telephone: '',
-    //    WeekdayOpeningTime: '',
-    //    WeekdayClosingTime: '',
-    //    WeekendOpeningTime: '',
-    //    WeekendClosingTime: '',
-    //    Slogan: ''
-    //  }
-    //}
-
 
     fetch('/api/productMenu')
     .then((res) => {
@@ -83,24 +78,17 @@ class App extends React.Component {
       var jsonData = JSON.parse(resData);
       console.log("*************jsonData********************");
       console.log(jsonData);
-      console.log("*************dataArray********************");
       var dataArray = jsonData.data;
-      console.log(dataArray);
+      console.log("*************state********************");
+      this.setState({
+        products : dataArray
+      })
+      console.log(this.state);
     });
     })
     .catch((error) => {
       console.error(error);
     }); 
-
-    //**************To access product menu**************
-    //this.state = {
-    //  Product: {
-    //    ProductID: '',
-    //    Description: '',
-    //    Size: '',
-    //    TotalCost: '',
-    //  }
-    //}
 
   }
 
