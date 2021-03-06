@@ -68,6 +68,7 @@ let updateEachOrdersProductsTable = function (orderID, ItemsJSON){
                     console.log('Insert EachOrdersProducts.')
                 }
             })  
+            resolve();
         }); 
     })
 }

@@ -42,7 +42,8 @@ class App extends React.Component {
 
         deliveryAddress: '',
         deliveryPostcode: '',
-        deliveryTime: '12:00',
+        deliveryTime: '12:00am',
+        collectionTime: '12:00am',
         driverInstructions: ''
         },
 

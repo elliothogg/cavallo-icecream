@@ -2,8 +2,10 @@ var express = require('express');
 const bodyParser = require('body-parser');
 var sd = require('silly-datetime');
 var router = express.Router();
+const timeChecker = require('./timeChecker');
 const payThroughHorsePay = require('./payThroughHorsePay');
 const updateOrders = require('./updateOrders');
+const e = require('express');
 const urlendodedParser= bodyParser.urlencoded({ extended: true });
 
 router.post('/api/orderConfirm', urlendodedParser, (req, res) => {
@@ -35,6 +37,7 @@ router.post('/api/orderConfirm', urlendodedParser, (req, res) => {
           deliveryAddress: '',
           deliveryPostcode: '',
           deliveryTime: '',
+          collectionTime: '',
           driverInstructions: ''
       },
   }]
@@ -58,42 +61,61 @@ function orderConfirm(inParam, ItemsJSON, callback){
   var customerEmail = inParam.customerDetails.customerEmail;
   var customerPhone = inParam.customerDetails.customerPhone;
   var customerID = generateCustomerID(customerEmail, customerPhone);
-  payThroughHorsePay(storeID, totalCost, customerID, function(err, data){
-        if(err){
-          console.log(err);
-          return callback(err)
-        }else{
-          console.log("**********payThroughHorsePay****data*********");
-          console.log(data);
-          var payResult = data.paymetSuccess;
-          if(payResult.Status === true){
-            console.log("**********call updateOrders*************");
-            updateOrders(inParam, ItemsJSON, orderID, orderTime, customerEmail, customerPhone, totalCost, function(err, data){
-              if(err){
-                return callback(err)
-              }else{
-                console.log("ALL Success");
-                return callback(null, {
-                  res:{
-                    resData: data
-                  }
-                });
-              }
-            })
+
+  timeChecker(storeID, orderTime, inParam.customerOrder.isDelivery, function(err, timeresdata){
+    if(err){
+      console.log(err);
+      return callback(err)
+    }else{
+      console.log("**********timeChecker****data*********")
+      console.log(timeresdata);
+      var timeCheckResult = timeresdata.Status;
+      if(timeCheckResult === true){
+        payThroughHorsePay(storeID, totalCost, customerID, function(err, data){
+          if(err){
+            console.log(err);
+            return callback(err)
           }else{
-            console.log("**********call callback*************");
-            return callback(null, {
-              res:{
-                orderID: orderID,
-                orderTime: orderTime,
-                Status : payResult.Status,
-                reason : payResult.reason
-              }
-            })
+            console.log("**********payThroughHorsePay****data*********");
+            console.log(data);
+            var payResult = data.paymetSuccess;
+            if(payResult.Status === true){
+              console.log("**********call updateOrders*************");
+              updateOrders(inParam, ItemsJSON, orderID, orderTime, customerEmail, customerPhone, totalCost, function(err, data){
+                if(err){
+                  return callback(err)
+                }else{
+                  console.log("ALL Success");
+                  return callback(null, {
+                    res:{
+                      resData: data,
+                      Status : payResult.Status,
+                      reason : payResult.reason
+                    }
+                  });
+                }
+              })
+            }else{
+              console.log("**********call callback*************");
+              return callback(null, {
+                res:{
+                  orderID: orderID,
+                  orderTime: orderTime,
+                  Status : payResult.Status,
+                  reason : payResult.reason
+                }
+              })
+            }
           }
-        }
-      })
-   
+        })
+      }else if(timeCheckResult === false){
+        console.log("**********timeCheckResult False*************");
+        return callback(null, {
+          res: timeresdata
+        })
+      }
+    }
+  })
 }
   
 const generateCustomerID = function (customerEmail, customerPhone) {
