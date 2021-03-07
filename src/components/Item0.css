@@ -1,5 +1,5 @@
 .background{
-  margin: 50px;
+  margin: 20px;
   border-radius: 20px;
   text-align: center;
 
@@ -8,10 +8,11 @@
 .iceImages{
 
   border: 1px solid black;
-  border-radius: 200px;
+  border-radius: 20px;
 
 }
 
 .productList{
-  margin: 0 25px 0;
+  display: block;
+
 }

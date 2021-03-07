@@ -7,30 +7,26 @@ import pistaccioPic from './ItemImages/pistaccio.jpeg';
 import './Menu.css';
 
 
-
-class Menu extends Component {
+class Menu extends React.Component {
   constructor(props) {
-    super(props);
-    this.setOrders = this.setOrders;
-
-  }
-
-  state = {
-    // setOrder: this.props.setOrders(),
-    // orders: this.props.orders,
-    counters: [
-      {id: 1, flavor: "Vanilla", count: 0, imageDir: vanillaPic},
-      {id: 2, flavor: "Chocolate", count: 0, imageDir: chocoPic},
-      {id: 3, flavor: "Strawberry", count: 0, imageDir: strawberryPic},
-      {id: 4, flavor: "Pistaccio", count: 0, imageDir: pistaccioPic},
-    ]
+    super(props)
+    this.state = {
+      counters: [
+        {flavor: "Vanilla", count: 0, imageDir: vanillaPic},
+        {flavor: "Chocolate", count: 0, imageDir: chocoPic},
+        {flavor: "Strawberry", count: 0, imageDir: strawberryPic},
+        {flavor: "Pistaccio", count: 0, imageDir: pistaccioPic},
+      ]
+    }
   };
+
+
 
   render() {
     return (
       <div className="productList">
 
-        {this.state.counters.map(counter => <Item className="product" key={counter.id} orders = {this.state.orders} setOrder={this.state.setOrders} flavor ={counter.flavor} count={counter.count} imageDir={counter.imageDir} selected={true}/>)}
+        {this.props.products.map(product => <Item {...this.props} className="product" key={product.ProductID} id={product.ProductID} flavor ={product.Description} imageDir={product.imageDir} cost={product.TotalCost} size={product.Size} selected={true}/>)}
       </div>
     );
   }

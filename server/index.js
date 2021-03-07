@@ -8,6 +8,7 @@ const distanceAPI = require('./routes/distanceApi');
 const companyPortal = require('./routes/companyPortal');
 const restaurantInfo = require('./routes/companyInformation');
 const paymentAPI = require('./routes/paymentApi')
+const productMenu = require('./routes/productMenu')
 
 const app = express();
 app.use(pino);
@@ -19,6 +20,7 @@ app.use(distanceAPI);
 app.use(companyPortal);
 app.use(restaurantInfo);
 app.use(paymentAPI);
+app.use(productMenu);
 
   
 app.listen(3001, () =>

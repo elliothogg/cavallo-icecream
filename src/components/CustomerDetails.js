@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import App from '../App';
 
 let FIELD_NAME = '' // a global variable for showing field error
+
+//the state for customerDetails should be stored in App.js so that it can be passed to OrderConfirmation page and to DB.
+//Call the function from App.js in your handleChange function to update the state there. You can still store the state here as well if you need to, but probably not necessary.
+
 
 function CustomerDetails(props) {
   // TODO: receive props?
@@ -19,6 +24,8 @@ function CustomerDetails(props) {
     const { id: key, value } = evt.target
 
     setCustomerForm(state => ({ ...state, [key]: value }))
+
+    // Here you need to call this.props.setCustomerDetails and pass in customer object so that the state can be updated in App.js
   };
   const handleBlur = (evt) => {
     const { id, value } = evt.target

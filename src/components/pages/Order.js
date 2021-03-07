@@ -2,19 +2,28 @@ import React from 'react';
 import './Order.css';
 import PostcodeChecker from '../PostcodeChecker';
 import Menu from '../Menu';
+import BasketSummary from '../BasketSummary';
 
-function order( {orders,  setOrders} ) {
+class Order extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
+  render() {
+    return (
+      <div id='orderPage-container'>
 
-  return (
-    <div id='orderPage-container'>
+        <p>Order</p>
+        <PostcodeChecker />
 
-      <p>Order</p>
-      <PostcodeChecker />
-      <Menu orders = {orders} setOrders = {setOrders} />
+        {/* all props from App.js are passed onto Menu component */}
+        <Menu {...this.props} />
 
-    </div>
-  );
+        {/* all props from App.js are passed onto Menu component */}
+        <BasketSummary {...this.props} />
+      </div>
+    );
+  }
 }
 
-export default order;
+export default Order;
