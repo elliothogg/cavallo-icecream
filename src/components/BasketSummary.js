@@ -6,7 +6,7 @@ class BasketSummary extends React.Component {
     constructor(props) {
         super(props)
       }
-      
+
       state = {
         orders: this.props.customerOrder.Items
       }
@@ -16,10 +16,10 @@ class BasketSummary extends React.Component {
         <div id="BasketSummary-container">
             <p>BasketSummary Component</p>
             <div class="OrderList" >
-            {this.state.orders.map((order => <BasketItem key ={order.ProductID} {...this.props} id={order.ProductID} flavor ={order.Flavour} count={order.Quantity} size={order.Size} cost={order.Cost}/>
+            {this.props.customerOrder.Items.map((order => <BasketItem key ={order.ProductID} {...this.props} id={order.ProductID} flavor ={order.Flavour} count={order.Quantity} size={order.Size} cost={order.Cost}/>
             ))}
             </div>
-
+            <button>Checkout</button>
         </div>
       );
     }

@@ -110,56 +110,32 @@ class App extends React.Component {
   setCustomerOrder(order) {
     //pass in an object with customers order (called in Menu.js)
 
-    // var found = false;
-    // for(var i=0; i < this.state.customerOrder.length; i++){
-    //   if (this.state.customerOrder[i].id == order.id){
-    //
-    //       const index = this.state.customerOrder.findIndex(or => or.id === order.id),
-    //       orders = [...this.state.customerOrder]
-    //       // important to create a copy, otherwise you'll modify state outside of setState call
-    //       orders[index] = order;
-    //       this.setState({customerOrder: orders});
-    //
-    //   }
-    // }
-
     var orderItems = this.state.customerOrder.Items
     const index = orderItems.findIndex(ord => ord.ProductID === order.ProductID)
-    console.log(index);
 
     if (index !== -1){
       var customerOrd = this.state.customerOrder
       var items = customerOrd.Items
       items[index] = order;
+      customerOrd.Items = items
       this.setState({customerOrder: customerOrd});
     } else {
       var customerOrd = this.state.customerOrder
       customerOrd.Items.push(order)
       this.setState({customerOrder: customerOrd});
 
-      // let customerOrd = this.state.customerOrder
-      // customerOrd.Items.concat(order)
-      // this.setState({
-      // customerOrder: [...this.state.customerOrder, order]
-      // });
     }
-
-
-
-    //
-    // console.log(this.state.orders.length);
-    // console.log([...this.state.customerOrder])
   }
 
 
 
   removeCustomerOrderItem(productID){
     var customerOrd = this.state.customerOrder
-    var ords = customerOrd.Items
+    let ords = customerOrd.Items
     const orders = ords.filter(item => item.ProductID !== productID);
-
+    ords = orders
+    customerOrd.Items = ords
     this.setState({customerOrder: customerOrd})
-    // this.state.customerOrder.splice(index, index)
 
 
   }

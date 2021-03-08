@@ -12,8 +12,10 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-id-generator": "^3.0.1",
+    "react-image": "^4.0.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.0"
+    "react-scripts": "^3.4.0",
+    "react-webpack": "^0.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

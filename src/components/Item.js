@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Item.css';
-
+import image from "./ItemImages/Mint.jpg"
 class Item extends Component {
 
 constructor(props){
@@ -12,7 +12,8 @@ constructor(props){
     flavor : this.props.flavor,
     count : 1,
     size: this.props.size,
-    cost: this.props.cost
+    cost: this.props.cost,
+    imageLoc: './ItemImages/'+this.props.flavor+'.jpg'
 
   };
 
@@ -29,8 +30,10 @@ constructor(props){
   orderHandler = (e) => {
     // console.log("dssdf")
     e.preventDefault();
-    this.props.setCustomerOrder({ProductID: this.state.id, Flavor: this.state.flavor, Size:this.state.size, Quantity: this.state.count, Cost: this.state.cost});
+    this.props.setCustomerOrder({ProductID: this.state.id, Flavour: this.state.flavor, Size:this.state.size, Quantity: this.state.count, Cost: this.state.cost});
   };
+
+
 
   // onChangeValue = (event) => {
   //   this.setState({size: event.target.value})
@@ -40,13 +43,14 @@ constructor(props){
   //   <input type="radio" value="Medium" name="gender" /> Medium
   //   <input type="radio" value="Large" name="gender" /> Large
   // </div>
+
   render() {
     return (
       <div className="background">
-        <img className="iceImages" src={this.props.imageDir} width='100'/>
+        <img className="iceImages" src={this.state.imageLoc} width='100'/>
         <h3>{this.state.flavor}</h3>
         <h4>{this.state.size}</h4>
-        <h4>£{this.state.cost}</h4>
+        <h4>£{}</h4>
         <h4>{this.state.count}</h4>
         <span><button onClick={this.incrumentDown}>-</button></span>
         <button onClick = {this.orderHandler} >Add to Basket</button>
