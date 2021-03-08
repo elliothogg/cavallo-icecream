@@ -20,7 +20,7 @@ router.get('/api/productMenu', urlendodedParser, function(req, res, next){
 module.exports = router;
 
 function queryProductInfo(callback){
-    let sql = 'SELECT * FROM Product';
+    let sql = `SELECT * FROM Product`;
     connection.query(sql, function(error, results, fields){
         if (error) {
             callback(error);

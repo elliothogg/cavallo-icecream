@@ -1,13 +1,12 @@
 const connection = require('./database');
 
-//   Add data to database
-connection.query("use main;", function(error, results, fields){
-    if(error)throw error;
-    console.log(results);
-    console.log('Using Main Database.')
-    console.log('----------------')
-});
-
+//  Add data to database
+// connection.query("use main;", function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Using Main Database.')
+//     console.log('----------------')
+// });
 // connection.query("drop table if exists `EachOrdersProducts`;", function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
@@ -26,19 +25,19 @@ connection.query("use main;", function(error, results, fields){
 //     console.log('Finish.')
 //     console.log('----------------')
 // });
-// connection.query("drop table if exists `CustomersOrders`;", function(error, results, fields){
-//     if(error)throw error;
-//     console.log(results);
-//     console.log('Finish.')
-//     console.log('----------------')
-// });
-// connection.query("drop table if exists `Customer`;", function(error, results, fields){
+// connection.query("drop table if exists `Orders`;", function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
 //     console.log('Finish.')
 //     console.log('----------------')
 // });
 // connection.query("drop table if exists `Product`;", function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Finish.')
+//     console.log('----------------')
+// });
+// connection.query("drop table if exists `Size`;", function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
 //     console.log('Finish.')
@@ -54,23 +53,6 @@ connection.query("use main;", function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
 //     console.log('Finish.')
-//     console.log('----------------')
-// });
-
-// connection.query(
-//     "CREATE TABLE Customer ("+
-//         "CustomerEmail varchar(100) NOT NULL,"+
-//         "CustomerFirstName varchar(100) NOT NULL,"+
-//         "CustomerLastName varchar(100) NOT NULL,"+
-//         "CustomerAddress varchar(100) NOT NULL,"+
-//         "CustomerPostCode varchar(100) NOT NULL,"+
-//         "CustomerTelephone varchar(100) NOT NULL,"+
-//         "PRIMARY KEY (CustomerEmail)"+
-//     "); ", 
-//     function(error, results, fields){
-//     if(error)throw error;
-//     console.log(results);
-//     console.log('Create Customer Finish.')
 //     console.log('----------------')
 // });
 
@@ -109,11 +91,23 @@ connection.query("use main;", function(error, results, fields){
 // });
 
 // connection.query(
+//     "CREATE TABLE Size ("+
+//         "Size varchar(20) NOT NULL,"+
+//         "Price varchar(20) NOT NULL, "+
+//         "PRIMARY KEY (Size)"+
+//     ");", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Create Product Finish.')
+//     console.log('----------------')
+// });
+
+// connection.query(
 //     "CREATE TABLE Product ("+
 //         "ProductID varchar(20) NOT NULL,"+
-//         "Description varchar(40) NOT NULL, "+
-//         "Size varchar(30) NOT NULL,"+
-//         "TotalCost float(10) NOT NULL,"+
+//         "Flavour varchar(20) NOT NULL, "+
+//         "ExtraCost varchar(20) NOT NULL,"+
 //         "PRIMARY KEY (ProductID)"+
 //     ");", 
 //     function(error, results, fields){
@@ -124,30 +118,33 @@ connection.query("use main;", function(error, results, fields){
 // });
 
 // connection.query(
-//     "CREATE TABLE CustomersOrders ("+
-//         "OrderID varchar(20) NOT NULL,"+
-//         "CustomerEmail varchar(20) NOT NULL,"+
-//         "OrderDate DATETIME NOT NULL,"+
+//     "CREATE TABLE Orders ("+
+//         "OrderID varchar(30) NOT NULL,"+
+//         "CustomerEmail varchar(100) NOT NULL,"+
+//         "CustomerPhone varchar(50) NOT NULL,"+
+//         "CustomerFristName varchar(20) NOT NULL,"+
+//         "CustomerLastName varchar(20) NOT NULL,"+
+//         "OrderTime DATETIME NOT NULL,"+
 //         "BillingAddress varchar(50) NOT NULL,"+
 //         "BillingPostcode varchar(50) NOT NULL,"+
 //         "TotalCost float NOT NULL,"+
-//         "Status varchar(30) DEFAULT NULL,"+
-//         "PRIMARY KEY (OrderID),"+
-//         "FOREIGN KEY (CustomerEmail) REFERENCES Customer(CustomerEmail)"+
+//         "DeliveryOrCollection varchar(30) DEFAULT NULL,"+
+//         "PRIMARY KEY (OrderID)"+
 //     "); ", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Create CustomersOrders Finish.')
+//     console.log('Create Orders Finish.')
 //     console.log('----------------')
 // });
 
 // connection.query(
 //     "CREATE TABLE EachOrdersProducts ("+
-//         "OrderID varchar(20) NOT NULL,"+
+//         "OrderID varchar(30) NOT NULL,"+
 //         "ProductID varchar(20) NOT NULL,"+
+//         "Size varchar(20) NOT NULL,"+
 //         "Quantity varchar(20) NOT NULL,"+
-//         "FOREIGN KEY (OrderID) REFERENCES CustomersOrders(OrderID),"+
+//         "FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),"+
 //         "FOREIGN KEY (ProductID) REFERENCES Product(ProductID)"+
 //     ");", 
 //     function(error, results, fields){
@@ -157,14 +154,14 @@ connection.query("use main;", function(error, results, fields){
 //     console.log('----------------')
 // });
 
-
 // connection.query(
 //     "CREATE TABLE Delivery ("+
-//         "OrderID varchar(20) NOT NULL,"+
+//         "OrderID varchar(30) NOT NULL,"+
 //         "DeliveryTime DATETIME NOT NULL,"+
 //         "DeliveryAddress varchar(50) NOT NULL,"+
 //         "DeliveryPostcode varchar(50) NOT NULL,"+
-//         "FOREIGN KEY (OrderID) REFERENCES CustomersOrders(OrderID)"+
+//         "DriverInstructions varchar(100) Default NULL,"+
+//         "FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)"+
 //     "); ", 
 //     function(error, results, fields){
 //     if(error)throw error;
@@ -175,9 +172,9 @@ connection.query("use main;", function(error, results, fields){
 
 // connection.query(
 //     "CREATE TABLE Collection ("+
-//         "OrderID varchar(20) NOT NULL,"+
+//         "OrderID varchar(30) NOT NULL,"+
 //         "CollectionTime DATETIME NOT NULL,"+
-//         "FOREIGN KEY (OrderID) REFERENCES CustomersOrders(OrderID)"+
+//         "FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)"+
 //     ");", 
 //     function(error, results, fields){
 //     if(error)throw error;
@@ -210,119 +207,129 @@ connection.query("use main;", function(error, results, fields){
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P01S', 'Plain Vanilla', 'Small', '1.75'), "+
-//         "('P01M', 'Plain Vanilla', 'Medium', '2.25'),"+
-//         "('P01L', 'Plain Vanilla', 'Large', '2.75'),"+
-//         "('P01XL', 'Plain Vanilla', 'Extra Large', '3.50'),"+
-//         "('P01XXL', 'Plain Vanilla', 'Extra Extra Large', '5.75');",
+
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F01', 'Vanilla', '0')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P01 Finish.')
+//     console.log('Insert F01 Finish.')
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P02S', 'Plain Vanilla(Dairy-Free)', 'Small', '1.75'), "+
-//         "('P02M', 'Plain Vanilla(Dairy-Free)', 'Medium', '2.25'),"+
-//         "('P02L', 'Plain Vanilla(Dairy-Free)', 'Large', '2.75'),"+
-//         "('P02XL', 'Plain Vanilla(Dairy-Free)', 'Extra Large', '3.50'),"+
-//         "('P02XXL', 'Plain Vanilla(Dairy-Free)', 'Extra Extra Large', '5.75');",
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F02', 'Vanilla(Dairy-Free)', '0')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P02 Finish.')
+//     console.log('Insert F02 Finish.')
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P03S', 'Honeycomb', 'Small', '1.75'), "+
-//         "('P03M', 'Honeycomb', 'Medium', '2.25'),"+
-//         "('P03L', 'Honeycomb', 'Large', '2.75'),"+
-//         "('P03XL', 'Honeycomb', 'Extra Large', '3.50'),"+
-//         "('P03XXL', 'Honeycomb', 'Extra Extra Large', '5.75');",
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F03', 'Honeycomb', '0')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P03 Finish.')
+//     console.log('Insert F03 Finish.')
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P04S', 'Rum and Raisin', 'Small', '1.75'), "+
-//         "('P04M', 'Rum and Raisin', 'Medium', '2.25'),"+
-//         "('P04L', 'Rum and Raisin', 'Large', '2.75'),"+
-//         "('P04XL', 'Rum and Raisin', 'Extra Large', '3.50'),"+
-//         "('P04XXL', 'Rum and Raisin', 'Extra Extra Large', '5.75');",
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F04', 'Rum and Raisin', '0')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P04 Finish.')
+//     console.log('Insert F04 Finish.')
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P05S', 'Mint', 'Small', '1.75'), "+
-//         "('P05M', 'Mint', 'Medium', '2.25'),"+
-//         "('P05L', 'Mint', 'Large', '2.75'),"+
-//         "('P05XL', 'Mint', 'Extra Large', '3.50'),"+
-//         "('P05XXL', 'Mint', 'Extra Extra Large', '5.75');",
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F05', 'Mint', '0')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P05 Finish.')
+//     console.log('Insert F05 Finish.')
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P06S', 'Cherry', 'Small', '1.75'), "+
-//         "('P06M', 'Cherry', 'Medium', '2.25'),"+
-//         "('P06L', 'Cherry', 'Large', '2.75'),"+
-//         "('P06XL', 'Cherry', 'Extra Large', '3.50'),"+
-//         "('P06XXL', 'Cherry', 'Extra Extra Large', '5.75');",
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F06', 'Cherry', '0')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P06 Finish.')
+//     console.log('Insert F06 Finish.')
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P07S', 'Chocolate', 'Small', '1.75'), "+
-//         "('P07M', 'Chocolate',  'Medium', '2.25'),"+
-//         "('P07L', 'Chocolate',  'Large', '2.75'),"+
-//         "('P07XL', 'Chocolate',  'Extra Large', '3.50'),"+
-//         "('P07XXL', 'Chocolate', 'Extra Extra Large', '5.75');",
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F07', 'Chocolate', '0')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P07 Finish.')
+//     console.log('Insert F07 Finish.')
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P08S', 'Salted Caramel', 'Small', '2.5'), "+
-//         "('P08M', 'Salted Caramel',  'Medium', '3.00'),"+
-//         "('P08L', 'Salted Caramel', 'Large', '3.50'),"+
-//         "('P08XL', 'Salted Caramel', 'Extra Large', '4.25'),"+
-//         "('P08XXL', 'Salted Caramel', 'Extra Extra Large', '6.50');",
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F08', 'Salted Caramel', '0.75')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P08 Finish.')
+//     console.log('Insert F08 Finish.')
 //     console.log('----------------')
 // });
 
-// connection.query("INSERT INTO Product (ProductID, Description, Size, TotalCost)"+
-//         "VALUES ('P09S', 'Strawberry', 'Small', '1.75'), "+
-//         "('P09M', 'Strawberry', 'Medium', '2.25'),"+
-//         "('P09L', 'Strawberry', 'Large', '2.75'),"+
-//         "('P09XL', 'Strawberry', 'Extra Large', '3.50'),"+
-//         "('P09XXL', 'Strawberry', 'Extra Extra Large', '5.75'); ",
+// connection.query("INSERT INTO Product(ProductID, Flavour, ExtraCost)" +
+//         "VALUES ('F09', 'Strawberry', '0')", 
 //     function(error, results, fields){
 //     if(error)throw error;
 //     console.log(results);
-//     console.log('Insert P09 Finish.')
+//     console.log('Insert F09 Finish.')
+//     console.log('----------------')
+// });
+
+// connection.query("INSERT INTO Size(Size, Price)" +
+//         "VALUES ('S', '1.75')", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Insert S Finish.')
+//     console.log('----------------')
+// });
+
+// connection.query("INSERT INTO Size(Size, Price)" +
+//         "VALUES ('M', '2.25')", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Insert M Finish.')
+//     console.log('----------------')
+// });
+
+// connection.query("INSERT INTO Size(Size, Price)" +
+//         "VALUES ('L', '2.75')", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Insert L Finish.')
+//     console.log('----------------')
+// });
+
+// connection.query("INSERT INTO Size(Size, Price)" +
+//         "VALUES ('XL', '3.50')", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Insert XL Finish.')
+//     console.log('----------------')
+// });
+
+// connection.query("INSERT INTO Size(Size, Price)" +
+//         "VALUES ('XXL', '5.75')", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Insert XXL Finish.')
 //     console.log('----------------')
 // });
