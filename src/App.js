@@ -14,13 +14,22 @@ class App extends React.Component {
 
     //We will store customers order and details in the App.js state (below is just example)
     this.state = {
-      products: [],
+      products: [
+
+      ],
 
       companyInfo: {
+
       },
 
-      customerOrder: [
-      ],
+      customerOrder: {
+        orderID: '',
+        OrderTime: '',
+        DeliveryOrCollection: false,
+        TotalCost: 0.0,
+        Items: []
+
+      },
 
       customerDetails: {
         name: "Gabriel"
@@ -114,17 +123,27 @@ class App extends React.Component {
     //   }
     // }
 
-    const index = this.state.customerOrder.findIndex(or => or.id === order.id)
+    var orderItems = this.state.customerOrder.Items
+    const index = orderItems.findIndex(ord => ord.ProductID === order.ProductID)
+    console.log(index);
 
     if (index !== -1){
-      var orders = [...this.state.customerOrder]
-      orders[index] = order;
-      this.setState({customerOrder: orders});
+      var customerOrd = this.state.customerOrder
+      var items = customerOrd.Items
+      items[index] = order;
+      this.setState({customerOrder: customerOrd});
     } else {
-      this.setState({
-      customerOrder: [...this.state.customerOrder, order]
-      });
+      var customerOrd = this.state.customerOrder
+      customerOrd.Items.push(order)
+      this.setState({customerOrder: customerOrd});
+
+      // let customerOrd = this.state.customerOrder
+      // customerOrd.Items.concat(order)
+      // this.setState({
+      // customerOrder: [...this.state.customerOrder, order]
+      // });
     }
+
 
 
     //
@@ -134,9 +153,12 @@ class App extends React.Component {
 
 
 
-  removeCustomerOrderItem(id){
-    const orders = this.state.customerOrder.filter(item => item.id !== id);
-    this.setState({customerOrder: orders})
+  removeCustomerOrderItem(productID){
+    var customerOrd = this.state.customerOrder
+    var ords = customerOrd.Items
+    const orders = ords.filter(item => item.ProductID !== productID);
+
+    this.setState({customerOrder: customerOrd})
     // this.state.customerOrder.splice(index, index)
 
 

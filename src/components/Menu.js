@@ -26,7 +26,7 @@ class Menu extends React.Component {
     return (
       <div className="productList">
 
-        {this.props.products.map(product => <Item {...this.props} className="product" key={product.ProductID} id={product.ProductID} flavor ={product.Description} imageDir={product.imageDir} cost={product.TotalCost} size={product.Size} selected={true}/>)}
+        {this.props.products.map(product => <Item {...this.props} className="product" key={product.ProductID} id={product.ProductID} flavor ={product.Flavour} imageDir={product.imageDir} cost={product.ExtraCost} size={product.Size} selected={true}/>)}
       </div>
     );
   }

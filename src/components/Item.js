@@ -29,7 +29,7 @@ constructor(props){
   orderHandler = (e) => {
     // console.log("dssdf")
     e.preventDefault();
-    this.props.setCustomerOrder({id: this.state.id, flavor: this.state.flavor, size:this.state.size, count: this.state.count, cost: this.state.cost});
+    this.props.setCustomerOrder({ProductID: this.state.id, Flavor: this.state.flavor, Size:this.state.size, Quantity: this.state.count, Cost: this.state.cost});
   };
 
   // onChangeValue = (event) => {
