@@ -77,7 +77,6 @@ constructor(props){
 
 
   render() {
-    console.log(this.props.customerOrder);
     return (
       <div className="background">
         <img className="iceImages" src={this.state.imageDir} width='100'/>
