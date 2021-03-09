@@ -1,163 +1,276 @@
-import React, { useState } from 'react';
-import App from '../App';
-
-let FIELD_NAME = '' // a global variable for showing field error
-
-//the state for customerDetails should be stored in App.js so that it can be passed to OrderConfirmation page and to DB.
-//Call the function from App.js in your handleChange function to update the state there. You can still store the state here as well if you need to, but probably not necessary.
-
+import React, { useState, useEffect } from 'react';
+import './CustomerDetails.css';
 
 function CustomerDetails(props) {
-  // TODO: receive props?
-  const [customerForm, setCustomerForm] = useState({
-    firstName: '',
-    contactNumber: '',
-    email: '',
-    postcode: props.postcode || '',
-    address: '',
-    driverInstructions: '',
-    deliveryTime: ''
-  });
-  const [errorStyle, setErrorStyle] = useState({ display: 'none' });
+    const [customerForm, setCustomerForm] = useState(Object.assign({}, props.customerDetails));
 
-  const handleChange = (evt) => {
-    const { id: key, value } = evt.target
+    // true: valid; false: invalid
+    const [formValidation, setFormValidation] = useState(() => {
+        const initialValidation = {};
+        Object.keys(customerForm).forEach((key) => {
+            initialValidation[key] = true;
+        });
 
-    setCustomerForm(state => ({ ...state, [key]: value }))
+        return initialValidation;
+    });
 
-    // Here you need to call this.props.setCustomerDetails and pass in customer object so that the state can be updated in App.js
-  };
-  const handleBlur = (evt) => {
-    const { id, value } = evt.target
-    FIELD_NAME = id
+    const validateForm = (val) => {
+        if (!val.replace(/\s/g, '')) return false;
+        return true;
+    };
+    const resetFormValidation = (key) => {
+        setFormValidation((state) => ({ ...state, [key]: true }));
+    };
 
-    setErrorStyle({ display: value.replace(/\s/g, '') ? 'none' : 'block' })
-  };
+    const invalidInputStyle = { border: '1px solid red' };
 
-  return (
-    <div id="customerDetails" className="col-md-12 order-md-1">
-      <h2 className="mb-3">MY DETAILS</h2>
+    const handleChange = (evt) => {
+        const { id: key, value } = evt.target;
 
-      <form className="needs-validation" noValidate="">
-        <div className="row">
-          <div className="col-md-12 mb-3">
-            <label htmlFor="firstName">First name</label>
-            <input type="text" className="form-control"
-              id="firstName"
-              placeholder=""
-              value={customerForm.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required={true}
-            />
-            <div className="invalid-feedback" style={FIELD_NAME === 'firstName' ? errorStyle : {}}>
-              The first name is required.
-            </div>
-          </div>
+        // reset form field validation
+        resetFormValidation(key);
+
+        // update form field value
+        setCustomerForm((state) => ({ ...state, [key]: value }));
+    };
+    const handleBlur = (evt) => {
+        const { id: key, value } = evt.target;
+
+        setFormValidation((state) => ({ ...state, [key]: validateForm(value) }));
+    };
+
+    // update the customerDetails state in App.js when the customerForm changed
+    const { setCustomerDetails } = props;
+    useEffect(() => {
+        setCustomerDetails(Object.assign({}, customerForm));
+    }, [customerForm, setCustomerDetails]);
+
+    return (
+        <div id="customerDetails" className="col-md-12 order-md-1">
+            <h2 className="mb-3">MY DETAILS</h2>
+
+            <form className="needs-validation" noValidate="">
+                <div className="row">
+                    <div className="col-md-6 mb-3">
+                        <label htmlFor="customerFirstName">First name&nbsp;</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="customerFirstName"
+                            placeholder=""
+                            value={customerForm.customerFirstName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.customerFirstName ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.customerFirstName ? {} : { display: 'block' }}
+                        >
+                            The first name is required.
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3">
+                        <label htmlFor="customerLastName">Last name&nbsp;</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="customerLastName"
+                            placeholder=""
+                            value={customerForm.customerLastName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.customerLastName ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.customerLastName ? {} : { display: 'block' }}
+                        >
+                            The last name is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="customerPhone">Telephone&nbsp;</label>
+                        <input
+                            type="tel"
+                            className="form-control"
+                            id="customerPhone"
+                            placeholder=""
+                            value={customerForm.customerPhone}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.customerPhone ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.customerPhone ? {} : { display: 'block' }}
+                        >
+                            The telephone is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="customerEmail">Email&nbsp;</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="customerEmail"
+                            value={customerForm.customerEmail}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            placeholder="ex: myname@example.com"
+                            required={true}
+                            style={formValidation.customerEmail ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.customerEmail ? {} : { display: 'block' }}
+                        >
+                            The email is required
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="billingAddress">Billing address&nbsp;</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="billingAddress"
+                            value={customerForm.billingAddress}
+                            placeholder=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.billingAddress ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.billingAddress ? {} : { display: 'block' }}
+                        >
+                            The billing address is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="billingPostcode">Billing Postcode&nbsp;</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="deliveryPostcode"
+                            value={customerForm.billingPostcode}
+                            placeholder=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.billingPostcode ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.billingPostcode ? {} : { display: 'block' }}
+                        >
+                            The billing postcode is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="deliveryAddress">Delivery address&nbsp;</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="deliveryAddress"
+                            value={customerForm.deliveryAddress}
+                            placeholder=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.deliveryAddress ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.deliveryAddress ? {} : { display: 'block' }}
+                        >
+                            The delivery address is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="deliveryPostcode">Delivery Postcode&nbsp;</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="deliveryPostcode"
+                            value={customerForm.deliveryPostcode}
+                            placeholder=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.deliveryPostcode ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.deliveryPostcode ? {} : { display: 'block' }}
+                        >
+                            The delivery postcode is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="deliveryTime">Delivery time&nbsp;</label>
+                        <select
+                            className="custom-select d-block w-100"
+                            id="deliveryTime"
+                            onChange={handleChange}
+                            required={true}
+                            style={formValidation.deliveryTime ? {} : invalidInputStyle}
+                        >
+                            <option value="asap">ASAP</option>
+                        </select>
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.deliveryTime ? {} : { display: 'block' }}
+                        >
+                            The delivery time is required
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="driverInstructions" className="driver-instructions">
+                            Driver instructions
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="driverInstructions"
+                            value={customerForm.driverInstructions}
+                            placeholder=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <div className="row">
-          <div className="col-md-12 mb-3">
-            <label htmlFor="contactNumber">Contact Number</label>
-            <input type="text" className="form-control"
-              id="contactNumber"
-              placeholder=""
-              value={customerForm.contactNumber}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required={true}
-            />
-            <div className="invalid-feedback" style={FIELD_NAME === 'contactNumber' ? errorStyle : {}}>
-              The contact number is required.
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-12 mb-3">
-            <label htmlFor="email">
-              Email Address
-          </label>
-            <input type="email" className="form-control"
-              id="email"
-              value={customerForm.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="you@example.com"
-            />
-            <div className="invalid-feedback" style={FIELD_NAME === 'email' ? errorStyle : {}}>
-              The email address is required
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-12 mb-3">
-            <label htmlFor="postcode">Postcode</label>
-            <input type="text" className="form-control" id="postcode"
-              value={customerForm.postcode}
-              placeholder=""
-              onChange={handleChange}
-              onBlur={handleBlur}
-              required={true}
-            />
-            <div className="invalid-feedback" style={FIELD_NAME === 'postcode' ? errorStyle : {}}>
-              The postcode is required.
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-12 mb-3">
-            <label htmlFor="address">Address</label>
-            <select className="custom-select d-block w-100" id="address"
-              onChange={handleChange}
-              required={true}
-            >
-              {/* TODO: dynamic options */}
-              <option value="">Choose...</option>
-              <option>United States</option>
-            </select>
-            <div className="invalid-feedback">
-              The address is required
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-12 mb-3">
-            <label htmlFor="driverInstructions">Driver Instructions</label>
-            <input type="text" className="form-control"
-              id="driverInstructions"
-              placeholder=""
-              value={customerForm.driverInstructions}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-12 mb-3">
-            <label htmlFor="deliveryTime">Delivery Time</label>
-            <select className="custom-select d-block w-100" id="deliveryTime"
-              onChange={handleChange}
-              required={true}
-            >
-              {/* TODO: dynamic options */}
-              <option value="">ASAP</option>
-              <option>One Hour</option>
-              <option>Two Hours</option>
-            </select>
-          </div>
-        </div>
-
-        {/* <button className="btn btn-primary btn-lg btn-block" type="submit">
-          Continue to checkout
-        </button> */}
-      </form>
-    </div >
-  )
+    );
 }
 
 export default CustomerDetails;

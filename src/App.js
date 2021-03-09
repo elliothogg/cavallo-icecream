@@ -28,12 +28,21 @@ class App extends React.Component {
         DeliveryOrCollection: false,
         TotalCost: 0.0,
         Items: []
-
       },
 
       customerDetails: {
-        name: "Gabriel"
-      },
+        customerFirstName: '',
+        customerLastName: '',
+        customerPhone: '',
+        customerEmail: '',
+        billingAddress: '',
+        billingPostcode: '',
+
+        deliveryAddress: '',
+        deliveryPostcode: '',
+        deliveryTime: '',
+        driverInstructions: ''
+        },
 
       setCustomerOrder: this.setCustomerOrder.bind(this),
       setCustomerDetails: this.setCustomerDetails.bind(this),
@@ -105,9 +114,9 @@ class App extends React.Component {
     //this element contails all the attributes(fields?) of the companyInfo,
     //and these attributes(fields?) data can also be accessed separately (see code from line 52-64).
     //For product data, there are 2 JSONs when the data where send from the BE,
-    //the 2 JSONs are contains in one Array(products[0]), 
+    //the 2 JSONs are contains in one Array(products[0]),
     //to get productinfo Array or sizeinfo Array use products[0].productinfo, or products[0].sizeinfo,
-    //and to get all the attributes(fields?) of productinfo or sizeinfo, 
+    //and to get all the attributes(fields?) of productinfo or sizeinfo,
     //use the same way from line 52-64.
 
   }
@@ -149,7 +158,7 @@ class App extends React.Component {
   //this will be called in CustomerDetails.js. This will allow the App.js state to hold the customer details, which can then be passed (as props) to OrderResult.
   setCustomerDetails(customerDetails) {
     //pass in an object with customers details (called in CustomerDetails.js)
-    this.customerDetails = customerDetails;
+    this.setState({ customerDetails });
 
   }
 

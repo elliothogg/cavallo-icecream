@@ -1,1 +1,17 @@
-#customerDetails {}
+#customerDetails {
+    padding-top: 2rem;
+}
+#customerDetails label {
+    position: relative;
+}
+#customerDetails label::after {
+    content: '*';
+    position: absolute;
+    top: 50%;
+    bottom: -0.1rem;
+    color: red;
+    transform: translateY(-50%);
+}
+#customerDetails .driver-instructions::after {
+    content: '';
+}

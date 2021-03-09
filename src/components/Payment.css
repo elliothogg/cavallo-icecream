@@ -1,1 +1,14 @@
-#payment {}
+#payment {
+    padding-bottom: 2rem;
+}
+#payment label {
+    position: relative;
+}
+#payment label::after {
+    content: '*';
+    position: absolute;
+    top: 50%;
+    bottom: -0.1rem;
+    color: red;
+    transform: translateY(-50%);
+}
