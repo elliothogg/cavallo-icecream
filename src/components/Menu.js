@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Item from './Item';
 
 
@@ -6,9 +6,7 @@ import './Menu.css';
 
 
 class Menu extends React.Component {
-  constructor(props) {
-    super(props)
-  };
+ 
 
   render() {
     return (

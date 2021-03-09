@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './App.css';
@@ -134,7 +134,7 @@ class App extends React.Component {
       customerOrd.Items = items
       this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
     } else {
-      var customerOrd = this.state.customerOrder
+      customerOrd = this.state.customerOrder
       customerOrd.Items.push(order)
       this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
 
@@ -145,7 +145,7 @@ class App extends React.Component {
     let orders = [...this.state.customerOrder.Items];
     let totalPrice = 0;
     for(let i=0; i<orders.length; i++) {
-      totalPrice += orders[0].TotalCost;
+      totalPrice += orders[i].TotalCost * orders[i].Quantity
     }
     this.setState(state => ({
       customerOrder: { ...state.customerOrder, TotalCost: totalPrice}
