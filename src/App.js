@@ -173,10 +173,11 @@ class App extends React.Component {
   //note: Header and Footer components need to be passed the companyInfo state from App.js so that they can display it.
 
   render() {
+    console.log(this.state.companyInfo.RestaurantName)
     return (
       <>
         <Router>
-          <Header restaurantName={this.state.companyInfo.RestaurantName}/>
+          <Header restaurantName={this.state.companyInfo.RestaurantName} restaurantSlogan={this.state.companyInfo.Slogan}/>
           <Switch>
 
             {/* Order, Checkout, and OrderConfirmation now receive all of App.js state (as props) */}
@@ -185,7 +186,7 @@ class App extends React.Component {
             <Route path='/order-confirmation' exact render={() => <OrderConfirmation {...this.state} />} />
             <Route path='/company-portal' component={CompanyPortal} />
           </Switch>
-        <Footer />
+        <Footer {...this.state} />
         </Router>
       </>
     );
