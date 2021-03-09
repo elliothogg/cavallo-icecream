@@ -10,23 +10,22 @@
   z-index: 999;
 }
 
+h1 {
+  color: white;
+  width: 300px;
+}
+
+h2 {
+  color: white;
+  max-width: 800px;
+}
+
 .navbar-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 80px;
   max-width: 1500px;
-}
-
-.website-title {
-  color: #fff;
-  justify-self: start;
-  margin-left: 20px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
 }
 
 
@@ -36,9 +35,9 @@
   grid-gap: 10px;
   list-style: none;
   text-align: center;
-  width: 60vw;
+  width: 30vw;
   justify-content: end;
-  margin-right: 2rem;
+  margin-right: 0;
 }
 
 .nav-item {
