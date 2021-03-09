@@ -63,6 +63,7 @@ constructor(props){
     let sizeCost = parseFloat(this.state.sizesCosts[index].Price);
     //change the sizeCost in the state to the price for the chosen size
     this.setState({sizeCost: sizeCost})
+    
     let extraCost = parseFloat(this.state.extraCost);
 
     let totalCost = this.state.sizeCost + extraCost
