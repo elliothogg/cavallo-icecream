@@ -15,11 +15,9 @@ class App extends React.Component {
     //We will store customers order and details in the App.js state (below is just example)
     this.state = {
       products: [
-
       ],
 
       companyInfo: {
-
       },
 
       customerOrder: {
