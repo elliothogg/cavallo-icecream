@@ -9,18 +9,19 @@ class Order extends React.Component {
     super(props)
   }
 
+  displayMenuAndBasketSummary() {
+    if (this.props.customerOrder.isDelivery == undefined) return <PostcodeChecker {...this.props}/>;
+    else return <div id='menu-basketSummary-container'> <Menu {...this.props} /> <BasketSummary {...this.props} /> </div>;
+  }
+
+  
   render() {
+
     return (
       <div id='orderPage-container'>
-
-        <p>Order</p>
-        <PostcodeChecker />
-
-        {/* all props from App.js are passed onto Menu component */}
-        <Menu {...this.props} />
-
-        {/* all props from App.js are passed onto Menu component */}
-        <BasketSummary {...this.props} />
+        {this.displayMenuAndBasketSummary()}
+        
+        
       </div>
     );
   }

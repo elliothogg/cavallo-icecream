@@ -6,9 +6,11 @@ var connection = require('../mysql/database');
 router.get('/api/check-postcode', (req, res) => {
     const destination = req.query.destination;
     return getPostcode(destination, (err, data) => {
-        if (err) return res.send(400);//upstream request failed
         
         res.setHeader('Content-Type', 'application/json');
+        
+        if (err) res.send( {distance: "err"} );//upstream request failed
+        
         res.send( {distance: data });
       });
     });
