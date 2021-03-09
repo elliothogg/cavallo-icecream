@@ -15,7 +15,7 @@ class BasketSummary extends React.Component {
       return (
         <div id="BasketSummary-container">
             <p>BasketSummary Component</p>
-            <div class="OrderList" >
+            <div className="OrderList" >
             {this.props.customerOrder.Items.map((order => <BasketItem key ={order.ProductID} {...this.props} id={order.ProductID} flavor ={order.Flavour} count={order.Quantity} size={order.Size} cost={order.Cost}/>
             ))}
             </div>

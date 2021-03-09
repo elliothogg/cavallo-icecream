@@ -25,7 +25,7 @@ class App extends React.Component {
       customerOrder: {
         orderID: '',
         OrderTime: '',
-        DeliveryOrCollection: false,
+        isDelivery: undefined,
         TotalCost: 0.0,
         Items: []
       },
@@ -37,7 +37,7 @@ class App extends React.Component {
         customerEmail: '',
         billingAddress: '',
         billingPostcode: '',
-
+        
         deliveryAddress: '',
         deliveryPostcode: '',
         deliveryTime: '',
@@ -46,7 +46,8 @@ class App extends React.Component {
 
       setCustomerOrder: this.setCustomerOrder.bind(this),
       setCustomerDetails: this.setCustomerDetails.bind(this),
-      removeCustomerOrderItem: this.removeCustomerOrderItem.bind(this)
+      removeCustomerOrderItem: this.removeCustomerOrderItem.bind(this),
+      setIsDelivery: this.setIsDelivery.bind(this)
     }
   }
 
@@ -142,6 +143,13 @@ class App extends React.Component {
     }
   }
 
+  //called in postcode checker
+  setIsDelivery(booleanValue) {
+    this.setState(state => ({
+      customerOrder: { ...state.customerOrder, isDelivery: booleanValue }
+    }));
+  }
+
 
 
   removeCustomerOrderItem(productID){
@@ -168,7 +176,7 @@ class App extends React.Component {
     return (
       <>
         <Router>
-          <Header />
+          <Header restaurantName={this.state.companyInfo.RestaurantName}/>
           <Switch>
 
             {/* Order, Checkout, and OrderConfirmation now receive all of App.js state (as props) */}
