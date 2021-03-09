@@ -11,12 +11,16 @@ class Checkout extends React.Component {
   
   render() {
     return (
-      <div id='Checkout-container'>
+      <div id="Checkout-container" className="row">
         
-        <CustomerDetails {...this.props} />
-        <Payment />
-        <BasketSummary {...this.props} />
-
+        <div className="col-6">
+           <CustomerDetails {...this.props} />
+           <Payment />
+        </div>
+        <div className="col-6">
+           <BasketSummary {...this.props} />
+        </div>
+              
       </div>
     );
   }
