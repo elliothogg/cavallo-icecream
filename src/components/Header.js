@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-function Header() {
+function Header(props) {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -13,9 +13,8 @@ function Header() {
     <>
       <nav className='navbar'>
         <div className='navbar-container'>
-          <Link to='/' className='website-title' onClick={closeMobileMenu}>
-            Company Name{/*  need to pull from backend */}
-          </Link>
+          <h1>{props.restaurantName}</h1>
+          <h2>{props.restaurantSlogan}</h2>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
