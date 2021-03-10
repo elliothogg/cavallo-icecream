@@ -4,23 +4,22 @@ var router = express.Router();
 var connection = require('../mysql/database');
 const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
-router.get('/api/responseOrderData', urlendodedParser, function(req, res, next){
-    var orderID = req.query.orderID;
-    console.log("OrderID:" + orderID)
-
-    return queryOrderInfo(orderID, (err, data) => {
+router.get('/api/companyPortalData', urlendodedParser, function(req, res, next){
+	
+    return queryOrderInfo((err, data) => {
         if (err) return res.send(400);//upstream request failed
         res.setHeader('Content-Type', 'application/json');
 		console.log("get success")
         console.log(data)
 		res.send(data)
     })
+
 })
 
 module.exports = router;
 
-function queryOrderInfo(orderID, callback){
-    let sql1 = `SELECT * FROM Orders WHERE OrderID = '${orderID}'`;
+function queryOrderInfo(callback){
+    let sql1 = `SELECT * FROM Orders`;
     
     connection.query(sql1, function(error, results, fields){
         if (error) {
@@ -31,7 +30,7 @@ function queryOrderInfo(orderID, callback){
                 console.log("******************** queryOrderInfo results *****************");
                 console.log(ordersJSON);
 
-                queryEachOrdersProductsInfo(orderID, ordersJSON,function(err, resultsData, fieldsData){
+                queryEachOrdersProductsInfo(ordersJSON,function(err, resultsData, fieldsData){
                     if (err) {
                         callback(err);
                     } else {
@@ -53,8 +52,8 @@ function queryOrderInfo(orderID, callback){
     })
 }
 
-function queryEachOrdersProductsInfo(orderID, ordersJSON, callback){
-    let sql2 = `SELECT * FROM EachOrdersProducts WHERE OrderID = '${orderID}'`;
+function queryEachOrdersProductsInfo(ordersJSON, callback){
+    let sql2 = `SELECT * FROM EachOrdersProducts'`;
     connection.query(sql2, function(error, results, fields){
         if (error) {
             callback(error);
