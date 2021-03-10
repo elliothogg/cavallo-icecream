@@ -1,10 +1,12 @@
 var express = require('express');
+const bodyParser = require('body-parser');
 var sd = require('silly-datetime');
 var router = express.Router();
 const payThroughHorsePay = require('./payThroughHorsePay');
 const updateOrders = require('./updateOrders');
+const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
-router.post('/api/orderConfirm', (req, res) => {
+router.post('/api/orderConfirm', urlendodedParser, (req, res) => {
     console.log(req.body);
     var inParam = req.body[0];
   /* *********req.body
@@ -41,7 +43,7 @@ router.post('/api/orderConfirm', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
 		    console.log("post success");
         console.log(data.res);
-		    res.end(data.res.toString());
+		    res.send(data.res);
       });
     });
 module.exports = router;
