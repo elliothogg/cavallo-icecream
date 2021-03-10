@@ -51,7 +51,7 @@ let updateEachOrdersProductsTable = function (orderID, ItemsJSON){
     return new Promise((resolve, reject)=>{
 
         ItemsJSON.forEach(function(item,index){    
-            var productID = ItemsJSON[index].ProductID;
+            var productID = ItemsJSON[index].productID;
             var size = ItemsJSON[index].Size;
             var quantity = ItemsJSON[index].Quantity;
     
@@ -60,18 +60,16 @@ let updateEachOrdersProductsTable = function (orderID, ItemsJSON){
                 
             connection.query(sql, (err, res) => {
                 if (err) {
-                    reject()
+                    reject(err);
                     console.log('------EachOrdersProducts Error-------')
                     console.log(err);
                 } else {
+                    resolve();
                     console.log('Insert EachOrdersProducts.')
                 }
-            })    
+            })  
         }); 
-        resolve();
-        console.log('EachOrdersProducts Loop Finish.')
     })
-    
 }
 
 let updateDeliveryTable = function (orderID, deliveryTime, deliveryAddress, deliveryPostcode, driverInstructions){
