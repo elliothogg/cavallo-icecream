@@ -1,6 +1,9 @@
 #orderPage-container{
-    height: 600px;
-    margin: 0 auto 0;
+    display: flex;
+    height: 800px;
+    margin: auto;
+    padding-left: 100px;
+    padding-top: 100px;
 }
 
 p {

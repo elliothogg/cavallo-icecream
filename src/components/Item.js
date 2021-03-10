@@ -78,7 +78,7 @@ constructor(props){
 
   render() {
     return (
-      <div className="background">
+      <div className="item-container">
         <img className="iceImages" src={this.state.imageDir} width='100'/>
         <h3>{this.state.flavor}</h3>
         <div onClick={this.setSizeAndPrice}>

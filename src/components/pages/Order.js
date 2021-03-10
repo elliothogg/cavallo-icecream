@@ -11,7 +11,7 @@ class Order extends React.Component {
 
   displayMenuAndBasketSummary() {
     if (this.props.customerOrder.isDelivery == undefined) return <PostcodeChecker {...this.props}/>;
-    else return <div id='menu-basketSummary-container'> <Menu {...this.props} /> <BasketSummary {...this.props} /> </div>;
+    else return <> <Menu {...this.props} /> <BasketSummary {...this.props} /> </>;
   }
 
   

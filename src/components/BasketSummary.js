@@ -13,12 +13,12 @@ function BasketSummary(props) {
     if (currentRoute.pathname === '/')
       return <Link id='basketbuttons-orderpage' to="/checkout"><button>Checkout</button></Link>
     else if (currentRoute.pathname == '/checkout')
-      return <div id='basketbuttons-checkoutpage'><Link to="/"><button>Continue Shopping</button></Link><Link to="/order-confirmation"><button>Place Order</button></Link></div>
+      return <div id='basketbuttons-checkoutpage'><Link to="/"><button>Continue Shopping</button></Link><Link to="/order-confirmation"><button onClick={props.confirmOrder}>Place Order</button></Link></div>
   }
 
   return (
     <div id="BasketSummary-container">
-        <p>BasketSummary Component</p>
+        <p>ITEMS</p>
         <div className="OrderList" >
         {props.customerOrder.Items.map((order => <BasketItem key ={order.ProductID} {...props} id={order.ProductID} flavor ={order.Flavour} count={order.Quantity} size={order.Size} cost={order.TotalCost}/>
         ))}

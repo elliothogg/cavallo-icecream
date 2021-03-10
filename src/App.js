@@ -19,7 +19,6 @@ class App extends React.Component {
 
       companyInfo: {
       },
-
       customerOrder: {
         orderID: '',
         OrderTime: '',
@@ -38,14 +37,15 @@ class App extends React.Component {
         
         deliveryAddress: '',
         deliveryPostcode: '',
-        deliveryTime: '',
+        deliveryTime: '12:00',
         driverInstructions: ''
         },
 
       setCustomerOrder: this.setCustomerOrder.bind(this),
       setCustomerDetails: this.setCustomerDetails.bind(this),
       removeCustomerOrderItem: this.removeCustomerOrderItem.bind(this),
-      setIsDelivery: this.setIsDelivery.bind(this)
+      setIsDelivery: this.setIsDelivery.bind(this),
+      confirmOrder: this.confirmOrder.bind(this)
     }
   }
 
@@ -100,7 +100,6 @@ class App extends React.Component {
           sizeinfo : sizeArray
         }]
       })
-      console.log(this.state);
     });
     })
     .catch((error) => {
@@ -175,6 +174,29 @@ class App extends React.Component {
     //pass in an object with customers details (called in CustomerDetails.js)
     this.setState({ customerDetails });
 
+  }
+
+
+  confirmOrder() {
+    let postBody = []
+    postBody[0] = { 
+      storeID: this.state.companyInfo.ID,
+      customerOrder: this.state.customerOrder,
+      customerDetails: this.state.customerDetails
+    };
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(postBody)
+    };
+
+    fetch('/api/orderConfirm', requestOptions)
+      .then(response => response.json())
+      //.then(data => this.setState({ postId: data.id }));
+      .then(data => console.log(data))
+
+    console.log(postBody);
   }
 
   //note: Header and Footer components need to be passed the companyInfo state from App.js so that they can display it.

@@ -15,3 +15,7 @@
 .productList{
   margin: 0 25px 0;
 }
+
+.item-container {
+  width: 200px;
+}
