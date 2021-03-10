@@ -1,33 +1,49 @@
 .PostcodeChecker-container {
   text-align: center;
-  width: 300px;
-  background-color: black;
   margin: auto;
   margin-top: 150px;
 }
 
-
 #postcode-form {
-  background-color: #282c34;
+  border-style: dashed;
+  background: rgba(255, 55, 178, 0.5);
+  border-radius: 1em 2em 3em 2em;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 20px;
+  padding: 50px;
   max-width: 50vh;
   min-height: 30vh;
   margin: auto;
   font-size: 20px;
   font-weight: bold;
 }
-
-#postcode-form p {
+#postcode-form p1{
+ margin: 100px;
+}
+#postcode-form button{
+  background: rgba(255, 55, 178);
+  border: none;
   color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 100px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  
+}
+
+#postcode-form p{
+  color: rgb(255, 255, 255);
+}
+#postcode-form {
+  color: rgb(255, 0, 149);
 }
 
 #postcode-form label {
   color: white;
+  font-size: 25px;
 }
-
-
-
-
