@@ -1,8 +1,7 @@
 var connection = require('../../mysql/database');
 var sd = require('silly-datetime');
 
-function updateOrders(inParam, customerEmail, customerPhone, totalCost, callback){
-    var orderID = generateOrderID();
+function updateOrders(inParam, orderID, customerEmail, customerPhone, totalCost, callback){
     var firstname = inParam.customerDetails.customerFirstName;
     var lastname = inParam.customerDetails.customerLastName;
     var orderTime = sd.format(new Date().getTime, 'DD/MM/YYYY HH:mm');
@@ -26,7 +25,8 @@ function updateOrders(inParam, customerEmail, customerPhone, totalCost, callback
         resolve();
     }).then((response)=>{
         return callback(null,{
-            orderID: orderID
+            orderID: orderID,
+            resString: "Payment Success"
         });
     }).catch((error) => {
         console.log(error);
@@ -125,28 +125,6 @@ let insertDeliveryOrCollection = function(deliveryOrCollection, orderID, deliver
     })
 }
 
-const generateOrderID = function () {
-    var currentTime = sd.format(new Date().getTime, 'YYYYMMDDHHmmss');
-    const now = new Date();
-    let milliseconds = now.getMilliseconds();
-
-    if (milliseconds >= 0 && milliseconds <= 9) {
-        milliseconds = "00" + milliseconds;
-    } else if (milliseconds >= 10 && milliseconds <= 99) {
-        milliseconds = "0" + milliseconds;
-    }
-
-    let randomNum = '';
-    for(var i = 0; i < 3; i++){
-        randomNum+=Math.floor(Math.random()*10);
-    }
-
-    const orderID = currentTime + milliseconds + randomNum.toString();
-    return orderID;
-  };
-
-  module.exports = updateOrders;
-
   const isDeliveryOrCollection = function(isDelivery){
       if(isDelivery === true){
           return 'Delivery';
@@ -156,3 +134,5 @@ const generateOrderID = function () {
           console.log("DeliveryOrCollection Error")
       }
   }
+
+  module.exports = updateOrders;

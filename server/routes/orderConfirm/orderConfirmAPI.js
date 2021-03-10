@@ -1,4 +1,5 @@
 var express = require('express');
+var sd = require('silly-datetime');
 var router = express.Router();
 const payThroughHorsePay = require('./payThroughHorsePay');
 const updateOrders = require('./updateOrders');
@@ -45,7 +46,8 @@ router.post('/api/orderConfirm', (req, res) => {
     });
 module.exports = router;
 
-function orderConfirm(inParam, callback){ 
+function orderConfirm(inParam, callback){
+  var orderID = generateOrderID(); 
   var storeID = inParam.storeID;
   var totalCost = inParam.customerOrder.TotalCost;
   var customerEmail = inParam.customerDetails.customerEmail;
@@ -61,15 +63,14 @@ function orderConfirm(inParam, callback){
           var payResult = data.paymetSuccess;
           if(payResult.Status === true){
             console.log("**********call updateOrders*************");
-            updateOrders(inParam, customerEmail, customerPhone, totalCost, function(err, data){
+            updateOrders(inParam, orderID, customerEmail, customerPhone, totalCost, function(err, data){
               if(err){
                 return callback(err)
               }else{
                 console.log("ALL Success");
                 return callback(null, {
                   res:{
-                    orderID: data.orderID,
-                    resString: "Payment Success"
+                    resData: data
                   }
                 });
               }
@@ -78,6 +79,7 @@ function orderConfirm(inParam, callback){
             console.log("**********call callback*************");
             return callback(null, {
               res:{
+                orderID: orderID,
                 Status : payResult.Status,
                 reason : payResult.reason
               }
@@ -94,4 +96,24 @@ const generateCustomerID = function (customerEmail, customerPhone) {
 
   const customerID = emailString + '-' + phoneString;
   return customerID;
+};
+
+const generateOrderID = function () {
+  var currentTime = sd.format(new Date().getTime, 'YYYYMMDDHHmmss');
+  const now = new Date();
+  let milliseconds = now.getMilliseconds();
+
+  if (milliseconds >= 0 && milliseconds <= 9) {
+      milliseconds = "00" + milliseconds;
+  } else if (milliseconds >= 10 && milliseconds <= 99) {
+      milliseconds = "0" + milliseconds;
+  }
+
+  let randomNum = '';
+  for(var i = 0; i < 3; i++){
+      randomNum+=Math.floor(Math.random()*10);
+  }
+
+  const orderID = currentTime + milliseconds + randomNum.toString();
+  return orderID;
 };

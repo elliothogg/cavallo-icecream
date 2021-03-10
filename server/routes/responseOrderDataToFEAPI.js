@@ -21,7 +21,7 @@ router.post('/api/responseOrderDataToFE', urlendodedParser, function(req, res, n
 module.exports = router;
 
 function responseDataToFE(orderID, callback){
-    let sql = `select * from Orders, EachOrdersProducts where OrderID = '${orderID}'`;
+    let sql = `select * from Orders where OrderID = '${orderID}'`;
 
     connection.query(sql, function(error, results, fields){
         if (error) {
