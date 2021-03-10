@@ -2,7 +2,6 @@ var connection = require('../../mysql/database');
 var sd = require('silly-datetime');
 
 function updateOrders(inParam, ItemsJSON, orderID, customerEmail, customerPhone, totalCost, callback){
-    console.log("****!!!!!!!****" + ItemsJSON)
     var firstname = inParam.customerDetails.customerFirstName;
     var lastname = inParam.customerDetails.customerLastName;
     var orderTime = sd.format(new Date().getTime, 'DD/MM/YYYY HH:mm');
