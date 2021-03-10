@@ -100,6 +100,7 @@ class App extends React.Component {
           sizeinfo : sizeArray
         }]
       })
+      console.log(this.state)
     });
     })
     .catch((error) => {

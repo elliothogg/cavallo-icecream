@@ -1,10 +1,8 @@
 var connection = require('../../mysql/database');
-var sd = require('silly-datetime');
 
-function updateOrders(inParam, ItemsJSON, orderID, customerEmail, customerPhone, totalCost, callback){
+function updateOrders(inParam, ItemsJSON, orderID, orderTime, customerEmail, customerPhone, totalCost, callback){
     var firstname = inParam.customerDetails.customerFirstName;
     var lastname = inParam.customerDetails.customerLastName;
-    var orderTime = sd.format(new Date().getTime, 'DD/MM/YYYY HH:mm');
     var billingAddress = inParam.customerDetails.billingAddress;
     var billingPostcode = inParam.customerDetails.billingPostcode;
     
@@ -24,6 +22,7 @@ function updateOrders(inParam, ItemsJSON, orderID, customerEmail, customerPhone,
     }).then((response)=>{
         return callback(null,{
             orderID: orderID,
+            orderTime : orderTime,
             resString: "Payment Success"
         });
     }).catch((error) => {

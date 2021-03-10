@@ -53,6 +53,7 @@ module.exports = router;
 function orderConfirm(inParam, ItemsJSON, callback){
   var orderID = generateOrderID(); 
   var storeID = inParam.storeID;
+  var orderTime = sd.format(new Date().getTime, 'DD/MM/YYYY HH:mm');
   var totalCost = inParam.customerOrder.TotalCost;
   var customerEmail = inParam.customerDetails.customerEmail;
   var customerPhone = inParam.customerDetails.customerPhone;
@@ -67,7 +68,7 @@ function orderConfirm(inParam, ItemsJSON, callback){
           var payResult = data.paymetSuccess;
           if(payResult.Status === true){
             console.log("**********call updateOrders*************");
-            updateOrders(inParam, ItemsJSON, orderID, customerEmail, customerPhone, totalCost, function(err, data){
+            updateOrders(inParam, ItemsJSON, orderID, orderTime, customerEmail, customerPhone, totalCost, function(err, data){
               if(err){
                 return callback(err)
               }else{
@@ -84,6 +85,7 @@ function orderConfirm(inParam, ItemsJSON, callback){
             return callback(null, {
               res:{
                 orderID: orderID,
+                orderTime: orderTime,
                 Status : payResult.Status,
                 reason : payResult.reason
               }
