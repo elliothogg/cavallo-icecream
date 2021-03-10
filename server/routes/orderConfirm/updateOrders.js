@@ -51,7 +51,7 @@ let updateEachOrdersProductsTable = function (orderID, ItemsJSON){
     return new Promise((resolve, reject)=>{
 
         ItemsJSON.forEach(function(item,index){    
-            var productID = ItemsJSON[index].productID;
+            var productID = ItemsJSON[index].ProductID;
             var size = ItemsJSON[index].Size;
             var quantity = ItemsJSON[index].Quantity;
     

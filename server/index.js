@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
  
 
 const distanceAPI = require('./routes/distanceApi');
-const getCurrentTime = require('./routes/distanceApi');
+const getCurrentTime = require('./routes/getCurrentTime');
 const companyPortal = require('./routes/companyPortal');
 const companyPortalData = require('./routes/companyPortalData');
 const restaurantInfo = require('./routes/companyInformation');
