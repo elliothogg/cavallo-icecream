@@ -5,22 +5,53 @@ const updateOrders = require('./updateOrders');
 
 router.post('/api/orderConfirm', (req, res) => {
     console.log(req.body);
-    var storeID = req.body.storeID;
-    var curCode = req.body.currencyCode;
-    var orderinfo = req.body.orderinfo;
+    var inParam = req.body[0];
+  /* *********req.body
+  [{
+      storeID:'',
+      customerOrder: 
+        {
+          orderID: '',
+          OrderTime: '',
+          isDelivery: undefined(true/false),
+          TotalCost: 0,
+          Items: []
+        },
+
+      customerDetails: 
+        {
+          customerFirstName: '',
+          customerLastName: '',
+          customerPhone: '',
+          customerEmail: '',
+          billingAddress: '',
+          billingPostcode: '',
+  
+          deliveryAddress: '',
+          deliveryPostcode: '',
+          deliveryTime: '',
+          driverInstructions: ''
+      },
+  }]
+  ********** */
     
-    return orderConfirm(storeID, orderinfo.totalCost, curCode, orderinfo, (err, data) =>{
+    return orderConfirm(inParam, (err, data) =>{
         if (err) return res.send(400);
         res.setHeader('Content-Type', 'application/json');
 		    console.log("post success");
         console.log(data.res);
-		    res.end(data.res);
+		    res.end(data.res.toString());
+      });
     });
-  });
 module.exports = router;
 
-function orderConfirm(storeID, totalCost, curCode, orderinfo, callback){
-  payThroughHorsePay(storeID, totalCost, curCode, orderinfo, function(err, data){
+function orderConfirm(inParam, callback){ 
+  var storeID = inParam.storeID;
+  var totalCost = inParam.customerOrder.TotalCost;
+  var customerEmail = inParam.customerDetails.customerEmail;
+  var customerPhone = inParam.customerDetails.customerPhone;
+  var customerID = generateCustomerID(customerEmail, customerPhone);
+  payThroughHorsePay(storeID, totalCost, customerID, function(err, data){
         if(err){
           console.log(err);
           return callback(err)
@@ -30,13 +61,16 @@ function orderConfirm(storeID, totalCost, curCode, orderinfo, callback){
           var payResult = data.paymetSuccess;
           if(payResult.Status === true){
             console.log("**********call updateOrders*************");
-            updateOrders(orderinfo, function(err, data){
+            updateOrders(inParam, customerEmail, customerPhone, totalCost, function(err, data){
               if(err){
                 return callback(err)
               }else{
                 console.log("ALL Success");
                 return callback(null, {
-                  res: 'Payment Success.'
+                  res:{
+                    orderID: data.orderID,
+                    resString: "Payment Success"
+                  }
                 });
               }
             })
@@ -53,4 +87,11 @@ function orderConfirm(storeID, totalCost, curCode, orderinfo, callback){
       })
    
 }
-    
+  
+const generateCustomerID = function (customerEmail, customerPhone) {
+  var emailString = customerEmail.split('@')[0];
+  var phoneString = customerPhone.substring(customerPhone.length-4);
+
+  const customerID = emailString + '-' + phoneString;
+  return customerID;
+};

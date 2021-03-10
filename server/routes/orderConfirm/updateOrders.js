@@ -1,42 +1,41 @@
 var connection = require('../../mysql/database');
 var sd = require('silly-datetime');
 
-function updateOrders(orderinfo, callback){
+function updateOrders(inParam, customerEmail, customerPhone, totalCost, callback){
     var orderID = generateOrderID();
-    var productID = orderinfo.productID;
-    var size = orderinfo.size;
-    var quantity = orderinfo.quantity;
-    var customerEmail = orderinfo.customerEmail;
-    var customerPhone = orderinfo.customerPhone;
-    var firstname = orderinfo.customerFirstName;
-    var lastname = orderinfo.customerFirstName;
+    var firstname = inParam.customerDetails.customerFirstName;
+    var lastname = inParam.customerDetails.customerLastName;
     var orderTime = sd.format(new Date().getTime, 'DD/MM/YYYY HH:mm');
-    var billingAddress = orderinfo.billingAddress;
-    var billingPostcode = orderinfo.billingPostcode;
-    var totalcost = orderinfo.totalCost;
-    var deliveryOrCollection = orderinfo.deliveryOrCollection;
+    var billingAddress = inParam.customerDetails.billingAddress;
+    var billingPostcode = inParam.customerDetails.billingPostcode;
+    
+    var deliveryOrCollection = isDeliveryOrCollection(inParam.customerOrder.isDelivery);
 
-    var collectionTime = orderinfo.CollectionTime;
-    var deliveryTime = orderinfo.DeliveryTime;
-    var deliveryAddress = orderinfo.DeliveryAddress;
-    var deliveryPostcode = orderinfo.DeliveryPostcode;
-    var driverInstructions = orderinfo.DriverInstructions;
+    var collectionTime = inParam.customerDetails.collectionTime;
+    var deliveryTime = inParam.customerDetails.deliveryTime;
+    var deliveryAddress = inParam.customerDetails.deliveryAddress;
+    var deliveryPostcode = inParam.customerDetails.deliveryPostcode;
+    var driverInstructions = inParam.customerDetails.driverInstructions;
 
+    var Items = inParam.customerOrder.Items;
+    
     return new Promise(async function (resolve, reject){
-        await updateOrdersTable(orderID, customerEmail, customerPhone, firstname, lastname, orderTime, billingAddress, billingPostcode, totalcost, deliveryOrCollection);
-        await updateEachOrdersProductsTable(orderID, productID, size, quantity);
+        await updateOrdersTable(orderID, customerEmail, customerPhone, firstname, lastname, orderTime, billingAddress, billingPostcode, totalCost, deliveryOrCollection);
+        await updateEachOrdersProductsTable(orderID, Items);
         await insertDeliveryOrCollection(deliveryOrCollection, orderID, deliveryTime, collectionTime, deliveryAddress, deliveryPostcode, driverInstructions);
         resolve();
     }).then((response)=>{
-        return callback(response);
+        return callback(null,{
+            orderID: orderID
+        });
     }).catch((error) => {
         console.log(error);
     })
 }
 
-let updateOrdersTable = function (orderID, customerEmail, customerPhone, firstname, lastname, orderTime, billingAddress, billingPostcode, totalcost, deliveryOrCollection){
+let updateOrdersTable = function (orderID, customerEmail, customerPhone, firstname, lastname, orderTime, billingAddress, billingPostcode, totalCost, deliveryOrCollection){
     var sql = `insert into Orders(OrderID, CustomerEmail, CustomerPhone, CustomerFirstName, CustomerLastName, OrderTime, BillingAddress, BillingPostCode, TotalCost, DeliveryOrCollection)`+
-            `values('${orderID}', '${customerEmail}', '${customerPhone}', '${firstname}', '${lastname}', '${orderTime}', '${billingAddress}', '${billingPostcode}', '${totalcost}', '${deliveryOrCollection}')`;
+            `values('${orderID}', '${customerEmail}', '${customerPhone}', '${firstname}', '${lastname}', '${orderTime}', '${billingAddress}', '${billingPostcode}', '${totalCost}', '${deliveryOrCollection}')`;
     return new Promise((resolve, reject)=>{
         connection.query(sql, (err, res) => {
             if (err) {
@@ -50,21 +49,28 @@ let updateOrdersTable = function (orderID, customerEmail, customerPhone, firstna
     })
 }
 
-let updateEachOrdersProductsTable = function (orderID, productID, size, quantity){
-    var sql = `insert into EachOrdersProducts(OrderID, ProductID, Size, Quantity)`+
-            `values('${orderID}', '${productID}', '${size}', '${quantity}')`;
-    
+let updateEachOrdersProductsTable = function (orderID, Items){    
     return new Promise((resolve, reject)=>{
-        connection.query(sql, (err, res) => {
-            if (err) {
-                reject()
-                console.log('------Error-------')
-                console.log(err);
-            } else {
-               resolve()
-               console.log('Insert EachOrdersProducts Finish.')
-            }
-        })
+        Items.forEach(function(item,index){    
+            var productID = Items[index].productID;
+            var size = Items[index].size;
+            var quantity = Items[index].quantity;
+    
+            var sql = `insert into EachOrdersProducts(OrderID, ProductID, Size, Quantity)`+
+                `values('${orderID}', '${productID}', '${size}', '${quantity}')`;
+                
+            connection.query(sql, (err, res) => {
+                if (err) {
+                    reject()
+                    console.log('------Error-------')
+                    console.log(err);
+                } else {
+                    console.log('Insert EachOrdersProducts.')
+                }
+            })    
+        }); 
+        resolve();
+        console.log('EachOrdersProducts Loop Finish.')
     })
     
 }
@@ -106,11 +112,10 @@ let updateCollectionTable = function (orderID, collectionTime){
 let insertDeliveryOrCollection = function(deliveryOrCollection, orderID, deliveryTime, collectionTime, deliveryAddress, deliveryPostcode, driverInstructions){
 
     return new Promise(async function(resolve, reject){
-        if(deliveryOrCollection === "delivery"){
+        if(deliveryOrCollection === "Delivery"){
             await updateDeliveryTable(orderID, deliveryTime, deliveryAddress, deliveryPostcode, driverInstructions);
-            console.log('ok');
             resolve();
-        }else if(deliveryOrCollection === "collection"){
+        }else if(deliveryOrCollection === "Collection"){
             await updateCollectionTable(orderID, collectionTime);
             resolve();
         }else{
@@ -141,3 +146,13 @@ const generateOrderID = function () {
   };
 
   module.exports = updateOrders;
+
+  const isDeliveryOrCollection = function(isDelivery){
+      if(isDelivery === true){
+          return 'Delivery';
+      }else if(isDelivery === false){
+        return 'Collection';
+      }else{
+          console.log("DeliveryOrCollection Error")
+      }
+  }

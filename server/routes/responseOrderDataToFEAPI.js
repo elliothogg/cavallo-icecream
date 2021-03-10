@@ -6,7 +6,7 @@ const updateOrders = require('./orderConfirm/updateOrders')
 const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
 router.post('/api/responseOrderDataToFE', urlendodedParser, function(req, res, next){
-    var orderID = updateOrders.orderID;
+    var orderID = updateOrders.data.orderID;
     console.log("OrderID:" + orderID)
 
     return responseDataToFE(orderID, (err, data) => {
@@ -21,7 +21,7 @@ router.post('/api/responseOrderDataToFE', urlendodedParser, function(req, res, n
 module.exports = router;
 
 function responseDataToFE(orderID, callback){
-    let sql = `select * from Orders where OrderID = '${orderID}'`;
+    let sql = `select * from Orders, EachOrdersProducts where OrderID = '${orderID}'`;
 
     connection.query(sql, function(error, results, fields){
         if (error) {
