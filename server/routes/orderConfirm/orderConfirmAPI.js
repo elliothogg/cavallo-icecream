@@ -1,23 +1,119 @@
 var express = require('express');
+var sd = require('silly-datetime');
 var router = express.Router();
 const payThroughHorsePay = require('./payThroughHorsePay');
 const updateOrders = require('./updateOrders');
 
 router.post('/api/orderConfirm', (req, res) => {
-    var storeID = req.body.storeID;
-    var totalCost = req.body.TotalCost;
-    var curCode = req.body.currencyCode;
-    var orderinfo = req.body.orderinfo;
+    console.log(req.body);
+    var inParam = req.body[0];
+  /* *********req.body
+  [{
+      storeID:'',
+      customerOrder: 
+        {
+          orderID: '',
+          OrderTime: '',
+          isDelivery: undefined(true/false),
+          TotalCost: 0,
+          Items: []
+        },
 
-    return orderConfirm(storeID, totalCost, curCode, orderinfo, (err, data) =>{
+      customerDetails: 
+        {
+          customerFirstName: '',
+          customerLastName: '',
+          customerPhone: '',
+          customerEmail: '',
+          billingAddress: '',
+          billingPostcode: '',
+  
+          deliveryAddress: '',
+          deliveryPostcode: '',
+          deliveryTime: '',
+          driverInstructions: ''
+      },
+  }]
+  ********** */
+    
+    return orderConfirm(inParam, (err, data) =>{
         if (err) return res.send(400);
+        res.setHeader('Content-Type', 'application/json');
+		    console.log("post success");
+        console.log(data.res);
+		    res.end(data.res.toString());
+      });
     });
-  });
 module.exports = router;
 
-function orderConfirm(storeID, totalCost, curCode, orderinfo, callback){
-    
+function orderConfirm(inParam, callback){
+  var orderID = generateOrderID(); 
+  var storeID = inParam.storeID;
+  var totalCost = inParam.customerOrder.TotalCost;
+  var customerEmail = inParam.customerDetails.customerEmail;
+  var customerPhone = inParam.customerDetails.customerPhone;
+  var customerID = generateCustomerID(customerEmail, customerPhone);
+  payThroughHorsePay(storeID, totalCost, customerID, function(err, data){
+        if(err){
+          console.log(err);
+          return callback(err)
+        }else{
+          console.log("**********payThroughHorsePay****data*********");
+          console.log(data);
+          var payResult = data.paymetSuccess;
+          if(payResult.Status === true){
+            console.log("**********call updateOrders*************");
+            updateOrders(inParam, orderID, customerEmail, customerPhone, totalCost, function(err, data){
+              if(err){
+                return callback(err)
+              }else{
+                console.log("ALL Success");
+                return callback(null, {
+                  res:{
+                    resData: data
+                  }
+                });
+              }
+            })
+          }else{
+            console.log("**********call callback*************");
+            return callback(null, {
+              res:{
+                orderID: orderID,
+                Status : payResult.Status,
+                reason : payResult.reason
+              }
+            })
+          }
+        }
+      })
+   
 }
-    
+  
+const generateCustomerID = function (customerEmail, customerPhone) {
+  var emailString = customerEmail.split('@')[0];
+  var phoneString = customerPhone.substring(customerPhone.length-4);
 
+  const customerID = emailString + '-' + phoneString;
+  return customerID;
+};
 
+const generateOrderID = function () {
+  var currentTime = sd.format(new Date().getTime, 'YYYYMMDDHHmmss');
+  const now = new Date();
+  let milliseconds = now.getMilliseconds();
+
+  if (milliseconds >= 0 && milliseconds <= 9) {
+      milliseconds = "00" + milliseconds;
+  } else if (milliseconds >= 10 && milliseconds <= 99) {
+      milliseconds = "0" + milliseconds;
+  }
+
+  let randomNum = '';
+  for(var i = 0; i < 3; i++){
+      randomNum+=Math.floor(Math.random()*10);
+  }
+
+  const orderID = currentTime + milliseconds + randomNum.toString();
+  return orderID;
+};
