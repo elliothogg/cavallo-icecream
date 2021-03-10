@@ -122,7 +122,7 @@ const connection = require('./database');
 //         "OrderID varchar(30) NOT NULL,"+
 //         "CustomerEmail varchar(100) NOT NULL,"+
 //         "CustomerPhone varchar(50) NOT NULL,"+
-//         "CustomerFristName varchar(20) NOT NULL,"+
+//         "CustomerFirstName varchar(20) NOT NULL,"+
 //         "CustomerLastName varchar(20) NOT NULL,"+
 //         "OrderTime varchar(20) NOT NULL,"+
 //         "BillingAddress varchar(50) NOT NULL,"+
@@ -331,5 +331,29 @@ const connection = require('./database');
 //     if(error)throw error;
 //     console.log(results);
 //     console.log('Insert XXL Finish.')
+//     console.log('----------------')
+// });
+
+// connection.query("select * from Orders", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Orders.')
+//     console.log('----------------')
+// });
+
+// connection.query("select * from EachOrdersProducts", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('EachOrdersProducts.')
+//     console.log('----------------')
+// });
+
+// connection.query("select * from Collection", 
+//     function(error, results, fields){
+//     if(error)throw error;
+//     console.log(results);
+//     console.log('Finish.')
 //     console.log('----------------')
 // });
