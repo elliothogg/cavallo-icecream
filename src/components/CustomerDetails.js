@@ -168,7 +168,7 @@ function CustomerDetails(props) {
                         <input
                             type="text"
                             className="form-control"
-                            id="deliveryPostcode"
+                            id="billingPostcode"
                             value={customerForm.billingPostcode}
                             placeholder=""
                             onChange={handleChange}
@@ -256,6 +256,7 @@ function CustomerDetails(props) {
                     <div className="col-md-12 mb-3">
                         <label htmlFor="driverInstructions" className="driver-instructions">
                             Driver instructions
+                            <span className="text-muted">(Optional)</span>
                         </label>
                         <input
                             type="text"
