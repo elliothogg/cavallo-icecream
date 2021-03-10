@@ -16,9 +16,8 @@ class Item extends Component {
 
 constructor(props){
   super(props);
-  // this. = this.handleClick.bind(this);
-}
-  state = {
+
+  this.state = {
     id: this.props.id,
     flavor : this.props.flavor,
     count : 1,
@@ -29,6 +28,7 @@ constructor(props){
     imageDir: "",
     sizesCosts: this.props.products[0].sizeinfo
   };
+}
 
   incrumentUp = () => {
     this.setState({count: this.state.count + 1})
@@ -61,14 +61,18 @@ constructor(props){
     const index = this.state.sizesCosts.findIndex(size => size.Size === selectedSize)
     //change the type from string to float
     let sizeCost = parseFloat(this.state.sizesCosts[index].Price);
-    //change the sizeCost in the state to the price for the chosen size
-    this.setState({sizeCost: sizeCost})
+
     let extraCost = parseFloat(this.state.extraCost);
+    let totalCost;
 
-    let totalCost = this.state.sizeCost + extraCost
+    //change the sizeCost in the state to the price for the chosen size
 
-    this.setState({size: event.target.value})
-    this.setState({totalCost: totalCost})
+    //the second function is a callback that is ran after the sizeCost has been set
+    this.setState({sizeCost: sizeCost}, () => {
+      totalCost = this.state.sizeCost + extraCost;
+      this.setState({size: selectedSize})
+      this.setState({totalCost: totalCost})
+    })
   }
 
 

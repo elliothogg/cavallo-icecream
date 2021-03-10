@@ -38,6 +38,7 @@ function OrderResult(props) {
     const { orderID: orderId, orderTime, TotalCost: totalCost, Items: orderItems } = customerOrder;
     const { deliveryAddress, billingAddress } = customerDetails;
 
+    console.log(orderItems);
     // compute total cost
     // const totalCost = Items.reduce((total, item) => {
     //     total += item.count * +item.cost.replace(/[^\d|.]/g, '');
@@ -68,10 +69,10 @@ function OrderResult(props) {
                         <div className="col-12" key={index}>
                             <div className="row" style={{ color: '#333333' }}>
                                 <div className="col-4">
-                                    {item.flavor}&nbsp;{item.size}
+                                    {item.Flavour}&nbsp;  {item.Size}
                                 </div>
-                                <div className="col-4">{item.count}</div>
-                                <div className="col-4">{item.cost}</div>
+                                <div className="col-4">{item.Quantity}</div>
+                                <div className="col-4">£{item.TotalCost * item.Quantity}</div>
                             </div>
                         </div>
                     );
@@ -86,14 +87,14 @@ function OrderResult(props) {
                         <div className="col-4"></div>
                         <div className="col-4">Subtotal:</div>
                         {/* TODO: compute subtotal cost */}
-                        <div className="col-4">{totalCost}</div>
+                        <div className="col-4">£{totalCost}</div>
                     </div>
                 </div>
                 <div className="col-12">
                     <div className="row">
                         <div className="col-4"></div>
                         <div className="col-4">Total:</div>
-                        <div className="col-4">{totalCost}</div>
+                        <div className="col-4">£{totalCost}</div>
                     </div>
                 </div>
             </div>

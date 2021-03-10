@@ -19,7 +19,7 @@ class PostcodeChecker extends Component {
   }
 
   displayResult() {
-    if (this.state.distance == "err")
+    if (this.state.distance === "err")
       this.setState( {resultMessage: 'Please enter a valid Postcode'});
     else if (this.state.distance < 5) {
       this.props.setIsDelivery(true);
@@ -35,7 +35,6 @@ class PostcodeChecker extends Component {
     .then(response => response.json())
     .then(state => {
       this.setState( state );
-      console.log(this.state)
       this.displayResult()
     })
   }

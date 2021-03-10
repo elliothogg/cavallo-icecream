@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './App.css';
@@ -15,18 +15,16 @@ class App extends React.Component {
     //We will store customers order and details in the App.js state (below is just example)
     this.state = {
       products: [
-
       ],
 
       companyInfo: {
-
       },
 
       customerOrder: {
         orderID: '',
         OrderTime: '',
         isDelivery: undefined,
-        TotalCost: 0.0,
+        TotalCost: 0,
         Items: []
       },
 
@@ -134,13 +132,24 @@ class App extends React.Component {
       var items = customerOrd.Items
       items[index] = order;
       customerOrd.Items = items
-      this.setState({customerOrder: customerOrd});
+      this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
     } else {
-      var customerOrd = this.state.customerOrder
+      customerOrd = this.state.customerOrder
       customerOrd.Items.push(order)
-      this.setState({customerOrder: customerOrd});
+      this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
 
     }
+  }
+
+  setOrderPrice() {
+    let orders = [...this.state.customerOrder.Items];
+    let totalPrice = 0;
+    for(let i=0; i<orders.length; i++) {
+      totalPrice += orders[i].TotalCost * orders[i].Quantity
+    }
+    this.setState(state => ({
+      customerOrder: { ...state.customerOrder, TotalCost: totalPrice}
+    }))
   }
 
   //called in postcode checker
@@ -158,9 +167,7 @@ class App extends React.Component {
     const orders = ords.filter(item => item.ProductID !== productID);
     ords = orders
     customerOrd.Items = ords
-    this.setState({customerOrder: customerOrd})
-
-
+    this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
   }
 
   //this will be called in CustomerDetails.js. This will allow the App.js state to hold the customer details, which can then be passed (as props) to OrderResult.

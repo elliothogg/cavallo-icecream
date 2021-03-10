@@ -124,7 +124,7 @@ const connection = require('./database');
 //         "CustomerPhone varchar(50) NOT NULL,"+
 //         "CustomerFristName varchar(20) NOT NULL,"+
 //         "CustomerLastName varchar(20) NOT NULL,"+
-//         "OrderTime DATETIME NOT NULL,"+
+//         "OrderTime varchar(20) NOT NULL,"+
 //         "BillingAddress varchar(50) NOT NULL,"+
 //         "BillingPostcode varchar(50) NOT NULL,"+
 //         "TotalCost float NOT NULL,"+
@@ -157,7 +157,7 @@ const connection = require('./database');
 // connection.query(
 //     "CREATE TABLE Delivery ("+
 //         "OrderID varchar(30) NOT NULL,"+
-//         "DeliveryTime DATETIME NOT NULL,"+
+//         "DeliveryTime varchar(20) NOT NULL,"+
 //         "DeliveryAddress varchar(50) NOT NULL,"+
 //         "DeliveryPostcode varchar(50) NOT NULL,"+
 //         "DriverInstructions varchar(100) Default NULL,"+
@@ -173,7 +173,7 @@ const connection = require('./database');
 // connection.query(
 //     "CREATE TABLE Collection ("+
 //         "OrderID varchar(30) NOT NULL,"+
-//         "CollectionTime DATETIME NOT NULL,"+
+//         "CollectionTime varchar(20) NOT NULL,"+
 //         "FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)"+
 //     ");", 
 //     function(error, results, fields){
