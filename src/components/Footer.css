@@ -1,13 +1,8 @@
 .footer-container {
   background-color: #242424;
-  padding: 4rem 0 2rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 0;
-  height: 300px;
-  padding: 0;
+
+  height: max-content;
+
 }
 
 p {
@@ -15,12 +10,15 @@ p {
 }
 
 li {
+  flex-direction: row;
   color: white;
   margin: auto;
   text-align: centre;
 }
 
 ul {
+
+
   margin: auto;
   text-align: centre;
 }
