@@ -22,8 +22,6 @@
 input {
   border-radius: 0.5em;
   border: 5px;
-  margin: 0 500 0 px !important;
-  
 }
 #postcode-form button{
   background: rgba(255, 55, 178);

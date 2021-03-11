@@ -4,7 +4,7 @@ import './Footer.css';
 function Footer(props) {
   return (
     <div className='footer-container'>
-     <ul>
+     <ul id = "ul-footer">
        <li>{props.companyInfo.RestaurantName}</li>
        <li>{props.companyInfo.Slogan}</li>
        <li>{props.companyInfo.Address} {props.companyInfo.PostCode}</li>
@@ -20,4 +20,3 @@ function Footer(props) {
 }
 
 export default Footer;
-
