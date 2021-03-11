@@ -6,7 +6,8 @@
 }
 
 #BasketSummary-container {
-  background-color: rgb(194, 194, 194);
+  border: thick chartreus solid;
+  background-color: rgba(0,255,0,.5);
 }
 
 

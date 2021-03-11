@@ -12,14 +12,15 @@
 
 }
 
-.productList{
-  margin: 0 25px 0;
-}
+
 
 .item-container {
   background: rgba(238, 126, 182, 0.5);
   flex-direction: column;
   width: 200px;
-  border: thick black solid;
+  border: thick rgb(255, 95, 95) solid;
+  border-radius: 15px;
   font-size: 15px;
+  margin: 10px;
+  
 }
