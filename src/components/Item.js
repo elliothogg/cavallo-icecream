@@ -70,7 +70,6 @@ constructor(props){
 
 
   render() {
-    console.log(this.props.customerOrder);
     return (
       <div className="item-container">
         <div id={this.state.flavor.replace(/\s/g, '-') + "-image"}/>

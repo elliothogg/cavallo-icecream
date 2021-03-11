@@ -20,7 +20,6 @@ function BasketSummary(props) {
     props.removeCustomerOrderItem(item);
   }
 
-  console.log(props.customerOrder)
   return (
     <div id="BasketSummary-container">
         
