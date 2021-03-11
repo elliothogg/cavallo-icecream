@@ -17,5 +17,9 @@
 }
 
 .item-container {
+  background: rgba(238, 126, 182, 0.5);
+  flex-direction: column;
   width: 200px;
+  border: thick black solid;
+  font-size: 15px;
 }
