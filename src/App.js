@@ -17,8 +17,13 @@ class App extends React.Component {
       products: [
       ],
 
+      currentTime: {
+
+      },
+
       companyInfo: {
       },
+
       customerOrder: {
         orderID: '',
         OrderTime: '',
@@ -50,10 +55,24 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //here we make all GET requests to get information about companyInfo and products
+    //here we make all GET requests to get information about current time, companyInfo and products
 
     //this function is called when page is loaded
 
+    fetch('/api/currentTime')
+    .then((res)=>{
+      return res.json().then((response=>{
+        var resData = JSON.stringify(response);
+        var jsonData = JSON.parse(resData);
+        console.log("Current Time: " + jsonData.curTime);
+        this.setState({
+          currentTime: jsonData.curTime
+        })
+      }))
+    }).catch((error) => {
+      console.error(error);
+    });
+    
     fetch('/api/restaurant-information')
     .then((res) => {
       return res.json().then((response) => {
@@ -79,8 +98,7 @@ class App extends React.Component {
       })
       console.log(this.state);
     });
-    })
-    .catch((error) => {
+    }).catch((error) => {
       console.error(error);
     });
 
@@ -102,8 +120,7 @@ class App extends React.Component {
       })
       console.log(this.state)
     });
-    })
-    .catch((error) => {
+    }).catch((error) => {
       console.error(error);
     });
 
