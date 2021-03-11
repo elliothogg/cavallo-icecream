@@ -28,6 +28,8 @@ class BasketItem extends React.Component {
             <p>{this.props.size}</p>
             <p>£{this.calculateFinalPrice()}</p>
 
+            
+
             <button onClick={this.deleteItem}>Remove Item</button>
         </div>
       );
