@@ -1,0 +1,17 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+#sales-metrics-container {
+  min-height: 700px;
+}
+
+#sales-metrics-container h3 {
+  color:black;
+  margin-left: 20px;
+  padding-left: 0;
+}
+
+#sales-metrics-container h2 {
+  color:white;
+  margin-left: 20px;
+  padding-left: 0;
+}

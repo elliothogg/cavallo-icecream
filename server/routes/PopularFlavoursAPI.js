@@ -4,7 +4,7 @@ var router = express.Router();
 var connection = require('../mysql/database');
 const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
-router.get('/api/responseOrderData', urlendodedParser, function(req, res, next){
+router.get('/api/popularFlavours', urlendodedParser, function(req, res, next){
 
     return queryOrdersInfo((err, data) => {
         if (err) return res.send(400);//upstream request failed
@@ -18,7 +18,17 @@ router.get('/api/responseOrderData', urlendodedParser, function(req, res, next){
 module.exports = router;
 
 function queryOrdersInfo(callback) {
-    let sql = `SELECT * FROM Orders`;
+    let sql = ` SELECT ProductID, Flavour,SUM(Quantity) as totalPurchased
+                FROM 
+    
+                (SELECT EachOrdersProducts.ProductID, Product.Flavour, EachOrdersProducts.Size, EachOrdersProducts.Quantity 
+                FROM EachOrdersProducts 
+                INNER JOIN Product ON EachOrdersProducts.ProductID=Product.ProductID) as items
+                
+                GROUP BY ProductID
+                ORDER BY totalPurchased DESC;
+                
+                `;
     connection.query(sql, function(error, results, fields){
         if (error) {
             callback(error);
@@ -37,3 +47,7 @@ function queryOrdersInfo(callback) {
     })
 }
 
+// let sql = `SELECT EachOrdersProducts.ProductID,SUM(EachOrdersProducts.Quantity) as totalPurchased
+// FROM EachOrdersProducts
+// GROUP BY ProductID 
+// ; `;

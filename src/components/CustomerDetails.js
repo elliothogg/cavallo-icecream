@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useImperativeHandle } from 'react';
 import './CustomerDetails.css';
 
-function CustomerDetails(props) {
+function CustomerDetails(props, ref) {
     const [customerForm, setCustomerForm] = useState(Object.assign({}, props.customerDetails));
 
     // true: valid; false: invalid
@@ -11,18 +11,30 @@ function CustomerDetails(props) {
             initialValidation[key] = true;
         });
 
+        delete initialValidation.driverInstructions;
+
         return initialValidation;
     });
 
-    const validateForm = (val) => {
+    const validateField = (val) => {
         if (!val.replace(/\s/g, '')) return false;
         return true;
+    };
+    const validateCustomerForm = () => {
+        const formData = Object.assign({}, customerForm);
+        delete formData.driverInstructions;
+        return Object.values(formData).every((fieldVal) => fieldVal);
     };
     const resetFormValidation = (key) => {
         setFormValidation((state) => ({ ...state, [key]: true }));
     };
 
     const invalidInputStyle = { border: '1px solid red' };
+
+    const { WeekdayClosingTime, WeekendClosingTime } = props.companyInfo;
+    const deliveryTimeOpts = generateDeliveryTimeOpts(
+        isWeekend() ? WeekendClosingTime : WeekdayClosingTime
+    );
 
     const handleChange = (evt) => {
         const { id: key, value } = evt.target;
@@ -36,7 +48,7 @@ function CustomerDetails(props) {
     const handleBlur = (evt) => {
         const { id: key, value } = evt.target;
 
-        setFormValidation((state) => ({ ...state, [key]: validateForm(value) }));
+        setFormValidation((state) => ({ ...state, [key]: validateField(value) }));
     };
 
     // update the customerDetails state in App.js when the customerForm changed
@@ -45,11 +57,15 @@ function CustomerDetails(props) {
         setCustomerDetails(Object.assign({}, customerForm));
     }, [customerForm, setCustomerDetails]);
 
+    // exposing the component method of validateCustomerForm,
+    // so that we can validate the form when placing order
+    useImperativeHandle(ref, () => ({ validateCustomerForm }));
+
     return (
         <div id="customerDetails" className="col-md-12 order-md-1">
             <h2 className="mb-3">MY DETAILS</h2>
 
-            <form className="needs-validation" noValidate="">
+            <form className="needs-validation">
                 <div className="row">
                     <div className="col-md-6 mb-3">
                         <label htmlFor="customerFirstName">First name&nbsp;</label>
@@ -242,6 +258,13 @@ function CustomerDetails(props) {
                             style={formValidation.deliveryTime ? {} : invalidInputStyle}
                         >
                             <option value="asap">ASAP</option>
+                            {deliveryTimeOpts.map((time) => {
+                                return (
+                                    <option value={time} key={time}>
+                                        {time}
+                                    </option>
+                                );
+                            })}
                         </select>
                         <div
                             className="invalid-feedback"
@@ -274,4 +297,69 @@ function CustomerDetails(props) {
     );
 }
 
-export default CustomerDetails;
+// TODO: better to use the server time as current time
+function generateDeliveryTimeOpts(closingTime) {
+    if (!closingTime) return [];
+
+    const millisecondsOfSlot = 15 * 60 * 1000;
+
+    const startDate = new Date();
+    const startHours = startDate.getHours();
+    const startMinutes = startDate.getMinutes();
+
+    startDate.setSeconds(0);
+    if (startMinutes < 15) {
+        startDate.setMinutes(15);
+    }
+    if (15 <= startMinutes && startMinutes < 30) {
+        startDate.setMinutes(30);
+    }
+    if (30 <= startMinutes && startMinutes < 45) {
+        startDate.setMinutes(45);
+    }
+    if (45 <= startMinutes && startMinutes <= 59) {
+        startDate.setMinutes(0);
+        startDate.setHours(startHours + 1);
+    }
+
+    const endDate = new Date();
+    endDate.setHours(+closingTime.split(':')[0]);
+    endDate.setMinutes(+closingTime.split(':')[1]);
+    endDate.setSeconds(+closingTime.split(':')[2] || 0);
+
+    if (endDate.getTime() <= startDate.getTime()) return [];
+
+    const countOfInterval = Math.round(
+        (endDate.getTime() - startDate.getTime()) / millisecondsOfSlot
+    );
+
+    const timeList = new Array(countOfInterval).fill(0);
+    timeList.length && (timeList[0] = startDate.getTime());
+
+    let tmpDate = startDate;
+    for (let i = 1; i < countOfInterval; i++) {
+        const time = tmpDate.getTime() + millisecondsOfSlot;
+        timeList[i] = time;
+        tmpDate = new Date(time);
+    }
+
+    return timeList.map((time) => {
+        const date = new Date(time);
+
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        let symbol = hours <= 12 ? 'am' : 'pm';
+
+        hours = hours <= 12 ? hours : hours - 12;
+        minutes = minutes === 0 ? '00' : minutes;
+
+        return `${hours}:${minutes}${symbol}`;
+    });
+}
+
+function isWeekend() {
+    return [6, 7].includes(new Date().getDay() + 1);
+}
+
+export default React.forwardRef(CustomerDetails);

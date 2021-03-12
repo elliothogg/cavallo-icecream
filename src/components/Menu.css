@@ -1,8 +1,12 @@
-.productList{
-  display: flex
-
+.menu-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 700px;
 }
 
 .product{
-
+  border: solid;
+  border: black;
+  border-style: solid;
 }

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle } from 'react';
 import './Payment.css';
 
-function Payment(props) {
+function Payment(props, ref) {
     const [paymentForm, setPaymentForm] = useState({
         paymentMethod: 'credit',
         cardName: '',
@@ -20,9 +20,12 @@ function Payment(props) {
         return initialValidation;
     });
 
-    const validateForm = (val) => {
+    const validateField = (val) => {
         if (!val.replace(/\s/g, '')) return false;
         return true;
+    };
+    const validatePaymentForm = () => {
+        return Object.values(paymentForm).every((fieldVal) => fieldVal);
     };
     const resetFormValidation = (key) => {
         setFormValidation((state) => ({ ...state, [key]: true }));
@@ -41,8 +44,12 @@ function Payment(props) {
     const handleBlur = (evt) => {
         const { id: key, value } = evt.target;
 
-        setFormValidation((state) => ({ ...state, [key]: validateForm(value) }));
+        setFormValidation((state) => ({ ...state, [key]: validateField(value) }));
     };
+
+    // exposing the component method of validatePaymentForm,
+    // so that we can validate the form when placing order
+    useImperativeHandle(ref, () => ({ validatePaymentForm }));
 
     return (
         <div id="payment" className="col-md-12 order-md-1">
@@ -176,4 +183,4 @@ function Payment(props) {
     );
 }
 
-export default Payment;
+export default React.forwardRef(Payment);

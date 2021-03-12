@@ -1,10 +1,8 @@
 var connection = require('../../mysql/database');
-var sd = require('silly-datetime');
 
-function updateOrders(inParam, orderID, customerEmail, customerPhone, totalCost, callback){
+function updateOrders(inParam, ItemsJSON, orderID, orderTime, customerEmail, customerPhone, totalCost, callback){
     var firstname = inParam.customerDetails.customerFirstName;
     var lastname = inParam.customerDetails.customerLastName;
-    var orderTime = sd.format(new Date().getTime, 'DD/MM/YYYY HH:mm');
     var billingAddress = inParam.customerDetails.billingAddress;
     var billingPostcode = inParam.customerDetails.billingPostcode;
     
@@ -15,17 +13,16 @@ function updateOrders(inParam, orderID, customerEmail, customerPhone, totalCost,
     var deliveryAddress = inParam.customerDetails.deliveryAddress;
     var deliveryPostcode = inParam.customerDetails.deliveryPostcode;
     var driverInstructions = inParam.customerDetails.driverInstructions;
-
-    var Items = inParam.customerOrder.Items;
     
     return new Promise(async function (resolve, reject){
         await updateOrdersTable(orderID, customerEmail, customerPhone, firstname, lastname, orderTime, billingAddress, billingPostcode, totalCost, deliveryOrCollection);
-        await updateEachOrdersProductsTable(orderID, Items);
+        await updateEachOrdersProductsTable(orderID, ItemsJSON);
         await insertDeliveryOrCollection(deliveryOrCollection, orderID, deliveryTime, collectionTime, deliveryAddress, deliveryPostcode, driverInstructions);
         resolve();
     }).then((response)=>{
         return callback(null,{
             orderID: orderID,
+            orderTime : orderTime,
             resString: "Payment Success"
         });
     }).catch((error) => {
@@ -40,7 +37,8 @@ let updateOrdersTable = function (orderID, customerEmail, customerPhone, firstna
         connection.query(sql, (err, res) => {
             if (err) {
                 reject();
-                console.log('------Error-------');
+                console.log('------Orders Error-------');
+                console.log(err);
             } else {
                resolve()
                console.log('Insert Orders Finish.')
@@ -49,30 +47,29 @@ let updateOrdersTable = function (orderID, customerEmail, customerPhone, firstna
     })
 }
 
-let updateEachOrdersProductsTable = function (orderID, Items){    
+let updateEachOrdersProductsTable = function (orderID, ItemsJSON){    
     return new Promise((resolve, reject)=>{
-        Items.forEach(function(item,index){    
-            var productID = Items[index].productID;
-            var size = Items[index].size;
-            var quantity = Items[index].quantity;
+
+        ItemsJSON.forEach(function(item,index){    
+            var productID = ItemsJSON[index].ProductID;
+            var size = ItemsJSON[index].Size;
+            var quantity = ItemsJSON[index].Quantity;
     
             var sql = `insert into EachOrdersProducts(OrderID, ProductID, Size, Quantity)`+
                 `values('${orderID}', '${productID}', '${size}', '${quantity}')`;
                 
             connection.query(sql, (err, res) => {
                 if (err) {
-                    reject()
-                    console.log('------Error-------')
+                    reject(err);
+                    console.log('------EachOrdersProducts Error-------')
                     console.log(err);
                 } else {
+                    resolve();
                     console.log('Insert EachOrdersProducts.')
                 }
-            })    
+            })  
         }); 
-        resolve();
-        console.log('EachOrdersProducts Loop Finish.')
     })
-    
 }
 
 let updateDeliveryTable = function (orderID, deliveryTime, deliveryAddress, deliveryPostcode, driverInstructions){
@@ -83,7 +80,7 @@ let updateDeliveryTable = function (orderID, deliveryTime, deliveryAddress, deli
         connection.query(sql, (err, res) => {
             if (err) {
                 reject()
-                console.log('------Error-------')
+                console.log('------Delivery Error-------')
             } else {
                resolve()
                console.log('Insert Delivery Finish.')
@@ -100,7 +97,7 @@ let updateCollectionTable = function (orderID, collectionTime){
         connection.query(sql, (err, res) => {
             if (err) {
                 reject()
-                console.log('------Error-------')
+                console.log('------Collection Error-------')
             } else {
                resolve()
                console.log('Insert Collection Finish.')

@@ -21,10 +21,10 @@ constructor(props){
     id: this.props.id,
     flavor : this.props.flavor,
     count : 1,
-    size: "",
+    size: "S",
     extraCost: this.props.extraCost,
-    sizeCost: 0.0,
-    totalCost: 0.0,
+    sizeCost: parseFloat(this.props.products[0].sizeinfo[0].Price),
+    totalCost: parseFloat(this.props.products[0].sizeinfo[0].Price + this.props.extraCost),
     imageDir: "",
     sizesCosts: this.props.products[0].sizeinfo
   };
@@ -41,15 +41,8 @@ constructor(props){
 };
 
   orderHandler = (e) => {
-    if (this.state.size === ""){
-      alert("Please select a size")
-      return
-    } else {
-
       e.preventDefault();
       this.props.setCustomerOrder({ProductID: this.state.id, Flavour: this.state.flavor, Size:this.state.size, Quantity: this.state.count, TotalCost: this.state.totalCost});
-    }
-
   };
 
 
@@ -78,23 +71,27 @@ constructor(props){
 
   render() {
     return (
-      <div className="background">
-        <img className="iceImages" src={this.state.imageDir} width='100'/>
+      <div className="item-container">
+        <div id={this.state.flavor.replace(/\s/g, '-') + "-image"}/>
         <h3>{this.state.flavor}</h3>
-        <div onClick={this.setSizeAndPrice}>
-          <input type="button" value="S" name="size" />
-          <input type="button" value="M" name="size" />
-          <input type="button" value="L" name="size" />
-          <input type="button" value="XL" name="size" />
-          <input type="button" value="XXL" name="size" />
+       
 
-        </div>
-        <h4>{this.state.size}</h4>
-        <h4>£{this.state.totalCost}</h4>
+        <form id="size-dropdown"onSubmit={this.orderHandler}>
+          <select name="size-dropdown-items" onChange={this.setSizeAndPrice} id="size-dropdown">
+            <option value="S" name="size">{this.state.sizesCosts[0].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
+            <option value="M" name="size">{this.state.sizesCosts[1].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
+            <option value="L" name="size">{this.state.sizesCosts[2].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
+            <option value="XL" name="size">{this.state.sizesCosts[3].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
+            <option value="XXL" name="size">{this.state.sizesCosts[4].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
+          </select>
+        </form>
+
+        <div id="change-amount">
+        <button onClick={this.incrumentDown}>-</button>
         <h4>{this.state.count}</h4>
-        <span><button onClick={this.incrumentDown}>-</button></span>
-        <button onClick = {this.orderHandler} >Add to Basket</button>
         <button onClick={this.incrumentUp}>+</button>
+        <button onClick={this.orderHandler}>ADD TO CART</button>
+        </div>
       </div>
     );
   }

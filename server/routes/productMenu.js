@@ -8,15 +8,17 @@ const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
 router.get('/api/productMenu', urlendodedParser, function(req, res, next){
 	
-    return queryProductInfo((err, data) => {
+    return queryProductAndSizeInfo((err, data) => {
         if (err) return res.send(400);//upstream request failed
 		console.log("get success");
         res.setHeader('Content-Type', 'application/json');
-        var resString = JSON.stringify(data);
+        var resString = JSON.stringify(data.res);
+        console.log(resString);
         var resJSON = JSON.parse(resString);
+        console.log("_________________"+resJSON);
         var finalJSON = {
-            productJSON : resJSON.data.product,
-            sizeJSON : resJSON.data.size,
+            productJSON : resJSON[0].product,
+            sizeJSON : resJSON[1].size,
         }
         console.log(finalJSON);
         res.send(finalJSON);
@@ -26,59 +28,43 @@ router.get('/api/productMenu', urlendodedParser, function(req, res, next){
 
 module.exports = router;
 
-function queryProductInfo(callback){
-    let sql1 = `SELECT * FROM Product ORDER BY ProductID`;
-    
-    connection.query(sql1, function(error, results, fields){
-        if (error) {
-            callback(error);
-        } else {
-            if (results.length) {
-                let productJSON = results; 
-                console.log("******************** queryProductInfo results *****************");
-                console.log(productJSON);
-
-                queryProductSizeInfo(productJSON,function(err, resultsData, fieldsData){
-                    if (err) {
-                        callback(err);
-                    } else {
-                        console.log("******************** queryProductInfo resultsData *****************");
-                        console.log(resultsData);
-                        callback(null, {
-                            code: 1,
-                            data:resultsData
-                        });
-                    }
-                });
-            } else {
-                callback(null, {
-                    code: 1
-                });
-            }
-           
-        }
+function queryProductAndSizeInfo(callback){
+    return Promise.all([
+        queryProductInfo(),
+        querySizeInfo()
+    ]).then((response)=>{
+        return callback(null,{
+            res: response
+        });
+    }).catch((error) => {
+        console.log(error);
     })
 }
 
-function queryProductSizeInfo(productJSON, callback){
-    let sql2 = `SELECT * FROM Size ORDER BY Price`;
-    connection.query(sql2, function(error, results, fields){
-        if (error) {
-            callback(error);
-        } else {
-            if (results.length) {
-                console.log("********************queryProductSizeInfo*****************");
-                console.log(results);
-                callback(null, {
-                    product : productJSON,
-                    size : results                    
-                });
+let queryProductInfo = function (){
+    var sql = `SELECT * FROM Product ORDER BY ProductID`;
+    return new Promise((resolve, reject)=>{
+        connection.query(sql, (err, resProduct) => {
+            if (err) {
+                reject();
+                console.log(err);
             } else {
-                callback(null, {
-                    code: 1
-                });
+               resolve({product:resProduct});
             }
-        }
+        })
     })
 }
 
+let querySizeInfo = function (){
+    var sql = `SELECT * FROM Size ORDER BY Price`;
+    return new Promise((resolve, reject)=>{
+        connection.query(sql, (err, resSize) => {
+            if (err) {
+                reject();
+                console.log(err);
+            } else {
+               resolve({size:resSize});
+            }
+        })
+    })
+}

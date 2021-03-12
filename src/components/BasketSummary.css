@@ -1,6 +1,13 @@
 
 .OrderList{
-  margin: 30px;
+  margin: 30px auto;
   display: flex;
-
+  width: 400px;
 }
+
+#BasketSummary-container {
+  border: thick chartreus solid;
+  background-color: rgba(0,255,0,.5);
+}
+
+

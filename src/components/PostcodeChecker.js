@@ -55,8 +55,10 @@ class PostcodeChecker extends Component {
               value={this.state.destination}
               onChange={this.handleChange}
             />
+            <div className ="twoButtons">
             <button type="submit" onClick={this.handleDeliverySubmit}>Delivery</button>
             <button type="submit" onClick={this.handleCollectionSubmit}>Collection</button>
+            </div>
           <p> {this.state.resultMessage} </p>
           </form>
       </div>

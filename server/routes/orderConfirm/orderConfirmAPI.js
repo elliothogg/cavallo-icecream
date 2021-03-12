@@ -4,11 +4,13 @@ var sd = require('silly-datetime');
 var router = express.Router();
 const payThroughHorsePay = require('./payThroughHorsePay');
 const updateOrders = require('./updateOrders');
-const urlendodedParser= bodyParser.urlencoded({ extended: false });
+const urlendodedParser= bodyParser.urlencoded({ extended: true });
 
 router.post('/api/orderConfirm', urlendodedParser, (req, res) => {
     console.log(req.body);
     var inParam = req.body[0];
+    var ItemsJSON = JSON.parse(JSON.stringify(inParam.customerOrder.Items));
+    console.log(ItemsJSON);
   /* *********req.body
   [{
       storeID:'',
@@ -38,7 +40,7 @@ router.post('/api/orderConfirm', urlendodedParser, (req, res) => {
   }]
   ********** */
     
-    return orderConfirm(inParam, (err, data) =>{
+    return orderConfirm(inParam, ItemsJSON, (err, data) =>{
         if (err) return res.send(400);
         res.setHeader('Content-Type', 'application/json');
 		    console.log("post success");
@@ -48,9 +50,10 @@ router.post('/api/orderConfirm', urlendodedParser, (req, res) => {
     });
 module.exports = router;
 
-function orderConfirm(inParam, callback){
+function orderConfirm(inParam, ItemsJSON, callback){
   var orderID = generateOrderID(); 
   var storeID = inParam.storeID;
+  var orderTime = sd.format(new Date().getTime, 'DD/MM/YYYY HH:mm');
   var totalCost = inParam.customerOrder.TotalCost;
   var customerEmail = inParam.customerDetails.customerEmail;
   var customerPhone = inParam.customerDetails.customerPhone;
@@ -65,7 +68,7 @@ function orderConfirm(inParam, callback){
           var payResult = data.paymetSuccess;
           if(payResult.Status === true){
             console.log("**********call updateOrders*************");
-            updateOrders(inParam, orderID, customerEmail, customerPhone, totalCost, function(err, data){
+            updateOrders(inParam, ItemsJSON, orderID, orderTime, customerEmail, customerPhone, totalCost, function(err, data){
               if(err){
                 return callback(err)
               }else{
@@ -82,6 +85,7 @@ function orderConfirm(inParam, callback){
             return callback(null, {
               res:{
                 orderID: orderID,
+                orderTime: orderTime,
                 Status : payResult.Status,
                 reason : payResult.reason
               }

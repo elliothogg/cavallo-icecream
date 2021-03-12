@@ -12,6 +12,109 @@
 
 }
 
-.productList{
-  margin: 0 25px 0;
+
+
+.item-container {
+  background: rgba(238, 126, 182, 0.5);
+  flex-direction: column;
+  width: 200px;
+  border: thick rgb(255, 95, 95) solid;
+  border-radius: 15px;
+  font-size: 15px;
+  margin: 10px;
+  
 }
+
+#change-amount {
+  display:inline flex ;
+}
+
+
+h4 {
+  display: inline;
+}
+
+/* image for each item */
+
+#Vanilla-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+#Vanilla\(Dairy-Free\)-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+#Rum-and-Raisin-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+#Honeycomb-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+#Mint-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+#Cherry-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+#Chocolate-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+#Salted-Caramel-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+#Strawberry-image {
+  background-image: url(./ItemImages/F01.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  margin: auto;
+}
+
+

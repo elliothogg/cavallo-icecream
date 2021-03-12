@@ -5,8 +5,9 @@ import './App.css';
 import Order from './components/pages/Order';
 import Checkout from './components/pages/Checkout';
 import OrderConfirmation from './components/pages/OrderConfirmation';
-import CompanyPortal from './components/pages/CompanyPortal';
+import CompanyPortal from './components/CompanyPortal/CompanyPortal';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import SalesMetrics from './components/CompanyPortal/SalesMetrics';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +17,10 @@ class App extends React.Component {
     this.state = {
       products: [
       ],
+
+      currentTime: {
+
+      },
 
       companyInfo: {
       },
@@ -38,22 +43,37 @@ class App extends React.Component {
         
         deliveryAddress: '',
         deliveryPostcode: '',
-        deliveryTime: '',
+        deliveryTime: '12:00',
         driverInstructions: ''
         },
 
       setCustomerOrder: this.setCustomerOrder.bind(this),
       setCustomerDetails: this.setCustomerDetails.bind(this),
       removeCustomerOrderItem: this.removeCustomerOrderItem.bind(this),
-      setIsDelivery: this.setIsDelivery.bind(this)
+      setIsDelivery: this.setIsDelivery.bind(this),
+      confirmOrder: this.confirmOrder.bind(this)
     }
   }
 
   componentDidMount() {
-    //here we make all GET requests to get information about companyInfo and products
+    //here we make all GET requests to get information about current time, companyInfo and products
 
     //this function is called when page is loaded
 
+    fetch('/api/currentTime')
+    .then((res)=>{
+      return res.json().then((response=>{
+        var resData = JSON.stringify(response);
+        var jsonData = JSON.parse(resData);
+        console.log("Current Time: " + jsonData.curTime);
+        this.setState({
+          currentTime: jsonData.curTime
+        })
+      }))
+    }).catch((error) => {
+      console.error(error);
+    });
+    
     fetch('/api/restaurant-information')
     .then((res) => {
       return res.json().then((response) => {
@@ -79,8 +99,7 @@ class App extends React.Component {
       })
       console.log(this.state);
     });
-    })
-    .catch((error) => {
+    }).catch((error) => {
       console.error(error);
     });
 
@@ -100,10 +119,9 @@ class App extends React.Component {
           sizeinfo : sizeArray
         }]
       })
-      console.log(this.state);
+      console.log(this.state)
     });
-    })
-    .catch((error) => {
+    }).catch((error) => {
       console.error(error);
     });
 
@@ -177,6 +195,29 @@ class App extends React.Component {
 
   }
 
+
+  confirmOrder() {
+    let postBody = []
+    postBody[0] = { 
+      storeID: this.state.companyInfo.ID,
+      customerOrder: this.state.customerOrder,
+      customerDetails: this.state.customerDetails
+    };
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(postBody)
+    };
+
+    fetch('/api/orderConfirm', requestOptions)
+      .then(response => response.json())
+      //.then(data => this.setState({ postId: data.id }));
+      .then(data => console.log(data))
+
+    console.log(postBody);
+  }
+
   //note: Header and Footer components need to be passed the companyInfo state from App.js so that they can display it.
 
   render() {
@@ -191,7 +232,8 @@ class App extends React.Component {
             <Route path='/' exact render={() => <Order {...this.state} />} />
             <Route path='/checkout' exact render={() => <Checkout {...this.state} />} />
             <Route path='/order-confirmation' exact render={() => <OrderConfirmation {...this.state} />} />
-            <Route path='/company-portal' component={CompanyPortal} />
+            <Route path='/company-portal-login' component={CompanyPortal} />
+            <Route path='/company-portal' exact render={() => <SalesMetrics products={this.state.products} />} />
           </Switch>
         <Footer {...this.state} />
         </Router>

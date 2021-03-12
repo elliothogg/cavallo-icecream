@@ -1,6 +1,6 @@
 import React from 'react';
 import './CompanyPortal.css';
-import PortalLogin from '../PortalLogin';
+import PortalLogin from './PortalLogin';
 
 function companyPortal() {
   return (

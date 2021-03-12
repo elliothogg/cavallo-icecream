@@ -4,21 +4,26 @@ var router = express.Router();
 var connection = require('../mysql/database');
 const urlendodedParser= bodyParser.urlencoded({ extended: false });
 
-router.get('/api/responseOrderData', urlendodedParser, function(req, res, next){
+router.get('/api/responseEachOrdersProductsData', urlendodedParser, function(req, res, next){
+    var orderID = req.query.orderID;
+    console.log("OrderID:" + orderID)
 
-    return queryOrdersInfo((err, data) => {
+    return queryEachOrdersProductsInfo(orderID, (err, data) => {
         if (err) return res.send(400);//upstream request failed
         res.setHeader('Content-Type', 'application/json');
 		console.log("get success")
         console.log(data);
         res.send(data);
     })
-})
 
+})
 module.exports = router;
 
-function queryOrdersInfo(callback) {
-    let sql = `SELECT * FROM Orders`;
+function queryEachOrdersProductsInfo(orderID, callback) {
+    let sql = `SELECT EachOrdersProducts.ProductID, Product.Flavour, EachOrdersProducts.Size, EachOrdersProducts.Quantity 
+                FROM EachOrdersProducts 
+                INNER JOIN Product ON EachOrdersProducts.ProductID=Product.ProductID 
+                WHERE orderID = '${orderID}'`;
     connection.query(sql, function(error, results, fields){
         if (error) {
             callback(error);
@@ -36,4 +41,3 @@ function queryOrdersInfo(callback) {
         }
     })
 }
-
