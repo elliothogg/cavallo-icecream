@@ -20,7 +20,10 @@ router.get('/api/responseEachOrdersProductsData', urlendodedParser, function(req
 module.exports = router;
 
 function queryEachOrdersProductsInfo(orderID, callback) {
-    let sql = `SELECT * FROM EachOrdersProducts WHERE orderID = '${orderID}'`;
+    let sql = `SELECT EachOrdersProducts.ProductID, Product.Flavour, EachOrdersProducts.Size, EachOrdersProducts.Quantity 
+                FROM EachOrdersProducts 
+                INNER JOIN Product ON EachOrdersProducts.ProductID=Product.ProductID 
+                WHERE orderID = '${orderID}'`;
     connection.query(sql, function(error, results, fields){
         if (error) {
             callback(error);

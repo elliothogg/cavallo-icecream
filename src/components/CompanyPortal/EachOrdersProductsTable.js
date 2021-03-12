@@ -10,7 +10,7 @@ function EachOrdersProductsTable(props) {
           <div className="col-12" key={index}>
           <div className="row" style={{ color: '#333333' }}>
               <div className="col-3">{item.ProductID}</div>
-              <div className="col-3">FLAVOUR</div>
+              <div className="col-3">{item.Flavour}</div>
               <div className="col-3">{item.Size}</div>
               <div className="col-3">{item.Quantity}</div>
           </div>
