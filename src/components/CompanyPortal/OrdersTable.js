@@ -6,8 +6,8 @@ function OrdersTable(props) {
       <div id="orders-table-container" className="container-fluid">
 
         <hr className="col-20" style={{ marginLeft: '0.5rem' }} />
-        <h3 className="mb-4 col-12">ORDERS</h3>
-
+        <div className="row"><h3 className="mb-4 col-12">ALL</h3></div>
+        
         <div className="col-12">
           <div className="col-20" style={{ color: '#dddddd' }}>
             <div className="row">

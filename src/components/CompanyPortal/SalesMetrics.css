@@ -15,3 +15,21 @@
   margin-left: 20px;
   padding-left: 0;
 }
+
+
+#orders-table-container button { 
+  background:none;
+  border:none; 
+  color: white;
+}
+
+button {
+  background:none;
+  border:none; 
+  color: #dddddd;
+}
+
+button:hover {
+  color: black;
+}
+

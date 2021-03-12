@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import OrdersTable from './OrdersTable';
 import EachOrdersProductsTable from './EachOrdersProductsTable';
+import OrdersDateFilter from './OrdersDateFilter';
 
 function Orders(props) {
     const [SelectedOrderID, setSelectedOrderID] = useState();
@@ -21,7 +22,7 @@ function Orders(props) {
     const pageChanger = () => {
         if (SelectedOrderID)
             return <EachOrdersProductsTable onChange={handleChange} orderID={SelectedOrderID} eachOrdersProducts={SelectedOrderIDProducts}/>
-        else return <OrdersTable orders={props.orders} onChange={handleChange}/>
+        else return <div id="orders-table-and-date-container"><OrdersDateFilter /><OrdersTable orders={props.orders} onChange={handleChange}/></div>
     }
 
   return (

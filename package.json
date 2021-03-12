@@ -10,6 +10,7 @@
     "node-fetch": "^2.6.1",
     "popper.js": "^1.16.1",
     "react": "^16.13.0",
+    "react-datepicker": "^3.6.0",
     "react-dom": "^16.13.0",
     "react-id-generator": "^3.0.1",
     "react-image": "^4.0.3",
