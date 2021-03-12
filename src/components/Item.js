@@ -25,7 +25,7 @@ constructor(props){
     extraCost: this.props.extraCost,
     sizeCost: parseFloat(this.props.products[0].sizeinfo[0].Price),
     totalCost: parseFloat(this.props.products[0].sizeinfo[0].Price + this.props.extraCost),
-    imageDir: "",
+    imageDir: './ItemImages/' + this.props.id + ".jpg",
     sizesCosts: this.props.products[0].sizeinfo
   };
 }
@@ -74,7 +74,6 @@ constructor(props){
       <div className="item-container">
         <div id={this.state.flavor.replace(/\s/g, '-') + "-image"}/>
         <h3>{this.state.flavor}</h3>
-       
 
         <form id="size-dropdown"onSubmit={this.orderHandler}>
           <select name="size-dropdown-items" onChange={this.setSizeAndPrice} id="size-dropdown">

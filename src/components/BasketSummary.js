@@ -19,7 +19,7 @@ function BasketSummary(props) {
 
   return (
     <div id="BasketSummary-container">
-        
+
 
         <div id="order-items-container" className="container-fluid">
         <hr className="col-12" style={{ marginLeft: '0.5rem' }} />

@@ -22,7 +22,7 @@
   border-radius: 15px;
   font-size: 15px;
   margin: 10px;
-  
+
 }
 
 #change-amount {
@@ -46,7 +46,7 @@ h4 {
 }
 
 #Vanilla\(Dairy-Free\)-image {
-  background-image: url(./ItemImages/F01.jpg);
+  background-image: url(./ItemImages/F02.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   height: 100px;
@@ -55,7 +55,7 @@ h4 {
 }
 
 #Rum-and-Raisin-image {
-  background-image: url(./ItemImages/F01.jpg);
+  background-image: url(./ItemImages/F03.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   height: 100px;
@@ -64,7 +64,7 @@ h4 {
 }
 
 #Honeycomb-image {
-  background-image: url(./ItemImages/F01.jpg);
+  background-image: url(./ItemImages/F04.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   height: 100px;
@@ -73,7 +73,7 @@ h4 {
 }
 
 #Mint-image {
-  background-image: url(./ItemImages/F01.jpg);
+  background-image: url(./ItemImages/F05.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   height: 100px;
@@ -82,7 +82,7 @@ h4 {
 }
 
 #Cherry-image {
-  background-image: url(./ItemImages/F01.jpg);
+  background-image: url(./ItemImages/F06.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   height: 100px;
@@ -91,7 +91,7 @@ h4 {
 }
 
 #Chocolate-image {
-  background-image: url(./ItemImages/F01.jpg);
+  background-image: url(./ItemImages/F07.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   height: 100px;
@@ -100,7 +100,7 @@ h4 {
 }
 
 #Salted-Caramel-image {
-  background-image: url(./ItemImages/F01.jpg);
+  background-image: url(./ItemImages/F08.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   height: 100px;
@@ -109,12 +109,10 @@ h4 {
 }
 
 #Strawberry-image {
-  background-image: url(./ItemImages/F01.jpg);
+  background-image: url(./ItemImages/F09.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   height: 100px;
   width: 100px;
   margin: auto;
 }
-
-
