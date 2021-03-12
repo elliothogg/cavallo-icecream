@@ -5,15 +5,13 @@ import Menu from '../Menu';
 import BasketSummary from '../BasketSummary';
 
 class Order extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+
 
   displayMenuAndBasketSummary() {
-    if (this.props.customerOrder.isDelivery == undefined) return <PostcodeChecker {...this.props}/>;
+    if (this.props.customerOrder.isDelivery === undefined) return <PostcodeChecker {...this.props}/>;
     else return <> <Menu {...this.props} /> <BasketSummary {...this.props} /> </>;
   }
-
+  
   
   render() {
 

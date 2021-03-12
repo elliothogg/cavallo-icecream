@@ -1,25 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 function ProductTable(props) {
-  const [info, setInfo] = useState({
-    orderId: '205-1752345-4325359',
-    orderTime: '17 July 2020',
-    TotalCost: 0.0,
-    Items: [
-      {
-          flavor: 'banana',
-          size: 'Large',
-          cost: '£3.22',
-          count: 2
-      },
-      {
-          flavor: 'orange',
-          size: 'Small',
-          cost: '£1.25',
-          count: 3
-      }
-    ]
-    })
+  
   return (
       <div id="product-table-container" className="container-fluid">
 

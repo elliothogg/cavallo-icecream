@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './CompanyPortalHeader.css';
 
 function CompanyPortalHeader(props) {
  
-  const activeStyle = {color: 'black'};
+
   return (
     <nav id='navbar-container'>
       <h2>COMPANY PORTAL</h2>

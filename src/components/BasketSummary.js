@@ -1,18 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './BasketSummary.css';
-import BasketItem from './BasketItem';
 import {Link, useLocation} from "react-router-dom";
 
 function BasketSummary(props) {
-  const [orders, setOrders] = useState(props.customerOrder.Items);
-
 
   const currentRoute = useLocation();
 
   const changeButtons = () => {
     if (currentRoute.pathname === '/')
       return <Link id='basketbuttons-orderpage' to="/checkout"><button>Checkout</button></Link>
-    else if (currentRoute.pathname == '/checkout')
+    else if (currentRoute.pathname === '/checkout')
       return <div id='basketbuttons-checkoutpage'><Link to="/"><button>Continue Shopping</button></Link><Link to="/order-confirmation"><button onClick={props.confirmOrder}>Place Order</button></Link></div>
   }
 

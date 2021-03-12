@@ -3,9 +3,7 @@ import './OrderConfirmation.css';
 import OrderResult from '../OrderResult';
 
 class orderConfirmation extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+ 
 
   render() {
     return (

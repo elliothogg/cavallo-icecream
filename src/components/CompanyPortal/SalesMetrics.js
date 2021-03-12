@@ -11,6 +11,7 @@ import PopularFlavoursTable from './PopularFlavoursTable';
 function SalesMetrics(props) {
   const [page, setPage] = useState('orders');
   const [orders, setOrders] = useState();
+  const [products, setProducts] = useState();
 
   useEffect(() => {
     fetch('/api/responseOrderData')
@@ -28,8 +29,10 @@ function SalesMetrics(props) {
     setPage(page);
   }
   
-
+ 
   const pageChanger = () => {
+    if (orders === undefined) return
+    
     if (page === 'products') return <><ProductTable products={props.products}/><SizeTable products={props.products}/></>
     else if (page === 'orders') return <Orders orders={orders}/>
     else if (page === 'metrics') return <><OrderMetricsTable /><PopularFlavoursTable /></>
