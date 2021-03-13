@@ -32,7 +32,7 @@ class Checkout extends React.Component {
                 </div>
 
                 {Object.values(this.state).every((val) => val) && (
-                    <div className="col-6">
+                    <div className="col-67">
                         <BasketSummary {...this.props} {...this.state} />
                     </div>
                 )}

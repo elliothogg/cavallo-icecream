@@ -1,0 +1,11 @@
+#Checkout-container{
+    background-image: url(https://cdn.now.howstuffworks.com/media-content/9e02c4af-da7f-46be-9f1b-f3efff81d815-1920-1080.jpg);
+    align-items: center;
+    justify-content: space-between;
+    background-size: cover;
+    background-position: -200px center;
+}
+
+.col-67{
+    margin: 100px;
+}

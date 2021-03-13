@@ -79,3 +79,20 @@
     width: 100px;
     float:right;
 }
+
+#Back-2-menu-button{
+  background: white;
+    color: rgb(255, 192, 203);
+    margin: 15px;
+    border-radius: 20%;
+    width: 100px;
+}
+
+#place-order-button{
+  background: white;
+  color: rgb(255, 192, 203);
+  margin: 15px;
+  border-radius: 20%;
+  width: 100px;
+  float: right;
+}

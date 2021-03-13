@@ -10,7 +10,7 @@ function BasketSummary(props) {
     if (currentRoute.pathname === '/')
       return <Link id='basketbuttons-orderpage' to="/checkout"><button id = "Checkout-button">Checkout</button></Link>
     else if (currentRoute.pathname === '/checkout')
-      return <div id='basketbuttons-checkoutpage'><Link to="/"><button>Continue Shopping</button></Link><Link to="/order-confirmation"><button onClick={props.confirmOrder}>Place Order</button></Link></div>
+      return <div id='basketbuttons-checkoutpage'><Link to="/"><button id = "Back-2-menu-button">Back to menu</button></Link><Link to="/order-confirmation"><button id = "place-order-button"onClick={props.confirmOrder}>Place Order</button></Link></div>
   }
 
   const deleteItem = (itemId) => {
