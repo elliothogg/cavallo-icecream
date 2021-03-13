@@ -8,7 +8,7 @@ function BasketSummary(props) {
 
   const changeButtons = () => {
     if (currentRoute.pathname === '/')
-      return <Link id='basketbuttons-orderpage' to="/checkout"><button>Checkout</button></Link>
+      return <Link id='basketbuttons-orderpage' to="/checkout"><button id = "Checkout-button">Checkout</button></Link>
     else if (currentRoute.pathname === '/checkout')
       return <div id='basketbuttons-checkoutpage'><Link to="/"><button>Continue Shopping</button></Link><Link to="/order-confirmation"><button onClick={props.confirmOrder}>Place Order</button></Link></div>
   }
@@ -30,8 +30,8 @@ function BasketSummary(props) {
 
 
         <div id="order-items-container" className="container-fluid">
-        <hr className="col-12" style={{ marginLeft: '0.5rem' }} />
-        <div className="col-12" style={{ color: '#dddddd' }}>
+        <hr className="col-12" />
+        <div className="col-12">
             <div className="row">
             <div className="col-3">FLAVOUR</div>
             <div className="col-3">QUANTITY</div>
@@ -44,23 +44,23 @@ function BasketSummary(props) {
         {props.customerOrder.Items.map((order, index) => {
         return (
             <div key={index} className="col-12">
-            <div className="row" style={{ color: '#333333' }}>
+            <div className="row">
                 <div className="col-3">{order.Flavour}</div>
                 <div className="col-3">{order.Quantity}</div>
                 <div className="col-2">{order.Size}</div>
                 <div className="col-2">{order.TotalCost}</div>
-                <div className="col-1"><button onClick={() => deleteItem(order.ItemID)}>X</button></div>
+                <div className="col-1"><button id = "Cancel-in-basket" onClick={() => deleteItem(order.ItemID)}>x</button></div>
 
-                <div ><button onClick={() => subtractOneFromItemCount(order.ItemID)}>-</button></div>
-                <div ><button onClick={() => addOneToItemCount(order.ItemID)}>+</button></div>
+                <div ><button id = "Minus-in-basket" onClick={() => subtractOneFromItemCount(order.ItemID)}>-</button></div>
+                <div ><button id = "Plus-in-basket" onClick={() => addOneToItemCount(order.ItemID)}>+</button></div>
             </div>
             </div>
         );
         })}
         </div>
 
-        <hr className="col-10" style={{ marginLeft: '0.5rem' }} />
-        <p id='total-price'>Total Price: £{props.customerOrder.TotalCost}</p>
+        <hr className="col-10"/>
+        <p id='total-price'>Total Price:  £{props.customerOrder.TotalCost}</p>
         {changeButtons()}
 
     </div>
