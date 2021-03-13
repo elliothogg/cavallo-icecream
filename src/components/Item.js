@@ -41,7 +41,7 @@ constructor(props){
 
   orderHandler = (e) => {
       e.preventDefault();
-      this.props.setCustomerOrder({ProductID: this.state.id, Flavour: this.state.flavor, Size:this.state.size, Quantity: this.state.count, ItemCost: this.state.totalCost, ItemID: this.state.id + this.state.size});
+      this.props.setCustomerOrder({ProductID: this.state.id, Flavour: this.state.flavor, Size:this.state.size, Quantity: this.state.count, TotalCost: this.state.totalCost, ItemID: this.state.id + this.state.size});
   };
 
 

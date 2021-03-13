@@ -166,7 +166,7 @@ class App extends React.Component {
     let orders = [...this.state.customerOrder.Items];
     let totalPrice = 0;
     for(let i=0; i<orders.length; i++) {
-      totalPrice += orders[i].ItemCost * orders[i].Quantity
+      totalPrice += orders[i].TotalCost * orders[i].Quantity
     }
     this.setState(state => ({
       customerOrder: { ...state.customerOrder, TotalCost: totalPrice}
