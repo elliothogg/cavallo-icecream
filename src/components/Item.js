@@ -86,10 +86,10 @@ constructor(props){
         </form>
 
         <div id="change-amount">
-        <button onClick={this.incrumentDown}>-</button>
+        <button id = "Minus-in-container" onClick={this.incrumentDown}>-</button>
         <h4>{this.state.count}</h4>
-        <button onClick={this.incrumentUp}>+</button>
-        <button onClick={this.orderHandler}>ADD TO CART</button>
+        <button id = "Plus-in-container" onClick={this.incrumentUp}>+</button>
+        <button id = "ATC-in-container" onClick={this.orderHandler}> ADD TO CART </button>
         </div>
       </div>
     );

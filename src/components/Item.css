@@ -16,6 +16,43 @@ h3{
   margin-top: 8px;
 }
 
+
+#Minus-in-container{
+  background: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    vertical-align: middle;
+    margin: 5px;
+    color: rgb(255, 192, 203);;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#Plus-in-container{
+  background: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    vertical-align: middle;
+    margin: 5px;
+    color: rgb(255, 192, 203);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#ATC-in-container{
+  background: white;
+    color: rgb(255, 192, 203);;
+    margin-top: 15px;
+    border-radius: 20%;
+    width: 100px;
+  }
+
 .item-container {
   background: rgba(238, 126, 182, 0.829);
   width: 200px;
