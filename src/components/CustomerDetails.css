@@ -1,5 +1,9 @@
 #customerDetails {
-    padding-top: 5px;
+    padding-top: 10px;
+}
+
+.mb-3{
+    color: rgb(255, 20, 147);
 }
 #customerDetails label {
     position: relative;
