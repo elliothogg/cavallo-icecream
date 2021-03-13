@@ -13,8 +13,16 @@ function BasketSummary(props) {
       return <div id='basketbuttons-checkoutpage'><Link to="/"><button>Continue Shopping</button></Link><Link to="/order-confirmation"><button onClick={props.confirmOrder}>Place Order</button></Link></div>
   }
 
-  const deleteItem = (item) => {
-    props.removeCustomerOrderItem(item);
+  const deleteItem = (itemId) => {
+    props.removeCustomerOrderItem(itemId);
+  }
+
+  const addOneToItemCount = (itemId) => {
+    props.incrementItemCountUp(itemId)
+  }
+
+  const subtractOneFromItemCount = (itemId) => {
+    props.incrementItemCountDown(itemId)
   }
 
   return (
@@ -40,8 +48,11 @@ function BasketSummary(props) {
                 <div className="col-3">{order.Flavour}</div>
                 <div className="col-3">{order.Quantity}</div>
                 <div className="col-2">{order.Size}</div>
-                <div className="col-2">{order.TotalCost}</div>
-                <div className="col-1"><button onClick={() => deleteItem(order.ProductID)}>X</button></div>
+                <div className="col-2">{order.ItemCost}</div>
+                <div className="col-1"><button onClick={() => deleteItem(order.ItemID)}>X</button></div>
+
+                <div className="col-1"><button onClick={() => subtractOneFromItemCount(order.ItemID)}>-</button></div>
+                <div className="col-1"><button onClick={() => addOneToItemCount(order.ItemID)}>+</button></div>
             </div>
             </div>
         );

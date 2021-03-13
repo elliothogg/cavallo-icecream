@@ -10,7 +10,7 @@ class BasketItem extends React.Component {
 
 
     deleteItem = () => {
-      this.props.removeCustomerOrderItem(this.props.id);
+      this.props.removeCustomerOrderItem(this.props.ItemID);
     }
 
     calculateFinalPrice(){
@@ -28,7 +28,7 @@ class BasketItem extends React.Component {
             <p>{this.props.size}</p>
             <p>£{this.calculateFinalPrice()}</p>
 
-            
+
 
             <button onClick={this.deleteItem}>Remove Item</button>
         </div>

@@ -40,7 +40,7 @@ class App extends React.Component {
         customerEmail: '',
         billingAddress: '',
         billingPostcode: '',
-        
+
         deliveryAddress: '',
         deliveryPostcode: '',
         deliveryTime: '12:00',
@@ -51,7 +51,10 @@ class App extends React.Component {
       setCustomerDetails: this.setCustomerDetails.bind(this),
       removeCustomerOrderItem: this.removeCustomerOrderItem.bind(this),
       setIsDelivery: this.setIsDelivery.bind(this),
-      confirmOrder: this.confirmOrder.bind(this)
+      confirmOrder: this.confirmOrder.bind(this),
+      incrementItemCountUp: this.incrementItemCountUp.bind(this),
+      incrementItemCountDown: this.incrementItemCountDown.bind(this)
+
     }
   }
 
@@ -73,7 +76,7 @@ class App extends React.Component {
     }).catch((error) => {
       console.error(error);
     });
-    
+
     fetch('/api/restaurant-information')
     .then((res) => {
       return res.json().then((response) => {
@@ -143,7 +146,7 @@ class App extends React.Component {
     //pass in an object with customers order (called in Menu.js)
 
     var orderItems = this.state.customerOrder.Items
-    const index = orderItems.findIndex(ord => ord.ProductID === order.ProductID)
+    const index = orderItems.findIndex(ord => ord.ItemID === order.ItemID)
 
     if (index !== -1){
       var customerOrd = this.state.customerOrder
@@ -163,7 +166,7 @@ class App extends React.Component {
     let orders = [...this.state.customerOrder.Items];
     let totalPrice = 0;
     for(let i=0; i<orders.length; i++) {
-      totalPrice += orders[i].TotalCost * orders[i].Quantity
+      totalPrice += orders[i].ItemCost * orders[i].Quantity
     }
     this.setState(state => ({
       customerOrder: { ...state.customerOrder, TotalCost: totalPrice}
@@ -178,11 +181,33 @@ class App extends React.Component {
   }
 
 
+  incrementItemCountUp(itemId){
+    var orderItems = this.state.customerOrder.Items
+    const index = orderItems.findIndex(item => item.ItemID === itemId)
+    var customerOrd = this.state.customerOrder
+    var items = customerOrd.Items
+    items[index].Quantity += 1
+    customerOrd.Items = items
+    this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
+  }
 
-  removeCustomerOrderItem(productID){
+  incrementItemCountDown(itemId){
+    var orderItems = this.state.customerOrder.Items
+    const index = orderItems.findIndex(item => item.ItemID === itemId)
+    var customerOrd = this.state.customerOrder
+    var items = customerOrd.Items
+    if (items[index].Quantity > 1) {
+      items[index].Quantity -= 1
+      customerOrd.Items = items
+      this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
+    }
+  }
+
+
+  removeCustomerOrderItem(itemId){
     var customerOrd = this.state.customerOrder
     let ords = customerOrd.Items
-    const orders = ords.filter(item => item.ProductID !== productID);
+    const orders = ords.filter(item => item.ItemID !== itemId);
     ords = orders
     customerOrd.Items = ords
     this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
@@ -198,7 +223,7 @@ class App extends React.Component {
 
   confirmOrder() {
     let postBody = []
-    postBody[0] = { 
+    postBody[0] = {
       storeID: this.state.companyInfo.ID,
       customerOrder: this.state.customerOrder,
       customerDetails: this.state.customerDetails

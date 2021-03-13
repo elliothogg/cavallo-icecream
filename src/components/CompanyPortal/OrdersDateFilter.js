@@ -6,9 +6,9 @@ import "./OrdersDateFilter.css";
 function OrdersDateFilter(props) {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
-    
 
-    
+
+
     function clearDates() {
         setStartDate();
         setEndDate();
@@ -20,7 +20,7 @@ function OrdersDateFilter(props) {
 
     if (endDate!= null)
         console.log( ('0' + endDate.getDate()).slice(-2) + '/' + ('0' + (endDate.getMonth()+1)).slice(-2) + '/' + endDate.getFullYear() );
-    
+
     return (
     <div id="order-date-filter-container">
 
@@ -29,7 +29,7 @@ function OrdersDateFilter(props) {
     <hr className="col-10" style={{ marginLeft: '0.5rem' }} />
     <h3 className="mb-4 col-12">ORDERS</h3>
     <hr className="col-10" style={{ marginLeft: '0.5rem' }} />
-    
+
     <div className="container-15" id="filter-buttons" style={{ color: '#dddddd' }}>
         <div className="row">
             <div className="col-1"><button>ALL</button></div>
@@ -38,7 +38,7 @@ function OrdersDateFilter(props) {
             <div className="col-2"><button>THIS MONTH</button></div>
             <div className="col-1"><button>CUSTOM:</button></div>
             <div className="col-0"><label>START DATE:</label></div>
-            <div className="col-1"><DatePicker 
+            <div className="col-1"><DatePicker
                                     selected={startDate}
                                     onChange={date => setStartDate(date)}
                                     selectsStart
@@ -47,7 +47,7 @@ function OrdersDateFilter(props) {
                                     placeholderText="Click to select a date"
                                     /></div>
             <div className="col-0"><label>END DATE:</label></div>
-            <div className="col-2"><DatePicker 
+            <div className="col-2"><DatePicker
                                     selected={endDate}
                                     onChange={date => setEndDate(date)}
                                     selectsEnd
@@ -56,7 +56,7 @@ function OrdersDateFilter(props) {
                                     minDate={startDate}
                                     placeholderText="Click to select a date"
                                     /></div>
-            <div className="col-sm"><button onClick={clearDates}>CLEAR</button></div>                        
+            <div className="col-sm"><button onClick={clearDates}>CLEAR</button></div>
         </div>
     </div>
 
@@ -64,7 +64,7 @@ function OrdersDateFilter(props) {
 
     </div>
     );
-      
+
 }
 
 export default OrdersDateFilter;

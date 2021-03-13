@@ -1,12 +1,10 @@
 import React from 'react';
 import Item from './Item';
-
-
 import './Menu.css';
 
 
 class Menu extends React.Component {
- 
+
 
   render() {
     return (

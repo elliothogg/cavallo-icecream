@@ -25,9 +25,8 @@ constructor(props){
     extraCost: this.props.extraCost,
     sizeCost: parseFloat(this.props.products[0].sizeinfo[0].Price),
     totalCost: parseFloat(this.props.products[0].sizeinfo[0].Price + this.props.extraCost),
-    imageDir: './ItemImages/' + this.props.id + ".jpg",
     sizesCosts: this.props.products[0].sizeinfo
-  };
+    };
 }
 
   incrumentUp = () => {
@@ -42,7 +41,7 @@ constructor(props){
 
   orderHandler = (e) => {
       e.preventDefault();
-      this.props.setCustomerOrder({ProductID: this.state.id, Flavour: this.state.flavor, Size:this.state.size, Quantity: this.state.count, TotalCost: this.state.totalCost});
+      this.props.setCustomerOrder({ProductID: this.state.id, Flavour: this.state.flavor, Size:this.state.size, Quantity: this.state.count, ItemCost: this.state.totalCost, ItemID: this.state.id + this.state.size});
   };
 
 
