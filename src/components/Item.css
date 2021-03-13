@@ -74,8 +74,13 @@ h4{
   text-align: center;
 }
 
+.item-container h3{
+  font-size: 15px;
+}
 
-h4 {
+
+.item-container h4 {
+  font-size: 15px;
   display: inline;
 }
 

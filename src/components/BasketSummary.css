@@ -20,51 +20,7 @@
   color: rgb(255, 255, 255);
 }
 
-#Cancel-in-basket{
-  background: white;
-    width: 16.5px;
-    height: 16.5px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 2px;
-    vertical-align: middle;
-    margin: 10 10 20px;
-    
-    color: rgb(255, 20, 147);
-    font-size: 15px;
-    font-weight: bold;
-    
-}
 
-#Minus-in-basket{
-  background: white;
-    width: 16.5px;
-    height: 16.5px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 7px;
-    vertical-align: middle;
-    margin: 10px;
-    margin-left: 15px;
-    color: rgb(255, 20, 147);
-    font-size: 15px;
-    font-weight: bold;
-}
-
-#Plus-in-basket{
-  background: white;
-    width: 16.5px;
-    height: 16.5px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 17.5px;
-    vertical-align: middle;
-    margin: 10px;
-    color: rgb(255, 20, 147);
-    font-size: 15px;
-    font-weight: bold;
-    padding-bottom: 5px;
-}
 
 #total-price{
  color: rgb(255, 20, 147);
