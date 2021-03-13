@@ -71,6 +71,7 @@ constructor(props){
   render() {
     return (
       <div className="item-container">
+        
         <div id={this.state.flavor.replace(/\s/g, '-') + "-image"}/>
         <h3>{this.state.flavor}</h3>
 
