@@ -1,10 +1,31 @@
 #Checkout-container{
     background-image: url(https://cdn.now.howstuffworks.com/media-content/9e02c4af-da7f-46be-9f1b-f3efff81d815-1920-1080.jpg);
-    align-items: center;
+    
     justify-content: space-between;
     background-size: cover;
-    background-position: -200px center;
+    background-position: -250px center;
+    
 }
+
+#Checkout-container #BasketSummary-container{
+position: fixed;
+margin-top: -80px;
+margin-left: -500px;
+}
+
+
+#Checkout-container #Minus-in-basket{
+    margin-left: -15px;
+    margin-right: 15px;
+
+}
+
+#Checkout-container #Plus-in-basket{
+    margin-left: -10px;
+
+}
+
+
 
 .col-67{
     margin: 100px;

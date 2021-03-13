@@ -33,10 +33,10 @@ function BasketSummary(props) {
         <hr className="col-12" />
         <div className="col-12">
             <div className="row">
-            <div className="col-3">FLAVOUR</div>
-            <div className="col-3">QUANTITY</div>
-            <div className="col-2">SIZE</div>
-            <div className="col-1">PRICE</div>
+            <div className="col-3" id = "flav">FLAVOUR</div>
+            <div className="col-3" id = "quan">QUANTITY</div>
+            <div className="col-2" id = "size">SIZE</div>
+            <div className="col-1" id = "price">PRICE</div>
             <div className="col-1"></div>
             </div>
         </div>
@@ -45,10 +45,10 @@ function BasketSummary(props) {
         return (
             <div key={index} className="col-12">
             <div className="row">
-                <div className="col-3">{order.Flavour}</div>
-                <div className="col-3">{order.Quantity}</div>
-                <div className="col-2">{order.Size}</div>
-                <div className="col-2">{order.TotalCost}</div>
+                <div className="col-3" id = "order-flav">{order.Flavour}</div>
+                <div className="col-3" id = "order-quan">{order.Quantity}</div>
+                <div className="col-2" id = "order-size">{order.Size}</div>
+                <div className="col-2" id = "order-price">{order.TotalCost}</div>
                 <div className="col-1"><button id = "Cancel-in-basket" onClick={() => deleteItem(order.ItemID)}>x</button></div>
 
                 <div ><button id = "Minus-in-basket" onClick={() => subtractOneFromItemCount(order.ItemID)}>-</button></div>

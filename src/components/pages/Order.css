@@ -13,50 +13,6 @@
     padding: 0px;
 }
 
-#orderPage-container #Cancel-in-basket{
-    background: white;
-      width: 16.5px;
-      height: 16.5px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 2px;
-      margin-left: -20px;
-      vertical-align: middle;
-      color: rgb(255, 20, 147);
-      font-size: 15px;
-      font-weight: bold;
-      
-  }
-  
-  #orderPage-container #Minus-in-basket{
-    background: white;
-      width: 16.5px;
-      height: 16.5px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 7px;
-      vertical-align: middle;
-      margin-left: -20px;
-      color: rgb(255, 20, 147);
-      font-size: 15px;
-      font-weight: bold;
-  }
-  
-  #orderPage-container #Plus-in-basket{
-    background: white;
-      width: 16.5px;
-      height: 16.5px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 17.5px;
-      vertical-align: middle;
-      margin-left: 4px;
-      color: rgb(255, 20, 147);
-      font-size: 15px;
-      font-weight: bold;
-      padding-bottom: 5px;
-  }
-
   #orderPage-container #Checkout-button{
     margin: 10px;
     background: white;
