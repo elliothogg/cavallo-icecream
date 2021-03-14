@@ -8,7 +8,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     box-sizing: border-box;
-    height: 574px;
+    height: 140vh;
 }
 
 #orderResult .col-4{
@@ -29,7 +29,7 @@
     width: 1000px;
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 70vh;
     transform: translate(-50%, -50%);
     border: 5px solid #FFFF00;
 
