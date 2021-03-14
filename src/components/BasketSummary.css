@@ -4,11 +4,14 @@
   background-color: rgb(255, 192, 203, 0.80);
   width: 400px;
   position: fixed;
-  top: 175px;
-  left: 800px;
+  top: 25%;
+  left: 60%; 
+  /*25 60*/
   
   
 }
+
+
 
 #flav{
  font-size: 15px;
