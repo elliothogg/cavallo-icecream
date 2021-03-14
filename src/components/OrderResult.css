@@ -14,10 +14,17 @@
 #orderResult .col-4{
     color: white;
 }
+#orderResult .col-12{
+    color: rgb(226, 48, 226);
+}
+
+#orderResult .mb-3{
+    color: rgb(255, 20, 147);
+}
 
 #resultContent {
     border-radius: 10px;
-    background-color: rgb(255, 192, 203, 0.7);
+    background-color: rgb(255, 192, 203, 0.8);
 
     width: 1000px;
     position: absolute;
