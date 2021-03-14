@@ -6,25 +6,74 @@
   linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);;
   display: flex;
   align-items: center;
-  clear: both;
-  justify-content: center;
+  justify-content: space-evenly;
+  
 }
 
-#com-details{
-  margin-top: 8px;
-  font-size: 20px;
-}
-#opening-times{
-  font-size: 10px;
-  margin-bottom: -10px;
-}
-
-
-#ul-footer li {
-  flex-direction: row;
+#address{
+  text-align:left;
+  float:left;
+  width: 33%;
+  margin-left: 20px;
   color: white;
-  margin: 10px;
-  display:inline;
+  margin-bottom: 0px
 }
+
+#contact{
+  text-align:center;
+  width: 33%;
+  color: white;
+  margin-bottom: 0px
+}
+
+#opening-hours{
+
+  text-align:right;
+  float:inline-start;
+  width: 33%;
+  margin-right: 20px;
+  margin-bottom: 0px;
+}
+
+#address-title{
+  text-decoration: underline;
+
+  color: white !important;
+}
+
+#address-details{
+  margin-top: -10px;
+  color: white !important;
+  width: 50%;
+  margin-bottom: 5px;
+}
+
+#contact-us{
+  text-decoration: underline;
+  margin-top: 10px;
+  color: white !important;
+}
+
+#email{
+  margin-top: -12px;
+  color: white !important;
+}
+
+#tele{
+  margin-top: -10px;
+  color: white !important;
+}
+
+#weekday{
+  margin-top: 15px;
+  color: white !important;
+}
+
+#weekend{
+  color: white !important;
+}
+
+
+
 
 

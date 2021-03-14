@@ -5,19 +5,25 @@ function Footer(props) {
   return (
     
     <div className='footer-container'>
-     <ul id = "ul-footer">
-       < div id = "com-details">
-       <li>{props.companyInfo.Address} {props.companyInfo.PostCode}</li>
-       <li>{props.companyInfo.Email}</li>
-       <li>{props.companyInfo.Telephone}</li>
+    
+      
+       <div id = "address">
+       <p id = "address-title">Address : </p>
+       <p id = "address-details">{props.companyInfo.Address} {props.companyInfo.PostCode}</p>
        </div>
-       < div id = "opening-times">
-       <li>Weekday Opening Times:</li>
-       <li>{props.companyInfo.WeekdayOpeningTime} - {props.companyInfo.WeekdayClosingTime}</li>
-       <li>Weekend Opening Times:</li>
-       <li>{props.companyInfo.WeekendClosingTime} - {props.companyInfo.WeekendOpeningTime}</li>
+
+       <div id = "contact">
+       <p id = "contact-us"> Contact Us:</p>
+       <p id = "email">{props.companyInfo.Email}</p>
+       <p id = "tele">{props.companyInfo.Telephone}</p>
        </div>
-     </ul>
+       
+       
+       <div id = "opening-hours">
+       <p id = "weekday">Weekday Opening Times: {props.companyInfo.WeekdayOpeningTime} - {props.companyInfo.WeekdayClosingTime}</p>
+       <p id = "weekend">Weekend Opening Times: {props.companyInfo.WeekendClosingTime} - {props.companyInfo.WeekendOpeningTime}</p>
+       </div>
+
     </div>
   );
 }
