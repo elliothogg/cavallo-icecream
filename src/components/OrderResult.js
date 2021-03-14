@@ -25,6 +25,9 @@ function OrderResult(props) {
 
     return (
         <div id="orderResult" className="container-fluid">
+
+            <div id = "blank"></div>
+            <div id = "resultContent">
             <h2 className="mb-3 col-12">Order Details</h2>
             <div className="col-12">
                 Ordered on {orderTime} | Order # {orderId}
@@ -99,6 +102,7 @@ function OrderResult(props) {
                             <div className="row">
                                 <div className="col-6" style={{ paddingLeft: 0 }}>
                                     {deliveryAddress}
+                                    </div>
                                 </div>
                             </div>
                         </div>

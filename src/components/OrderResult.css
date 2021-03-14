@@ -3,9 +3,27 @@
 }
 
 #orderResult {
-    background-image: url(/src/BackgroundPic/happy.jpg);
+    
+    background-image: url(./ItemImages/happy.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     box-sizing: border-box;
     height: 574px;
+}
+
+#orderResult .col-4{
+    color: white;
+}
+
+#resultContent {
+    border-radius: 10px;
+    background-color: rgb(255, 192, 203, 0.7);
+
+    width: 1000px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #FFFF00;
+
 }
