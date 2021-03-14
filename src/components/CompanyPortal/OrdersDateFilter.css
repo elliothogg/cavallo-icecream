@@ -7,3 +7,13 @@
     padding: 0;
     margin: 0;
 }
+
+#end-date {
+    padding-left: 70px;
+}
+
+.filter-text {
+    background:none;
+    border:none; 
+    color: #dddddd;
+}

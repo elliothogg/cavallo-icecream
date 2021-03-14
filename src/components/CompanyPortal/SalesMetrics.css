@@ -23,13 +23,11 @@
   color: white;
 }
 
-button {
-  background:none;
-  border:none; 
-  color: #dddddd;
+#sales-metrics-container button {
+ 
 }
 
-button:hover {
+#sales-metrics-container button:hover {
   color: black;
 }
 

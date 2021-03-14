@@ -18,7 +18,7 @@ router.get('/api/currentTime', urlendodedParser, function(req, res, next){
 module.exports = router;
 
 function getcurrentTime(callback){
-    var currentTime = sd.format(new Date().getTime, 'DD/MM/YY HH:mm:ss');
+    var currentTime = sd.format(new Date().getTime, 'DD/MM/YYYY HH:mm:ss');
 	return callback(null, {
 		curTime: currentTime
 	})

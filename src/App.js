@@ -261,7 +261,7 @@ class App extends React.Component {
             <Route path='/checkout' exact render={() => <Checkout {...this.state} />} />
             <Route path='/order-confirmation' exact render={() => <OrderConfirmation {...this.state} />} />
             <Route path='/company-portal-login' component={CompanyPortal} />
-            <Route path='/company-portal' exact render={() => <SalesMetrics products={this.state.products} />} />
+            <Route path='/company-portal' exact render={() => <SalesMetrics currentTime={this.state.currentTime} products={this.state.products} />} />
           </Switch>
         <Footer {...this.state} />
         </Router>
