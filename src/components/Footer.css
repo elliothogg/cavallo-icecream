@@ -4,12 +4,20 @@
   linear-gradient(127deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
   linear-gradient(229deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
   linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);;
-
   display: flex;
   align-items: center;
   clear: both;
+  justify-content: center;
 }
 
+#com-details{
+  margin-top: 8px;
+  font-size: 20px;
+}
+#opening-times{
+  font-size: 10px;
+  margin-bottom: -10px;
+}
 
 
 #ul-footer li {
@@ -17,11 +25,6 @@
   color: white;
   margin: 10px;
   display:inline;
-  font-size: 12px;
-  margin-bottom: 0px !important;
 }
 
 
-#ul-footer{
-  justify-content:stretch;
-}

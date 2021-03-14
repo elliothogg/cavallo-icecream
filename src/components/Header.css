@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 .navbar {
   background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
@@ -12,9 +13,10 @@
 
 #rest-name {
   color: white;
+  font-size: 50px;
   font-family: 'Lobster', cursive;
   text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
-  margin-top: 10px;
+  margin-top: 15px;
   
   text-decoration: underline overline dotted;
   
@@ -22,10 +24,11 @@
 
 #rest-slogan{
   margin-left: 80px;
-  font-size: 60px;
+  margin-top: 10px;
+  font-size: 45px;
   text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c, 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 19px 9px rgb(255, 20, 147);
   color: #ffffff;
-  font-family: 'Redressed', cursive;
+  font-family: 'Dancing Script', cursive;
     }
 
 
@@ -45,10 +48,6 @@
   margin: 0px;
 }
 
-.nav-item {
-  height: 80px;
-}
-
 .nav-links {
   color: #fff;
   display: flex;
@@ -56,6 +55,8 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
   height: 100%;
+  font-size: 20px;
+  font-family: 'Indie Flower', cursive;
 }
 
 .nav-links:hover {

@@ -7,29 +7,8 @@
     
 }
 
-#Checkout-container #BasketSummary-container{
-position: fixed;
-margin-top: 20px;
-margin-left: -600px;
-
-}
 
 
-#Checkout-container .mb-3{
-    margin: 0px ;
-    text-decoration: underline;
-}
-
-#Checkout-container #Minus-in-basket{
-    margin-left: -15px;
-    margin-right: 15px;
-
-}
-
-#Checkout-container #Plus-in-basket{
-    margin-left: -10px;
-
-}
 
 
 

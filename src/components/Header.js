@@ -19,12 +19,12 @@ function Header(props) {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            <li className='nav-item'>
+            <li className='nav-item' id = "order-tab">
               <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                 Order
               </Link>
             </li>
-            <li className='nav-item'>
+            <li className='nav-item' id = "com-port-tab">
               <Link
                 to='/company-portal'
                 className='nav-links'

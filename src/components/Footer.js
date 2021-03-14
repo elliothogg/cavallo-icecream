@@ -6,15 +6,15 @@ function Footer(props) {
     
     <div className='footer-container'>
      <ul id = "ul-footer">
-       < div id = "first">
+       < div id = "com-details">
        <li>{props.companyInfo.Address} {props.companyInfo.PostCode}</li>
        <li>{props.companyInfo.Email}</li>
        <li>{props.companyInfo.Telephone}</li>
        </div>
-       < div id = "second">
-       <li>Weekday Opening Times</li>
+       < div id = "opening-times">
+       <li>Weekday Opening Times:</li>
        <li>{props.companyInfo.WeekdayOpeningTime} - {props.companyInfo.WeekdayClosingTime}</li>
-       <li>Weekend Opening Times</li>
+       <li>Weekend Opening Times:</li>
        <li>{props.companyInfo.WeekendClosingTime} - {props.companyInfo.WeekendOpeningTime}</li>
        </div>
      </ul>
