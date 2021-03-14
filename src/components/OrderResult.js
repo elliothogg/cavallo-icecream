@@ -1,9 +1,12 @@
 import React from 'react';
 import './OrderResult.css';
 
+//Now App.js state is in this component, you can access it by doing {this.props.customerOrder.item1} or {this.props.customerDetails.name} as seen in App.js state.
+//You can use these props to populate your forms with real order and customer data.
+
 const defaultProps = {
     customerOrder: {
-        orderID: '',
+        orderId: '',
         orderTime: '',
         TotalCost: 0,
         Items: []
@@ -15,16 +18,19 @@ const defaultProps = {
 };
 
 function OrderResult(props) {
-    // const { orderID, orderTime, TotalCost: totalCost, Items: orderItems } = props.customerOrder;
-    const { orderID, orderTime } = props.location.state;
-    const { TotalCost: totalCost, Items: orderItems } = props.customerOrder;
-    const { deliveryAddress, billingAddress } = props.customerDetails;
+    const { customerOrder, customerDetails } = props;
+
+    const { orderID: orderId, orderTime, TotalCost: totalCost, Items: orderItems } = customerOrder;
+    const { deliveryAddress, billingAddress } = customerDetails;
 
     return (
         <div id="orderResult" className="container-fluid">
+
+            <div id = "blank"></div>
+            <div id = "resultContent">
             <h2 className="mb-3 col-12">Order Details</h2>
             <div className="col-12">
-                Ordered on {orderTime} | Order # {orderID}
+                Ordered on {orderTime} | Order # {orderId}
             </div>
 
             <hr className="col-10" style={{ marginLeft: '0.5rem' }} />
@@ -96,6 +102,7 @@ function OrderResult(props) {
                             <div className="row">
                                 <div className="col-6" style={{ paddingLeft: 0 }}>
                                     {deliveryAddress}
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -33,14 +33,6 @@ class App extends React.Component {
         Items: []
       },
 
-      paymentDetails: {
-        paymentMethod: 'credit',
-        cardName: '',
-        cardNumber: '',
-        expirationDate: '',
-        securityCode: ''
-      },
-
       customerDetails: {
         customerFirstName: '',
         customerLastName: '',
@@ -51,12 +43,11 @@ class App extends React.Component {
 
         deliveryAddress: '',
         deliveryPostcode: '',
-        deliveryTime: '12:00am',
+        deliveryTime: '12:00',
         driverInstructions: ''
         },
 
       setCustomerOrder: this.setCustomerOrder.bind(this),
-      setPaymentDetails: this.setPaymentDetails.bind(this),
       setCustomerDetails: this.setCustomerDetails.bind(this),
       removeCustomerOrderItem: this.removeCustomerOrderItem.bind(this),
       setIsDelivery: this.setIsDelivery.bind(this),
@@ -232,10 +223,6 @@ class App extends React.Component {
 
   }
 
-  setPaymentDetails(paymentDetails) {
-    //pass in an object with customers details (called in Payment.js)
-    this.setState({ paymentDetails });
-  }
 
   confirmOrder() {
     let postBody = []
@@ -272,7 +259,7 @@ class App extends React.Component {
             {/* Order, Checkout, and OrderConfirmation now receive all of App.js state (as props) */}
             <Route path='/' exact render={() => <Order {...this.state} />} />
             <Route path='/checkout' exact render={() => <Checkout {...this.state} />} />
-            <Route path="/order-confirmation" exact render={(route) => (<OrderConfirmation {...this.state} location={route.location} />)} />
+            <Route path='/order-confirmation' exact render={() => <OrderConfirmation {...this.state} />} />
             <Route path='/company-portal-login' component={CompanyPortal} />
             <Route path='/company-portal' exact render={() => <SalesMetrics products={this.state.products} />} />
           </Switch>

@@ -4,120 +4,29 @@ import './CustomerDetails.css';
 function CustomerDetails(props, ref) {
     const [customerForm, setCustomerForm] = useState(Object.assign({}, props.customerDetails));
 
-    const { isDelivery } = props.customerOrder;
+    // true: valid; false: invalid
+    const [formValidation, setFormValidation] = useState(() => {
+        const initialValidation = {};
+        Object.keys(customerForm).forEach((key) => {
+            initialValidation[key] = true;
+        });
 
-    const [formFieldErrorMsg, setFormFieldErrorMsg] = useState(() => {
-        const initialState = {
-            customerFirstName: '',
-            customerLastName: '',
-            customerPhone: '',
-            customerEmail: '',
-            billingAddress: '',
-            billingPostcode: '',
-            deliveryAddress: '',
-            deliveryPostcode: '',
-            deliveryTime: ''
-        };
+        delete initialValidation.driverInstructions;
 
-        if (!isDelivery) {
-            delete initialState.deliveryAddress;
-            delete initialState.deliveryPostcode;
-            delete initialState.deliveryTime;
-        }
-
-        return initialState;
+        return initialValidation;
     });
 
-    const formValidator = {
-        customerFirstName: (val) => {
-            if (!val.replace(/\s/g, '')) {
-                return 'The first name is required.';
-            }
-
-            return '';
-        },
-        customerLastName: (val) => {
-            if (!val.replace(/\s/g, '')) {
-                return 'The last name is required.';
-            }
-
-            return '';
-        },
-        customerPhone: (val) => {
-            if (!val.replace(/\s/g, '')) {
-                return 'The phone is required.';
-            }
-
-            return '';
-        },
-        customerEmail: (val) => {
-            const emailRegex = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-            if (!val.replace(/\s/g, '')) {
-                return 'The email is required.';
-            } else if (!emailRegex.test(val)) {
-                return 'The email is not a valid format.';
-            }
-
-            return '';
-        },
-        billingAddress: (val) => {
-            if (!val.replace(/\s/g, '')) {
-                return 'The billing address is required.';
-            }
-        },
-        billingPostcode: (val) => {
-            if (!val.replace(/\s/g, '')) {
-                return 'The billing postcode is required.';
-            }
-
-            return '';
-        },
-        deliveryAddress: (val) => {
-            if (!val.replace(/\s/g, '')) {
-                return 'The delivery address is required.';
-            }
-
-            return '';
-        },
-        deliveryPostcode: (val) => {
-            if (!val.replace(/\s/g, '')) {
-                return 'The delivery postcode is required.';
-            } else if (!val.startsWith('NE')) {
-                return 'The delivery postcode must start with NE.';
-            }
-
-            return '';
-        },
-        deliveryTime: (val) => {
-            if (!val.replace(/\s/g, '')) {
-                return 'The delivery time is required.';
-            }
-
-            return '';
-        }
+    const validateField = (val) => {
+        if (!val.replace(/\s/g, '')) return false;
+        return true;
     };
-
-    const validateCustomerForm = (formData) => {
-        setFormFieldErrorMsg((state) => {
-            Object.keys(state).forEach((key) => {
-                const validator = formValidator[key];
-                state[key] = validator(formData[key]);
-            });
-
-            return { ...state };
-        });
-
-        return Object.keys(formFieldErrorMsg).every((key) => {
-            const validator = formValidator[key];
-
-            return !validator(formData[key]);
-        });
+    const validateCustomerForm = () => {
+        const formData = Object.assign({}, customerForm);
+        delete formData.driverInstructions;
+        return Object.values(formData).every((fieldVal) => fieldVal);
     };
     const resetFormValidation = (key) => {
-        setFormFieldErrorMsg((state) => ({
-            ...state,
-            [key]: ''
-        }));
+        setFormValidation((state) => ({ ...state, [key]: true }));
     };
 
     const invalidInputStyle = { border: '1px solid red' };
@@ -136,17 +45,10 @@ function CustomerDetails(props, ref) {
         // update form field value
         setCustomerForm((state) => ({ ...state, [key]: value }));
     };
-
     const handleBlur = (evt) => {
         const { id: key, value } = evt.target;
 
-        const validator = formValidator[key];
-
-        validator &&
-            setFormFieldErrorMsg((state) => ({
-                ...state,
-                [key]: validator(value)
-            }));
+        setFormValidation((state) => ({ ...state, [key]: validateField(value) }));
     };
 
     // update the customerDetails state in App.js when the customerForm changed
@@ -160,12 +62,8 @@ function CustomerDetails(props, ref) {
     useImperativeHandle(ref, () => ({ validateCustomerForm }));
 
     return (
-        <div id="customerDetails">
+        <div id="customerDetails" className="col-md-12 order-md-1">
             <h2 className="mb-3">MY DETAILS</h2>
-
-            <div style={{ marginBottom: '0.2rem', color: 'red' }}>
-                *Fileds marked with an asterisk must be filled in to proceed
-            </div>
 
             <form className="needs-validation">
                 <div className="row">
@@ -180,13 +78,13 @@ function CustomerDetails(props, ref) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required={true}
-                            style={formFieldErrorMsg.customerFirstName ? invalidInputStyle : {}}
+                            style={formValidation.customerFirstName ? {} : invalidInputStyle}
                         />
                         <div
                             className="invalid-feedback"
-                            style={formFieldErrorMsg.customerFirstName ? { display: 'block' } : {}}
+                            style={formValidation.customerFirstName ? {} : { display: 'block' }}
                         >
-                            {formFieldErrorMsg.customerFirstName}
+                            The first name is required.
                         </div>
                     </div>
                     <div className="col-md-6 mb-3">
@@ -200,13 +98,13 @@ function CustomerDetails(props, ref) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required={true}
-                            style={formFieldErrorMsg.customerLastName ? invalidInputStyle : {}}
+                            style={formValidation.customerLastName ? {} : invalidInputStyle}
                         />
                         <div
                             className="invalid-feedback"
-                            style={formFieldErrorMsg.customerLastName ? { display: 'block' } : {}}
+                            style={formValidation.customerLastName ? {} : { display: 'block' }}
                         >
-                            {formFieldErrorMsg.customerLastName}
+                            The last name is required.
                         </div>
                     </div>
                 </div>
@@ -223,13 +121,13 @@ function CustomerDetails(props, ref) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required={true}
-                            style={formFieldErrorMsg.customerPhone ? invalidInputStyle : {}}
+                            style={formValidation.customerPhone ? {} : invalidInputStyle}
                         />
                         <div
                             className="invalid-feedback"
-                            style={formFieldErrorMsg.customerPhone ? { display: 'block' } : {}}
+                            style={formValidation.customerPhone ? {} : { display: 'block' }}
                         >
-                            {formFieldErrorMsg.customerPhone}
+                            The telephone is required.
                         </div>
                     </div>
                 </div>
@@ -246,13 +144,13 @@ function CustomerDetails(props, ref) {
                             onBlur={handleBlur}
                             placeholder="ex: myname@example.com"
                             required={true}
-                            style={formFieldErrorMsg.customerEmail ? invalidInputStyle : {}}
+                            style={formValidation.customerEmail ? {} : invalidInputStyle}
                         />
                         <div
                             className="invalid-feedback"
-                            style={formFieldErrorMsg.customerEmail ? { display: 'block' } : {}}
+                            style={formValidation.customerEmail ? {} : { display: 'block' }}
                         >
-                            {formFieldErrorMsg.customerEmail}
+                            The email is required
                         </div>
                     </div>
                 </div>
@@ -269,13 +167,13 @@ function CustomerDetails(props, ref) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required={true}
-                            style={formFieldErrorMsg.billingAddress ? invalidInputStyle : {}}
+                            style={formValidation.billingAddress ? {} : invalidInputStyle}
                         />
                         <div
                             className="invalid-feedback"
-                            style={formFieldErrorMsg.billingAddress ? { display: 'block' } : {}}
+                            style={formValidation.billingAddress ? {} : { display: 'block' }}
                         >
-                            {formFieldErrorMsg.billingAddress}
+                            The billing address is required.
                         </div>
                     </div>
                 </div>
@@ -292,126 +190,108 @@ function CustomerDetails(props, ref) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required={true}
-                            style={formFieldErrorMsg.billingPostcode ? invalidInputStyle : {}}
+                            style={formValidation.billingPostcode ? {} : invalidInputStyle}
                         />
                         <div
                             className="invalid-feedback"
-                            style={formFieldErrorMsg.billingPostcode ? { display: 'block' } : {}}
+                            style={formValidation.billingPostcode ? {} : { display: 'block' }}
                         >
-                            {formFieldErrorMsg.billingPostcode}
+                            The billing postcode is required.
                         </div>
                     </div>
                 </div>
 
-                {isDelivery && (
-                    <div>
-                        <div className="row">
-                            <div className="col-md-12 mb-3">
-                                <label htmlFor="deliveryAddress">Delivery address&nbsp;</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="deliveryAddress"
-                                    value={customerForm.deliveryAddress}
-                                    placeholder=""
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    required={true}
-                                    style={
-                                        formFieldErrorMsg.deliveryAddress ? invalidInputStyle : {}
-                                    }
-                                />
-                                <div
-                                    className="invalid-feedback"
-                                    style={
-                                        formFieldErrorMsg.deliveryAddress
-                                            ? { display: 'block' }
-                                            : {}
-                                    }
-                                >
-                                    {formFieldErrorMsg.deliveryAddress}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-md-12 mb-3">
-                                <label htmlFor="deliveryPostcode">Delivery Postcode&nbsp;</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="deliveryPostcode"
-                                    value={customerForm.deliveryPostcode}
-                                    placeholder=""
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    required={true}
-                                    style={
-                                        formFieldErrorMsg.deliveryPostcode ? invalidInputStyle : {}
-                                    }
-                                />
-                                <div
-                                    className="invalid-feedback"
-                                    style={
-                                        formFieldErrorMsg.deliveryPostcode
-                                            ? { display: 'block' }
-                                            : {}
-                                    }
-                                >
-                                    {formFieldErrorMsg.deliveryPostcode}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-md-12 mb-3">
-                                <label htmlFor="deliveryTime">Delivery time&nbsp;</label>
-                                <select
-                                    className="custom-select d-block w-100"
-                                    id="deliveryTime"
-                                    onChange={handleChange}
-                                    required={true}
-                                    style={formFieldErrorMsg.deliveryTime ? invalidInputStyle : {}}
-                                >
-                                    <option value="asap">ASAP</option>
-                                    {deliveryTimeOpts.map((time) => {
-                                        return (
-                                            <option value={time} key={time}>
-                                                {time}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                                <div
-                                    className="invalid-feedback"
-                                    style={
-                                        formFieldErrorMsg.deliveryTime ? { display: 'block' } : {}
-                                    }
-                                >
-                                    {formFieldErrorMsg.deliveryTime}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-md-12 mb-3">
-                                <label htmlFor="driverInstructions" className="driver-instructions">
-                                    Driver instructions
-                                    <span className="text-muted">(Optional)</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="driverInstructions"
-                                    value={customerForm.driverInstructions}
-                                    placeholder=""
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                            </div>
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="deliveryAddress">Delivery address&nbsp;</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="deliveryAddress"
+                            value={customerForm.deliveryAddress}
+                            placeholder=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.deliveryAddress ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.deliveryAddress ? {} : { display: 'block' }}
+                        >
+                            The delivery address is required.
                         </div>
                     </div>
-                )}
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="deliveryPostcode">Delivery Postcode&nbsp;</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="deliveryPostcode"
+                            value={customerForm.deliveryPostcode}
+                            placeholder=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required={true}
+                            style={formValidation.deliveryPostcode ? {} : invalidInputStyle}
+                        />
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.deliveryPostcode ? {} : { display: 'block' }}
+                        >
+                            The delivery postcode is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="deliveryTime">Delivery time&nbsp;</label>
+                        <select
+                            className="custom-select d-block w-100"
+                            id="deliveryTime"
+                            onChange={handleChange}
+                            required={true}
+                            style={formValidation.deliveryTime ? {} : invalidInputStyle}
+                        >
+                            <option value="asap">ASAP</option>
+                            {deliveryTimeOpts.map((time) => {
+                                return (
+                                    <option value={time} key={time}>
+                                        {time}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                        <div
+                            className="invalid-feedback"
+                            style={formValidation.deliveryTime ? {} : { display: 'block' }}
+                        >
+                            The delivery time is required
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12 mb-3">
+                        <label htmlFor="driverInstructions" className="driver-instructions">
+                            Driver instructions
+                            <span className="text-muted">(Optional)</span>
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="driverInstructions"
+                            value={customerForm.driverInstructions}
+                            placeholder=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </div>
+                </div>
             </form>
         </div>
     );
@@ -422,11 +302,10 @@ function generateDeliveryTimeOpts(closingTime) {
     if (!closingTime) return [];
 
     const millisecondsOfSlot = 15 * 60 * 1000;
-    const MIN_INTERVAL = 10;
 
     const startDate = new Date();
     const startHours = startDate.getHours();
-    const startMinutes = startDate.getMinutes() + MIN_INTERVAL;
+    const startMinutes = startDate.getMinutes();
 
     startDate.setSeconds(0);
     if (startMinutes < 15) {
@@ -438,7 +317,7 @@ function generateDeliveryTimeOpts(closingTime) {
     if (30 <= startMinutes && startMinutes < 45) {
         startDate.setMinutes(45);
     }
-    if (45 <= startMinutes) {
+    if (45 <= startMinutes && startMinutes <= 59) {
         startDate.setMinutes(0);
         startDate.setHours(startHours + 1);
     }
