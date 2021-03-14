@@ -77,10 +77,10 @@ constructor(props){
         <form id="size-dropdown"onSubmit={this.orderHandler}>
           <select name="size-dropdown-items" onChange={this.setSizeAndPrice} id="size-dropdown">
             <option value="S" name="size">{this.state.sizesCosts[0].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
-            <option value="M" name="size">{this.state.sizesCosts[1].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
-            <option value="L" name="size">{this.state.sizesCosts[2].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
-            <option value="XL" name="size">{this.state.sizesCosts[3].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
-            <option value="XXL" name="size">{this.state.sizesCosts[4].Size}  -  £ {parseFloat(this.state.sizesCosts[0].Price) + parseFloat(this.state.extraCost)}</option>
+            <option value="M" name="size">{this.state.sizesCosts[1].Size}  -  £ {parseFloat(this.state.sizesCosts[1].Price) + parseFloat(this.state.extraCost)}</option>
+            <option value="L" name="size">{this.state.sizesCosts[2].Size}  -  £ {parseFloat(this.state.sizesCosts[2].Price) + parseFloat(this.state.extraCost)}</option>
+            <option value="XL" name="size">{this.state.sizesCosts[3].Size}  -  £ {parseFloat(this.state.sizesCosts[3].Price) + parseFloat(this.state.extraCost)}</option>
+            <option value="XXL" name="size">{this.state.sizesCosts[4].Size}  -  £ {parseFloat(this.state.sizesCosts[4].Price) + parseFloat(this.state.extraCost)}</option>
           </select>
         </form>
 
