@@ -9,10 +9,16 @@
 
 #Checkout-container #BasketSummary-container{
 position: fixed;
-margin-top: -80px;
-margin-left: -500px;
+margin-top: 20px;
+margin-left: -600px;
+
 }
 
+
+#Checkout-container .mb-3{
+    margin: 0px ;
+    text-decoration: underline;
+}
 
 #Checkout-container #Minus-in-basket{
     margin-left: -15px;
@@ -27,7 +33,4 @@ margin-left: -500px;
 
 
 
-.col-67{
-    margin: 100px;
-}
 

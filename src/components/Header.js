@@ -13,8 +13,8 @@ function Header(props) {
     <>
       <nav className='navbar'>
         <div className='navbar-container'>
-          <h1>{props.restaurantName}</h1>
-          <h2>{props.restaurantSlogan}</h2>
+          <h1 id = "rest-name">{props.restaurantName}</h1>
+          <h2 id = "rest-slogan">{props.restaurantSlogan}</h2>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>

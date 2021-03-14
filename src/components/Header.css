@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .navbar {
   background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
   linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
@@ -7,14 +10,24 @@
   
 }
 
-h1 {
+#rest-name {
   color: white;
+  font-family: 'Lobster', cursive;
+  text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+  margin-top: 10px;
+  
+  text-decoration: underline overline dotted;
+  
 }
 
-h2 {
+#rest-slogan{
   margin-left: 80px;
-  color: white;
-}
+  font-size: 60px;
+  text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c, 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 19px 9px rgb(255, 20, 147);
+  color: #ffffff;
+  font-family: 'Redressed', cursive;
+    }
+
 
 .navbar-container {
   width: 100%;
