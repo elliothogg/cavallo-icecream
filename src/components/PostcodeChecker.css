@@ -2,6 +2,7 @@
   text-align: center;
   margin: auto;
   margin-top: 150px;
+  height: 574px;
 }
 
 #postcode-form {
@@ -36,6 +37,10 @@ input {
   margin: 4px 20px;
   cursor: pointer;
   
+}
+
+.twoButtons{
+  margin-top: 10px;
 }
 
 #postcode-form p{
