@@ -4,8 +4,8 @@
   background-color: rgb(255, 192, 203, 0.80);
   width: 400px;
   position: fixed;
-  top: 25%;
-  left: 60%; 
+  top: 15vh;
+  left: 60vw; 
   /*25 60*/
   
   
@@ -20,6 +20,11 @@
  margin-right: 5px;
  margin-left: -10px;
  margin-bottom: 10px;
+}
+
+#BasketSummary-container .col-3{
+  justify-content: space-around;
+  
 }
 
 #quan{
@@ -51,12 +56,12 @@
   color:rgb(238, 0, 238);
   margin-right: 5px;
   margin-left: -10px;
+  margin-bottom: 10px;
  }
  
  #order-quan{
    font-size: 15px;
    color:rgb(238, 0, 238);
-   margin-right: 5px;
    
  }
  
@@ -64,6 +69,7 @@
    font-size: 15px;
    color:rgb(238, 0, 238);
    margin-right: 5px;
+   margin-left: 15px;
  }
  
  #order-price{
@@ -76,6 +82,7 @@
 #total-price{
  color: rgb(255, 20, 147);
  margin-left: 17px;
+ margin-bottom: 5px;
 }
 
 #Back-2-menu-button{
@@ -120,7 +127,8 @@
     text-align: center;
     line-height: 7px;
     vertical-align: middle;
-    margin-left: -13px;
+    margin-left: 3px;
+    margin-right:3px;
     color: rgb(255, 20, 147);
     font-size: 15px;
     font-weight: bold;
