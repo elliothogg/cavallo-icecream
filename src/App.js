@@ -150,9 +150,12 @@ class App extends React.Component {
 
     if (index !== -1){
       var customerOrd = this.state.customerOrder
-      var items = customerOrd.Items
-      items[index] = order;
-      customerOrd.Items = items
+      var itemCount = customerOrd.Items[index].Quantity
+      var extraCount = order.Quantity
+      var newCount = itemCount + extraCount
+      // items[index] = order;
+      customerOrd.Items[index].Quantity = newCount
+
       this.setState({customerOrder: customerOrd}, () => this.setOrderPrice());
     } else {
       customerOrd = this.state.customerOrder

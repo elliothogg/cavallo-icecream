@@ -42,28 +42,27 @@ constructor(props){
   orderHandler = (e) => {
       e.preventDefault();
       this.props.setCustomerOrder({ProductID: this.state.id, Flavour: this.state.flavor, Size:this.state.size, Quantity: this.state.count, TotalCost: this.state.totalCost, ItemID: this.state.id + this.state.size});
+      this.setState({count: 1})
   };
 
 
 
   setSizeAndPrice = (event) => {
     let selectedSize = event.target.value
-
     //get price for the size entered by user
     const index = this.state.sizesCosts.findIndex(size => size.Size === selectedSize)
     //change the type from string to float
     let sizeCost = parseFloat(this.state.sizesCosts[index].Price);
-
     let extraCost = parseFloat(this.state.extraCost);
     let totalCost;
 
     //change the sizeCost in the state to the price for the chosen size
-
     //the second function is a callback that is ran after the sizeCost has been set
     this.setState({sizeCost: sizeCost}, () => {
       totalCost = this.state.sizeCost + extraCost;
       this.setState({size: selectedSize})
       this.setState({totalCost: totalCost})
+      this.setState({count: 1})
     })
   }
 
@@ -71,7 +70,7 @@ constructor(props){
   render() {
     return (
       <div className="item-container">
-        
+
         <div id={this.state.flavor.replace(/\s/g, '-') + "-image"}/>
         <h3>{this.state.flavor}</h3>
 
