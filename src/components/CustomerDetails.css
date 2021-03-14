@@ -2,6 +2,11 @@
     padding-top: 10px;
     max-width: 140%;
 }
+#customerDetails h2 {
+    margin-left: 0;
+    text-align: center;
+    color: #333333;
+}
 
 .mb-3{
     color: rgb(255, 20, 147);

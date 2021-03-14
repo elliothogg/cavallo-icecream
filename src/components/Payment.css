@@ -2,6 +2,10 @@
     max-width: 140%;
     padding-bottom: 2rem;
 }
+#payment h2 {
+    margin-left: 0;
+    color: #333333;
+}
 #payment label {
     position: relative;
 }

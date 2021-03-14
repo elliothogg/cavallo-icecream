@@ -25,17 +25,23 @@ class Checkout extends React.Component {
 
     render() {
         return (
-            <div id="Checkout-container" className="row">
-                <div className="col-6">
-                    <CustomerDetails ref={this.customerDetailsRef} {...this.props} />
-                    <Payment ref={this.paymentDetailsRef} />
-                </div>
-
-                {Object.values(this.state).every((val) => val) && (
-                    <div className="col-67">
-                        <BasketSummary {...this.props} {...this.state} />
+            <div id="Checkout-container" className="container">
+                <div className="row">
+                    <div className="col-md-6">
+                        <CustomerDetails ref={this.customerDetailsRef} {...this.props} />
+                        <Payment
+                            ref={this.paymentDetailsRef}
+                            paymentDetails={this.props.paymentDetails}
+                            setPaymentDetails={this.props.setPaymentDetails}
+                        />
                     </div>
-                )}
+
+                    {Object.values(this.state).every((val) => val) && (
+                        <div className="col-md-6">
+                            <BasketSummary {...this.props} {...this.state} />
+                        </div>
+                    )}
+                </div>
             </div>
         );
     }

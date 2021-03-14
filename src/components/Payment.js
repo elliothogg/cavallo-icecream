@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle } from 'react';
+import React, { useState, useEffect, useImperativeHandle } from 'react';
 import './Payment.css';
 
 function Payment(props, ref) {
@@ -22,11 +22,21 @@ function Payment(props, ref) {
 
     const validateField = (val) => {
         if (!val.replace(/\s/g, '')) return false;
+
         return true;
     };
-    const validatePaymentForm = () => {
-        return Object.values(paymentForm).every((fieldVal) => fieldVal);
+    const validatePaymentForm = (formData) => {
+        setFormValidation((state) => {
+            Object.keys(state).forEach((key) => {
+                state[key] = validateField(formData[key]);
+            });
+
+            return { ...state };
+        });
+
+        return Object.values(formData).every((fieldVal) => fieldVal);
     };
+
     const resetFormValidation = (key) => {
         setFormValidation((state) => ({ ...state, [key]: true }));
     };
@@ -47,14 +57,18 @@ function Payment(props, ref) {
         setFormValidation((state) => ({ ...state, [key]: validateField(value) }));
     };
 
+    // update the paymentDetails state in App.js when the paymentForm changed
+    const { setPaymentDetails } = props;
+    useEffect(() => {
+        setPaymentDetails(Object.assign({}, paymentForm));
+    }, [paymentForm, setPaymentDetails]);
+
     // exposing the component method of validatePaymentForm,
     // so that we can validate the form when placing order
     useImperativeHandle(ref, () => ({ validatePaymentForm }));
 
     return (
-        <div id="payment" className="col-md-12 order-md-1">
-            <h2 className="mb-3">Payment</h2>
-
+        <div id="payment">
             <div className="row">
                 <div className="col-md-12 mb-3">
                     <label htmlFor="paymentMethod">Payment Method&nbsp;</label>
@@ -147,7 +161,7 @@ function Payment(props, ref) {
             <div className="row">
                 <div className="col-12">
                     <div className="row">
-                        <div className="col-md-3 mb-3">
+                        <div className="col-4 col-md-6 mb-3">
                             <label htmlFor="securityCode">Security code&nbsp;</label>
                             <input
                                 type="text"
@@ -171,7 +185,7 @@ function Payment(props, ref) {
                 </div>
                 <div className="col-12">
                     <div className="row" style={{ fontSize: '14px', color: '#666666' }}>
-                        <div className="col-md-3">
+                        <div className="col-6">
                             Your security code is the last three digits from the signature strip on
                             the back of your card or the four digits on the front of your card if
                             you are using American Express.
