@@ -76,7 +76,7 @@ class PortalLogin extends Component{
               <div className="PortalLogin-container">
               <p>U: cavallo || P:cavallo7</p>
                   <form id="userInfo-form" onSubmit={this.handleSubmit}>
-                    <label htmlFor="Username">Username: </label>
+                    <label htmlFor="Username">Username:</label>
                     <input
                       id="username"
                       type="text"

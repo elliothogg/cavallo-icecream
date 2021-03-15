@@ -17,3 +17,7 @@
 .PortalLogin-container #userInfo-form button {
     margin-left: 100px;
 }
+
+.PortalLogin-container label {
+    padding-right: 10px;
+}

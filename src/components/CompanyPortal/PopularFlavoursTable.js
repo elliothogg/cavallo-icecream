@@ -45,7 +45,6 @@ function PopularFlavoursTable(props) {
     })}
     </div>
 
-    <hr className="col-10" style={{ marginLeft: '0.5rem' }} />
 
   </div>
   }
