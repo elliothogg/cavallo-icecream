@@ -4,7 +4,6 @@ import ProductTable from './ProductTable';
 import SizeTable from './SizeTable';
 import Orders from './Orders';
 import CompanyPortalHeader from './CompanyPortalHeader';
-import OrderMetricsTable from './OrderMetricsTable';
 import PopularFlavoursTable from './PopularFlavoursTable';
 
 
@@ -35,7 +34,7 @@ function SalesMetrics(props) {
     
     if (page === 'products') return <><ProductTable products={props.products}/><SizeTable products={props.products}/></>
     else if (page === 'orders') return <Orders orders={orders} currentTime={props.currentTime}/>
-    else if (page === 'metrics') return <><OrderMetricsTable /><PopularFlavoursTable /></>
+    else if (page === 'metrics') return <PopularFlavoursTable />
     
   }
 
