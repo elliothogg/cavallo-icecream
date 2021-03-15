@@ -1,4 +1,3 @@
-const e = require('express');
 var connection = require('../../mysql/database');
 
 function timechecker(storeID, orderTime, isDelivery, callback){

@@ -5,7 +5,6 @@ var router = express.Router();
 const timeChecker = require('./timeChecker');
 const payThroughHorsePay = require('./payThroughHorsePay');
 const updateOrders = require('./updateOrders');
-const e = require('express');
 const urlendodedParser= bodyParser.urlencoded({ extended: true });
 
 router.post('/api/orderConfirm', urlendodedParser, (req, res) => {
