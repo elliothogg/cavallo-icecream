@@ -36,3 +36,9 @@
   text-decoration: solid;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+#pop-flavours-chart-container {
+  padding-left: 20px;
+  padding-bottom: 40px;
+  max-width: 1000px;
+}

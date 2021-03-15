@@ -14,6 +14,7 @@ function PopularFlavoursTable(props) {
   });
   }, [])
 
+
   function awaitData() {
     if (popularFlavours === undefined) return;
 
