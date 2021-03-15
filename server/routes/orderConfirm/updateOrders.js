@@ -23,7 +23,6 @@ function updateOrders(inParam, ItemsJSON, orderID, orderTime, customerEmail, cus
         return callback(null,{
             orderID: orderID,
             orderTime : orderTime,
-            resString: "Payment Success"
         });
     }).catch((error) => {
         console.log(error);

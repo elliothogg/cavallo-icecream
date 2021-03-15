@@ -17,9 +17,7 @@ class App extends React.Component {
       products: [
       ],
 
-      currentTime: {
-
-      },
+      currentTime: '',
 
       companyInfo: {
       },
@@ -48,6 +46,7 @@ class App extends React.Component {
         },
 
       setCustomerOrder: this.setCustomerOrder.bind(this),
+      setPaymentDetails: this.setPaymentDetails.bind(this),
       setCustomerDetails: this.setCustomerDetails.bind(this),
       removeCustomerOrderItem: this.removeCustomerOrderItem.bind(this),
       setIsDelivery: this.setIsDelivery.bind(this),
@@ -183,7 +182,6 @@ class App extends React.Component {
     }));
   }
 
-
   incrementItemCountUp(itemId){
     var orderItems = this.state.customerOrder.Items
     const index = orderItems.findIndex(item => item.ItemID === itemId)
@@ -223,6 +221,10 @@ class App extends React.Component {
 
   }
 
+  setPaymentDetails(paymentDetails) {
+    //pass in an object with customers details (called in Payment.js)
+    this.setState({ paymentDetails });
+  }
 
   confirmOrder() {
     let postBody = []
@@ -259,7 +261,7 @@ class App extends React.Component {
             {/* Order, Checkout, and OrderConfirmation now receive all of App.js state (as props) */}
             <Route path='/' exact render={() => <Order {...this.state} />} />
             <Route path='/checkout' exact render={() => <Checkout {...this.state} />} />
-            <Route path='/order-confirmation' exact render={() => <OrderConfirmation {...this.state} />} />
+            <Route path='/order-confirmation' exact render={(route) => <OrderConfirmation {...this.state} location={route.location} />} />
             <Route path='/company-portal' exact render={() => <CompanyPortal currentTime={this.state.currentTime} products={this.state.products} />} />
           </Switch>
         <Footer {...this.state} />

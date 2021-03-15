@@ -88,7 +88,8 @@ function orderConfirm(inParam, ItemsJSON, callback){
                   console.log("ALL Success");
                   return callback(null, {
                     res:{
-                      resData: data,
+                      orderID: data.orderID,
+                      orderTime: data.orderTime,
                       Status : payResult.Status,
                       reason : payResult.reason
                     }
