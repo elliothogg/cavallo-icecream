@@ -24,6 +24,10 @@
 }
 
 
+#orders-table-container button:hover {
+  color: black;
+}
+
 #sales-metrics-container button:hover {
   color: black;
 }

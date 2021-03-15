@@ -34,3 +34,8 @@ h1 {
     border:none; 
     color: white;
 }
+
+
+#companyportal-menu-items button:hover {
+    color:blue;
+}
