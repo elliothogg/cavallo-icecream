@@ -74,16 +74,16 @@ class PortalLogin extends Component{
             return (
               
               <div className="PortalLogin-container">
-              <p>U:cavallo P:cavallo7</p>
+              <p>U: cavallo || P:cavallo7</p>
                   <form id="userInfo-form" onSubmit={this.handleSubmit}>
-                    <label htmlFor="Username">Username</label>
+                    <label htmlFor="Username">Username: </label>
                     <input
                       id="username"
                       type="text"
                       value={this.state.username}
                       onChange={event =>this.handleUserNameChange(event)}
                     />
-                    <label htmlFor="Password">Password</label>
+                    <label htmlFor="Password">Password: </label>
                     <input
                       id="password"
                       type="text"
