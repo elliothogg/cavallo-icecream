@@ -1,3 +1,5 @@
+//If login credentials are correct, then {code:1} is returned. If credentials are invalid, then {code:0} is returned.
+
 var express = require('express');
 const bodyParser = require('body-parser');
 var router = express.Router();
@@ -36,12 +38,11 @@ function queryUserInfo(username, password, callback){
             if (results.length) {
 				var resultJson = JSON.stringify(results);
                 callback(null, {
-                    code: 0,
-	                data: resultJson
+                    code: 1
                 });
             } else {
                 callback(null, {
-                    code: 1
+                    code: 0
                 });
             }
         }

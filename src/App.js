@@ -5,9 +5,8 @@ import './App.css';
 import Order from './components/pages/Order';
 import Checkout from './components/pages/Checkout';
 import OrderConfirmation from './components/pages/OrderConfirmation';
-import CompanyPortal from './components/CompanyPortal/CompanyPortal';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SalesMetrics from './components/CompanyPortal/SalesMetrics';
+import CompanyPortal from './components/CompanyPortal/CompanyPortal';
 
 class App extends React.Component {
   constructor(props) {
@@ -260,8 +259,7 @@ class App extends React.Component {
             <Route path='/' exact render={() => <Order {...this.state} />} />
             <Route path='/checkout' exact render={() => <Checkout {...this.state} />} />
             <Route path='/order-confirmation' exact render={() => <OrderConfirmation {...this.state} />} />
-            <Route path='/company-portal-login' component={CompanyPortal} />
-            <Route path='/company-portal' exact render={() => <SalesMetrics currentTime={this.state.currentTime} products={this.state.products} />} />
+            <Route path='/company-portal' exact render={() => <CompanyPortal currentTime={this.state.currentTime} products={this.state.products} />} />
           </Switch>
         <Footer {...this.state} />
         </Router>

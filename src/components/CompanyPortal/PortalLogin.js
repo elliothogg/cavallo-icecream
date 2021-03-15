@@ -6,7 +6,8 @@ class PortalLogin extends Component{
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            result: ''
         }
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -21,13 +22,16 @@ class PortalLogin extends Component{
         this.setState({password: event.target.value});
       }
 
+      displayError() {
+        this.setState({result: 'Incorrect Username or Password'})
+      }
+
       handleSubmit(event) {
         event.preventDefault();
 		var data = JSON.stringify({
 			username:this.state.username,
 			password:this.state.password
 		});
-		console.log(data);
 		fetch("/api/company-portal", {
 			method: 'POST', // *GET, POST, PUT, DELETE, etc.
 			mode: 'cors', // no-cors, *cors, same-origin
@@ -47,16 +51,15 @@ class PortalLogin extends Component{
 			.then((res) => {
 				return res.json().then((response) => {
 				var resData = JSON.stringify(response);
-				console.log("*************resData********************");
-				console.log(resData);
 				var jsonData = JSON.parse(resData);
-				console.log("*************jsonData********************");
-				console.log(jsonData);
-				console.log("*************dataArray********************");
-				var dataArray = jsonData.data;
-				console.log(dataArray);
-				console.log("*************dataObject********************");
-				dataArray = JSON.parse(dataArray);
+	
+        if (jsonData.code === 0) {
+          this.displayError();
+        }
+        else if (jsonData.code === 1) {
+          this.props.login();
+        }
+				
 
 				
 				
@@ -69,7 +72,9 @@ class PortalLogin extends Component{
 
         render() {
             return (
+              
               <div className="PortalLogin-container">
+              <p>U:cavallo P:cavallo7</p>
                   <form id="userInfo-form" onSubmit={this.handleSubmit}>
                     <label htmlFor="Username">Username</label>
                     <input
@@ -87,6 +92,7 @@ class PortalLogin extends Component{
                     />
                     <button type="submit">Submit</button>
                   </form>
+                  <label id="login-error-message">{this.state.result}</label>
               </div>
             );
         
