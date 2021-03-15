@@ -3,12 +3,8 @@
 }
 
 #orderResult {
-    
-    background-image: url(./ItemImages/happy.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
     box-sizing: border-box;
-    height: 140vh;
+    height: 120vh;
 }
 
 #orderResult .col-4{
@@ -27,10 +23,8 @@
     background-color: rgb(255, 192, 203, 0.8);
 
     width: 1000px;
-    position: absolute;
-    left: 50%;
-    top: 70vh;
-    transform: translate(-50%, -50%);
+    margin: auto;
+   
     border: 5px solid #FFFF00;
     
 
