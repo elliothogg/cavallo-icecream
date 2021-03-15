@@ -21,7 +21,7 @@ function Footer(props) {
        
        <div id = "opening-hours">
        <p id = "weekday">Weekday Opening Times: {props.companyInfo.WeekdayOpeningTime} - {props.companyInfo.WeekdayClosingTime}</p>
-       <p id = "weekend">Weekend Opening Times: {props.companyInfo.WeekendClosingTime} - {props.companyInfo.WeekendOpeningTime}</p>
+       <p id = "weekend">Weekend Opening Times: {props.companyInfo.WeekendOpeningTime} - {props.companyInfo.WeekendClosingTime}</p>
        </div>
 
     </div>
