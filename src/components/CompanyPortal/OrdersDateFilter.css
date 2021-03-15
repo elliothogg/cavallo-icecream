@@ -15,5 +15,20 @@
 .filter-text {
     background:none;
     border:none; 
-    color: #dddddd;
+    color: blue;
+    text-decoration: underline;
 }
+
+#order-date-filter-container h4 {
+    color: black;
+    padding-left: 20px;
+}
+
+#order-date-filter-container #custom-text {
+    padding-right: 10px;
+}
+
+#order-date-filter-container #clear-button {
+    padding-left: 20px;
+}
+

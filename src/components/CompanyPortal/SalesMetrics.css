@@ -23,11 +23,12 @@
   color: white;
 }
 
-#sales-metrics-container button {
- 
-}
 
 #sales-metrics-container button:hover {
   color: black;
 }
 
+#orders-table-container #custom-date-info {
+  text-decoration: solid;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

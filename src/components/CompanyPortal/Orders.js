@@ -27,11 +27,6 @@ function Orders(props) {
         return new Date(d.setDate(diff));
     }
 
-    console.log(startOfWeekDate);
-    console.log(endOfWeekDate);
-
-    console.log("start date calender" + startDate);
-    console.log("start date calender" + endDate);
 
     
 
@@ -67,7 +62,7 @@ function Orders(props) {
     const pageChanger = () => {
         if (SelectedOrderID)
             return <EachOrdersProductsTable onChange={handleChange} orderID={SelectedOrderID} eachOrdersProducts={SelectedOrderIDProducts}/>
-        else return <div id="orders-table-and-date-container"><OrdersDateFilter onChange={changeOrdersToShow} resetStartAndEndDates={resetStartAndEndDates} setStartFilterDate={setStartFilterDate} setEndFilterDate={setEndFilterDate}/>
+        else return <div id="orders-table-and-date-container"><OrdersDateFilter onChange={changeOrdersToShow} resetStartAndEndDates={resetStartAndEndDates} setStartFilterDate={setStartFilterDate} setEndFilterDate={setEndFilterDate} startDateFilter={startDate} endDateFilter={endDate}/>
         <OrdersTable ordersToShow={ordersToShow} orders={props.orders} onChange={handleChange} todaysDate={todaysDate} startDate={startDate} endDate={endDate} startOfWeekDate={startOfWeekDate} endOfWeekDate={endOfWeekDate}/></div>
     }
 
