@@ -12,8 +12,8 @@ const http = axios.create({
 
 function BasketSummary(props) {
     const [showLoading, setShowLoading] = useState(false);
-    const [isFailed, setIsFailed] = useState(false);
-    const [failedReason, setFailedReason] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
 
     const history = useHistory();
     const currentRoute = useLocation();
@@ -21,9 +21,9 @@ function BasketSummary(props) {
     const changeButtons = () => {
         if (currentRoute.pathname === '/') {
             return (
-                <Link id="basketbuttons-orderpage" to="/checkout">
-                    <button id="Checkout-button">Checkout</button>
-                </Link>
+                <button id="Checkout-button" onClick={handleCheckout}>
+                    Checkout
+                </button>
             );
         } else if (currentRoute.pathname === '/checkout') {
             return (
@@ -31,16 +31,27 @@ function BasketSummary(props) {
                     <Link to="/">
                         <button id="Back-2-menu-button">Back to menu</button>
                     </Link>
-                    {/* <Link to="/order-confirmation">
-                        <button id="place-order-button" onClick={props.confirmOrder}>
-                            Place Order
-                        </button>
-                    </Link> */}
 
-                    <button id="place-order-button" onClick={handleConfirmOrder}>Place Order</button>
+                    <button id="place-order-button" onClick={handleConfirmOrder}>
+                        Place Order
+                    </button>
                 </div>
             );
         }
+    };
+
+    const hasProductsInCart = () => {
+        return props.customerOrder.Items.length > 0;
+    };
+    const handleCheckout = () => {
+        if (!hasProductsInCart()) {
+            setShowModal(true);
+            setModalMessage('Please add a product in your cart firstly!');
+
+            return;
+        }
+
+        history.push('/checkout');
     };
 
     const { customerDetails, paymentDetails } = props;
@@ -76,22 +87,21 @@ function BasketSummary(props) {
                 const { orderID, orderTime, Status, reason } = data;
 
                 if (Status === false) {
-                    setIsFailed(true);
-                    setFailedReason(reason);
+                    setShowModal(true);
+                    setModalMessage(`Pay failed. ${reason}`);
                 } else {
-                    history.push('/order-confirmation', 
-                        {
+                    history.push('/order-confirmation', {
                         orderID,
                         orderTime
-                });
+                    });
                 }
             })
             .catch((err) => {
                 console.error('confirm order failed: ', err);
 
                 setShowLoading(false);
-                setIsFailed(true);
-                setFailedReason('Placing order failed. Some errors happened. Please try it again!');
+                setShowModal(true)
+                setModalMessage('Placing order failed. Some errors happened. Please try it again!');
             });
     };
 
@@ -108,7 +118,7 @@ function BasketSummary(props) {
     };
 
     const handleModalClose = () => {
-        setIsFailed(false);
+        setShowModal(false)
     };
     const failedModal = (
         <div className="failed-modal">
@@ -116,7 +126,7 @@ function BasketSummary(props) {
                 <div className="content">
                     <div className="title">HINT</div>
                     <div className="body">
-                        <p>{failedReason}</p>
+                        <p>{modalMessage}</p>
                     </div>
                 </div>
                 <div className="footer">
@@ -140,7 +150,7 @@ function BasketSummary(props) {
     return (
         <div id="BasketSummary-container">
             {showLoading && loading}
-            {isFailed && failedModal}
+            {showModal && failedModal}
 
             <div id="order-items-container" className="container-fluid">
                 <hr className="col-12" />
