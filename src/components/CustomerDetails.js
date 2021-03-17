@@ -87,7 +87,7 @@ function CustomerDetails(props, ref) {
         deliveryPostcode: (val) => {
             if (!val.replace(/\s/g, '')) {
                 return 'The delivery postcode is required.';
-            } else if (!val.startsWith('NE') && !val.startsWith('ne')) {
+            } else if (!val.startsWith('NE') && !val.startsWith('ne') && !val.startsWith('Ne') && !val.startsWith('nE')) {
                 return 'The delivery postcode must start with NE.';
             }
 
