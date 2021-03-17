@@ -46,7 +46,7 @@ function BasketSummary(props) {
     const handleCheckout = () => {
         if (!hasProductsInCart()) {
             setShowModal(true);
-            setModalMessage('Please add a product in your cart firstly!');
+            setModalMessage('Please add a product to your cart!');
 
             return;
         }

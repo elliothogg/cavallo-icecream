@@ -34,7 +34,7 @@
 
 #orders-table-container #custom-date-info {
   text-decoration: solid;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
 }
 
 #pop-flavours-chart-container {
@@ -45,4 +45,27 @@
 
 #size-table-container {
   padding-bottom: 120px;
+}
+
+#sales-metrics-container * {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+#orders-table-container {
+  font-size:10pt;
+}
+
+@media only screen and (max-width: 1200px) {
+  #orders-table-container{
+      font-size: 8pt;
+  }
+}
+
+#orders-table-container .col-20 {
+  padding-bottom: 15px;
+}
+
+#popularflavours-table-container {
+  padding-bottom: 50px;
 }

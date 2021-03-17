@@ -28,7 +28,7 @@ function OrdersDateFilter(props) {
             <div className="col-2"><button className="filter-text" id="this-month" onClick={ () => props.onChange('This Month') }>THIS MONTH</button></div>
             <div className="col-0"><button className="filter-text" id="custom-text" onClick={ () => props.onChange('Custom:') }>CUSTOM:</button></div>
            
-            <div className="col-1"><label>START DATE</label><DatePicker
+            <div className="col-2"><label>START DATE</label><DatePicker
                                     selected={startDate}
                                     onChange={date => {
                                         setStartDate(date);

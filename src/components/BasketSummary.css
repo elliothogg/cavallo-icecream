@@ -23,7 +23,7 @@
 }
 #BasketSummary-container .failed-modal .dialog {
   position: absolute;
-  top: 2rem;
+  top: 10rem;
   left: 50%;
   height: 200px;
   width: 400px;
