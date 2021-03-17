@@ -2,8 +2,6 @@ import React from 'react';
 import './OrderResult.css';
 
 function OrderResult(props) {
-    console.log("propsres");
-    console.log(props)
     const { orderID, orderTime } = props.location.state;
     const { TotalCost: totalCost, Items: orderItems } = props.customerOrder;
     const { deliveryAddress, billingAddress } = props.customerDetails;
