@@ -198,7 +198,7 @@ function BasketSummary(props) {
                                     {order.Size}
                                 </div>
                                 <div className="col-2" id="order-price">
-                                    {order.TotalCost * order.Quantity}
+                                    £{order.TotalCost * order.Quantity}
                                 </div>
                                 <div className="col-1">
                                     <button
