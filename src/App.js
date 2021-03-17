@@ -30,6 +30,15 @@ class App extends React.Component {
         Items: []
       },
 
+      // Do not remove it. It will be used to validate form
+      paymentDetails: {
+        paymentMethod: 'credit',
+        cardName: '',
+        cardNumber: '',
+        expirationDate: '',
+        securityCode: ''
+      },
+
       customerDetails: {
         customerFirstName: '',
         customerLastName: '',
@@ -40,10 +49,10 @@ class App extends React.Component {
 
         deliveryAddress: '',
         deliveryPostcode: '',
-        deliveryTime: '12:00am',
-        collectionTime: '12:00am',
+        deliveryTime: '',
+        collectionTime: '',
         driverInstructions: ''
-        },
+      },
 
       setCustomerOrder: this.setCustomerOrder.bind(this),
       setPaymentDetails: this.setPaymentDetails.bind(this),
@@ -218,6 +227,7 @@ class App extends React.Component {
   setCustomerDetails(customerDetails) {
     //pass in an object with customers details (called in CustomerDetails.js)
     this.setState({ customerDetails });
+
 
   }
 
