@@ -1,18 +1,25 @@
+const e = require('express');
 var connection = require('../../mysql/database');
 
-function timechecker(storeID, orderTime, isDelivery, callback){
+function timechecker(storeID, orderTime, isDelivery, choosenTime, callback){
     var OrderPlacedTime = orderTime.split(' ')[1];
     var OrderPlacedHH = OrderPlacedTime.split(':')[0];
     var OrderPlacedmm = OrderPlacedTime.split(':')[1];
 
     return queryOpenTime(storeID, (err, data)=>{
-        console.log("Data")
         if(isWeekday){
             if(deliveryOrCollection(isDelivery, OrderPlacedHH, OrderPlacedmm, data.data[0].WeekdayOpeningTime, data.data[0].WeekdayClosingTime)){
-                return callback(null, {
-                    Status: true,
-                    reason: "Shop Open"
-                })
+                if(isDeliveryOrCollectionTimeLaterThanCurrent(OrderPlacedHH, OrderPlacedmm, choosenTime) === true){
+                    return callback(null, {
+                        Status: true,
+                        reason: "True"
+                    })
+                }else{
+                    return callback(null, {
+                        Status: false,
+                        reason: "Choosing Time invalide"
+                    })
+                }
             }else{
                 return callback(null, {
                     Status: false,
@@ -61,6 +68,22 @@ function deliveryOrCollection(isDelivery, OrderPlacedHH, OrderPlacedmm, OpeningT
             return true;
         }
 
+    }
+}
+
+function isDeliveryOrCollectionTimeLaterThanCurrent(OrderPlacedHH, OrderPlacedmm, chooseTime){
+    console.log("!!!!!!!!" + chooseTime)
+    if(chooseTime === "ASAP"){
+        return true;
+    }else{
+        var chooseHH = chooseTime.split(':')[0];
+        var choosemm = chooseTime.split(':')[1].substring(0,1);
+
+        if(chooseHH >= OrderPlacedHH && choosemm > OrderPlacedmm){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

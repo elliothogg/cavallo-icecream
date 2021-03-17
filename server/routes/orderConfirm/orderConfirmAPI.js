@@ -60,8 +60,9 @@ function orderConfirm(inParam, ItemsJSON, callback){
   var customerEmail = inParam.customerDetails.customerEmail;
   var customerPhone = inParam.customerDetails.customerPhone;
   var customerID = generateCustomerID(customerEmail, customerPhone);
+  var choosenTime = setChoosenTime(inParam);
 
-  timeChecker(storeID, orderTime, inParam.customerOrder.isDelivery, function(err, timeresdata){
+  timeChecker(storeID, orderTime, inParam.customerOrder.isDelivery, choosenTime, function(err, timeresdata){
     if(err){
       console.log(err);
       return callback(err)
@@ -145,3 +146,13 @@ const generateOrderID = function () {
   const orderID = currentTime + milliseconds + randomNum.toString();
   return orderID;
 };
+
+function setChoosenTime(inParam){
+  var customerDetailsJSON = inParam.customerDetails;
+
+  if(customerDetailsJSON.hasOwnProperty('deliveryTime')){
+    return customerDetailsJSON['deliveryTime'];
+  }else if(customerDetailsJSON.hasOwnProperty('collectionTime')){
+    return customerDetailsJSON['collectionTime'];
+  }
+}

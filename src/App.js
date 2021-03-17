@@ -49,8 +49,8 @@ class App extends React.Component {
 
         deliveryAddress: '',
         deliveryPostcode: '',
-        deliveryTime: '',
-        collectionTime: '',
+        deliveryTime: 'ASAP',
+        collectionTime: 'ASAP',
         driverInstructions: ''
       },
 
