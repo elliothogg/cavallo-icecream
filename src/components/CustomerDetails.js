@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useImperativeHandle } from 'react';
 import './CustomerDetails.css';
+import axios from 'axios';
 
 function CustomerDetails(props, ref) {
     const [customerForm, setCustomerForm] = useState(Object.assign({}, props.customerDetails));
+    const [timeList, setTimeList] = useState([]);
 
     const { isDelivery } = props.customerOrder;
 
@@ -132,12 +134,6 @@ function CustomerDetails(props, ref) {
 
     const invalidInputStyle = { border: '1px solid red' };
 
-    const { WeekdayClosingTime, WeekendClosingTime } = props.companyInfo;
-    const timeList = generateTimeList(
-        isWeekend() ? WeekendClosingTime : WeekdayClosingTime,
-        props.currentTime
-    );
-
     const handleChange = (evt) => {
         const { id: key, value } = evt.target;
 
@@ -165,6 +161,22 @@ function CustomerDetails(props, ref) {
     useEffect(() => {
         setCustomerDetails(Object.assign({}, customerForm));
     }, [customerForm, setCustomerDetails]);
+
+    // get delivery or collection time options
+    const { WeekdayClosingTime, WeekendClosingTime } = props.companyInfo;
+    useEffect(() => {
+        const getTimeList = async () => {
+            const currentTime = await getCurrentTime();
+            const timeList = await generateTimeList(
+                isWeekend(currentTime) ? WeekendClosingTime : WeekdayClosingTime,
+                currentTime
+            );
+
+            setTimeList(timeList);
+        };
+
+        getTimeList();
+    }, [WeekdayClosingTime, WeekendClosingTime]);
 
     // exposing the component method of validateCustomerForm,
     // so that we can validate the form when placing order
@@ -357,6 +369,7 @@ function CustomerDetails(props, ref) {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     required={true}
+                                    disabled={true}
                                     style={
                                         formFieldErrorMsg.deliveryPostcode ? invalidInputStyle : {}
                                     }
@@ -384,7 +397,7 @@ function CustomerDetails(props, ref) {
                                     required={true}
                                     style={formFieldErrorMsg.deliveryTime ? invalidInputStyle : {}}
                                 >
-                                    <option value="asap">ASAP</option>
+                                    <option value="ASAP">ASAP</option>
                                     {timeList.map((time) => {
                                         return (
                                             <option value={time} key={time}>
@@ -433,7 +446,7 @@ function CustomerDetails(props, ref) {
                                 required={true}
                                 style={formFieldErrorMsg.collectionTime ? invalidInputStyle : {}}
                             >
-                                <option value="asap">ASAP</option>
+                                <option value="ASAP">ASAP</option>
                                 {timeList.map((time) => {
                                     return (
                                         <option value={time} key={time}>
@@ -456,19 +469,39 @@ function CustomerDetails(props, ref) {
     );
 }
 
-function generateTimeList(closingTime, currentTimeStr) {
+const http = axios.create({
+    headers: {
+        'Content-Type': 'application/json',
+        timeout: 6000
+    }
+});
+
+// get the current time here, so that we can always use the latest current time while checkouting.
+function getCurrentTime() {
+    return http
+        .get('/api/currentTime')
+        .then((res) => {
+            const { curTime: currentTime } = res.data;
+
+            const timeArr = currentTime.split(' ');
+            const timeStr = `${timeArr[0].split('/').reverse().join('/')} ${timeArr[1]}`;
+
+            return timeStr;
+        })
+        .catch((err) => {
+            console.error('get current time failed: ', err);
+
+            return new Date(); // fallback
+        });
+}
+
+async function generateTimeList(closingTime, currentTime) {
     if (!closingTime) return [];
 
     const millisecondsOfSlot = 15 * 60 * 1000;
     const MIN_INTERVAL = 10;
 
-    let timeStr = ''
-    if (currentTimeStr) {
-        const timeArr = currentTimeStr.split(' ')
-        timeStr = `${timeArr[0].split('/').reverse().join('/')} ${timeArr[1]}`
-    }
-
-    const startDate = timeStr ? new Date(timeStr) : new Date();
+    const startDate = new Date(currentTime);
     const startHours = startDate.getHours();
     const startMinutes = startDate.getMinutes() + MIN_INTERVAL;
 
@@ -487,7 +520,7 @@ function generateTimeList(closingTime, currentTimeStr) {
         startDate.setHours(startHours + 1);
     }
 
-    const endDate = timeStr ? new Date(timeStr) : new Date();
+    const endDate = new Date(currentTime);
     endDate.setHours(+closingTime.split(':')[0]);
     endDate.setMinutes(+closingTime.split(':')[1]);
     endDate.setSeconds(+closingTime.split(':')[2] || 0);
@@ -521,8 +554,8 @@ function generateTimeList(closingTime, currentTimeStr) {
     });
 }
 
-function isWeekend() {
-    return [6, 7].includes(new Date().getDay() + 1);
+function isWeekend(time) {
+    return [6, 7].includes(new Date(time).getDay() + 1);
 }
 
 export default React.forwardRef(CustomerDetails);
