@@ -7,9 +7,15 @@
     
 }
 
+#Checkout-container {
+    min-height: 1300px;
+}
 
-
-
+#Checkout-container .invalid-feedback {
+    color: rgb(255, 89, 89);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
 
 
 
