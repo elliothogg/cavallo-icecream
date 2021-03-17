@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './PostcodeChecker.css';
+import { Link } from 'react-router-dom';
 
 class PostcodeChecker extends Component {
   constructor(props) {
@@ -9,11 +10,14 @@ class PostcodeChecker extends Component {
       distance: '',
       resultMessage: ''
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleDeliverySubmit = this.handleDeliverySubmit.bind(this);
     this.handleCollectionSubmit = this.handleCollectionSubmit.bind(this);
+    this.shopClosed = this.shopClosed.bind(this);
   }
 
+  
   handleChange(event) {
     this.setState({ destination: event.target.value });
   }
@@ -54,23 +58,34 @@ class PostcodeChecker extends Component {
     this.props.setIsDelivery(false);
   }
 
+
+  shopClosed() {
+    let hour = this.props.currentTime.slice(11,13)
+    if (hour >= 11 && hour <= 18)
+      return <form id="postcode-form">
+              <label htmlFor="destination">Enter Your Postcode: </label>
+              <input
+                id="destination"
+                type="text"
+                value={this.state.destination}
+                onChange={this.handleChange}
+              />
+              <div className ="twoButtons">
+              <button type="submit" onClick={this.handleDeliverySubmit}>Delivery</button>
+              <button type="submit" onClick={this.handleCollectionSubmit}>Collection</button>
+              </div>
+            <p> {this.state.resultMessage} </p>
+            </form>
+    else return <form id="postcode-form"><label>SHOP CLOSED :(</label><Link to="/menu"><button>SEE MENU</button></Link></form>
+  }
+
+  
   render() {
+    this.shopClosed();
     return (
       <div className="PostcodeChecker-container">
-          <form id="postcode-form">
-            <label htmlFor="destination">Enter Your Postcode: </label>
-            <input
-              id="destination"
-              type="text"
-              value={this.state.destination}
-              onChange={this.handleChange}
-            />
-            <div className ="twoButtons">
-            <button type="submit" onClick={this.handleDeliverySubmit}>Delivery</button>
-            <button type="submit" onClick={this.handleCollectionSubmit}>Collection</button>
-            </div>
-          <p> {this.state.resultMessage} </p>
-          </form>
+          {this.shopClosed()}
+          
       </div>
     );
 
