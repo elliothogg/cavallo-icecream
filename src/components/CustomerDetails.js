@@ -106,7 +106,14 @@ function CustomerDetails(props, ref) {
             }
 
             return '';
-        }
+        },
+        driverInstructions: (val) => {
+            if (!val.replace(/\s/g, '')) {
+                return '';
+            }
+            
+            return '';
+        },
     };
 
     const validateCustomerForm = (formData) => {
