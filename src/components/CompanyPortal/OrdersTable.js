@@ -29,14 +29,14 @@ function OrdersTable(props) {
         return (
           <div className="col-20" key={index}>
             <div className="row" style={{ color: '#333333' }}>
-              <div className="col-2"><button onClick={() => props.onChange(item.OrderID)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
+              <div className="col-2"><button onClick={() => props.onChange(item.OrderID, item.DeliveryOrCollection, item.OrderTime)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
               <div className="col-2">{item.CustomerEmail}</div>
               <div className="col-1">{item.CustomerPhone}</div>
               <div className="col-1">{item.CustomerFirstName}</div>
               <div className="col-1">{item.CustomerLastName}</div>
               <div className="col-1">{item.OrderTime}</div>
               <div className="col-1">{item.BillingAddress}</div>
-              <div className="col-1">{item.BillingPostCode}</div>
+              <div className="col-1">{item.BillingPostcode}</div>
               <div className="col-1">£{item.TotalCost}</div>
               <div className="col-1">{item.DeliveryOrCollection}</div>
             </div>
@@ -50,14 +50,14 @@ function OrdersTable(props) {
           return (
             <div className="col-20" key={index}>
               <div className="row" style={{ color: '#333333' }}>
-                <div className="col-2"><button onClick={() => props.onChange(item.OrderID)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
+                <div className="col-2"><button onClick={() => props.onChange(item.OrderID, item.DeliveryOrCollection, item.OrderTime)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
                 <div className="col-2">{item.CustomerEmail}</div>
                 <div className="col-1">{item.CustomerPhone}</div>
                 <div className="col-1">{item.CustomerFirstName}</div>
                 <div className="col-1">{item.CustomerLastName}</div>
                 <div className="col-1">{item.OrderTime}</div>
                 <div className="col-1">{item.BillingAddress}</div>
-                <div className="col-1">{item.BillingPostCode}</div>
+                <div className="col-1">{item.BillingPostcode}</div>
                 <div className="col-1">£{item.TotalCost}</div>
                 <div className="col-1">{item.DeliveryOrCollection}</div>
               </div>
@@ -71,14 +71,14 @@ function OrdersTable(props) {
           return (
             <div className="col-20" key={index}>
               <div className="row" style={{ color: '#333333' }}>
-                <div className="col-2"><button onClick={() => props.onChange(item.OrderID)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
+                <div className="col-2"><button onClick={() => props.onChange(item.OrderID, item.DeliveryOrCollection, item.OrderTime)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
                 <div className="col-2">{item.CustomerEmail}</div>
                 <div className="col-1">{item.CustomerPhone}</div>
                 <div className="col-1">{item.CustomerFirstName}</div>
                 <div className="col-1">{item.CustomerLastName}</div>
                 <div className="col-1">{item.OrderTime}</div>
                 <div className="col-1">{item.BillingAddress}</div>
-                <div className="col-1">{item.BillingPostCode}</div>
+                <div className="col-1">{item.BillingPostcode}</div>
                 <div className="col-1">£{item.TotalCost}</div>
                 <div className="col-1">{item.DeliveryOrCollection}</div>
               </div>
@@ -92,14 +92,14 @@ function OrdersTable(props) {
           return (
             <div className="col-20" key={index}>
               <div className="row" style={{ color: '#333333' }}>
-                <div className="col-2"><button onClick={() => props.onChange(item.OrderID)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
+                <div className="col-2"><button onClick={() => props.onChange(item.OrderID, item.DeliveryOrCollection, item.OrderTime)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
                 <div className="col-2">{item.CustomerEmail}</div>
                 <div className="col-1">{item.CustomerPhone}</div>
                 <div className="col-1">{item.CustomerFirstName}</div>
                 <div className="col-1">{item.CustomerLastName}</div>
                 <div className="col-1">{item.OrderTime}</div>
                 <div className="col-1">{item.BillingAddress}</div>
-                <div className="col-1">{item.BillingPostCode}</div>
+                <div className="col-1">{item.BillingPostcode}</div>
                 <div className="col-1">£{item.TotalCost}</div>
                 <div className="col-1">{item.DeliveryOrCollection}</div>
               </div>
@@ -117,14 +117,14 @@ function OrdersTable(props) {
             return (
               <div className="col-20" key={index}>
                 <div className="row" style={{ color: '#333333' }}>
-                  <div className="col-2"><button onClick={() => props.onChange(item.OrderID)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
+                  <div className="col-2"><button onClick={() => props.onChange(item.OrderID, item.DeliveryOrCollection, item.OrderTime)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
                   <div className="col-2">{item.CustomerEmail}</div>
                   <div className="col-1">{item.CustomerPhone}</div>
                   <div className="col-1">{item.CustomerFirstName}</div>
                   <div className="col-1">{item.CustomerLastName}</div>
                   <div className="col-1">{item.OrderTime}</div>
                   <div className="col-1">{item.BillingAddress}</div>
-                  <div className="col-1">{item.BillingPostCode}</div>
+                  <div className="col-1">{item.BillingPostcode}</div>
                   <div className="col-1">£{item.TotalCost}</div>
                   <div className="col-1">{item.DeliveryOrCollection}</div>
                 </div>
@@ -138,14 +138,14 @@ function OrdersTable(props) {
             return (
               <div className="col-20" key={index}>
                 <div className="row" style={{ color: '#333333' }}>
-                  <div className="col-2"><button onClick={() => props.onChange(item.OrderID)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
+                  <div className="col-2"><button onClick={() => props.onChange(item.OrderID, item.DeliveryOrCollection, item.OrderTime)} style={{ color:'blue', 'textDecoration': 'underline'}}>{item.OrderID}</button></div>
                   <div className="col-2">{item.CustomerEmail}</div>
                   <div className="col-1">{item.CustomerPhone}</div>
                   <div className="col-1">{item.CustomerFirstName}</div>
                   <div className="col-1">{item.CustomerLastName}</div>
                   <div className="col-1">{item.OrderTime}</div>
                   <div className="col-1">{item.BillingAddress}</div>
-                  <div className="col-1">{item.BillingPostCode}</div>
+                  <div className="col-1">{item.BillingPostcode}</div>
                   <div className="col-1">£{item.TotalCost}</div>
                   <div className="col-1">{item.DeliveryOrCollection}</div>
                 </div>
@@ -178,7 +178,7 @@ function OrdersTable(props) {
               <div className="col-1">CUSTOMER PHONE</div>
               <div className="col-1">CUSTOMER FIRSTNAME</div>
               <div className="col-1">CUSTOMER LASTNAME</div>
-              <div className="col-1">ORDER TIME</div>
+              <div className="col-1">TIME PLACED</div>
               <div className="col-1">BILLING ADDRESS</div>
               <div className="col-1">BILLING POSTCODE</div>
               <div className="col-1">TOTAL COST</div>

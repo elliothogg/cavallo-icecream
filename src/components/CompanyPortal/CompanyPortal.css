@@ -69,3 +69,13 @@
 #popularflavours-table-container {
   padding-bottom: 50px;
 }
+
+.orderType-info h3 {
+  font-size: 12pt;
+  text-decoration: none;
+}
+
+.orderType-info {
+  font-size: 12pt;
+  text-decoration: none;
+}

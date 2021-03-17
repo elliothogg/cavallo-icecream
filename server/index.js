@@ -14,6 +14,8 @@ const productMenu = require('./routes/productMenu');
 const responseOrderDataAPI = require('./routes/responseOrderDataAPI');
 const responseEachOrdersProductAPI = require('./routes/responseEachOrdersProductAPI');
 const popularFlavours = require('./routes/PopularFlavoursAPI');
+const deliveryInfo = require('./routes/deliveryInfo');
+const collectionInfo = require('./routes/collectionInfo');
 
 const app = express();
 app.use(pino);
@@ -31,6 +33,8 @@ app.use(orderConfirmAPI);
 app.use(responseOrderDataAPI);
 app.use(responseEachOrdersProductAPI);
 app.use(popularFlavours);
+app.use(deliveryInfo);
+app.use(collectionInfo);
 
 app.listen(3001, () =>
     console.log('Express server is running on localhost:3001')

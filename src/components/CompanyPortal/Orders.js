@@ -6,7 +6,10 @@ var sd = require('silly-datetime');
 
 function Orders(props) {
     const [SelectedOrderID, setSelectedOrderID] = useState();
+    const [SelectedOrderDelivery, setSelectedOrderDelivery] = useState();
     const [SelectedOrderIDProducts, setSelectedOrderIDProducts] = useState();
+    const [SelectedOrderTime, setSelectedOrderTime] = useState();
+    const [SelectedOrderDeliveryCollectionInfo, setSelectedOrderDeliveryCollectionInfo] = useState();
     const [ordersToShow, setOrdersToShow] = useState('All');
     const [todaysDate, setTodaysDate] = useState(props.currentTime.slice(0,8));
     const [startDate, setStartDate] = useState();
@@ -30,8 +33,10 @@ function Orders(props) {
 
     
 
-    function handleChange(orderID) {
+    function handleChange(orderID, DeliveryOrCollection, orderTime) {
         setSelectedOrderID(orderID);
+        setSelectedOrderDelivery(DeliveryOrCollection);
+        setSelectedOrderTime(orderTime);
         fetch(`/api/responseEachOrdersProductsData?orderID=${orderID}`)
         .then((res)=>{
             return res.json().then((response=>{
@@ -40,6 +45,28 @@ function Orders(props) {
         }).catch((error) => {
             console.error(error);
         });
+
+        if (DeliveryOrCollection === "Collection") {
+            fetch(`/api/collectionInfo?orderID=${orderID}`)
+            .then((res)=>{
+            return res.json().then((response=>{
+            setSelectedOrderDeliveryCollectionInfo(response.data);
+            }))
+            }).catch((error) => {
+            console.error(error);
+        });
+        }
+
+        if (DeliveryOrCollection === "Delivery") {
+            fetch(`/api/deliveryInfo?orderID=${orderID}`)
+            .then((res)=>{
+            return res.json().then((response=>{
+            setSelectedOrderDeliveryCollectionInfo(response.data);
+            }))
+            }).catch((error) => {
+            console.error(error);
+        });
+        }
     }
 
     function changeOrdersToShow(time) {
@@ -61,7 +88,7 @@ function Orders(props) {
 
     const pageChanger = () => {
         if (SelectedOrderID)
-            return <EachOrdersProductsTable onChange={handleChange} orderID={SelectedOrderID} eachOrdersProducts={SelectedOrderIDProducts}/>
+            return <EachOrdersProductsTable onChange={handleChange} orderID={SelectedOrderID} eachOrdersProducts={SelectedOrderIDProducts} SelectedOrderDelivery={SelectedOrderDelivery} orderInfo={SelectedOrderDeliveryCollectionInfo} orderTime={SelectedOrderTime}/>
         else return <div id="orders-table-and-date-container"><OrdersDateFilter onChange={changeOrdersToShow} resetStartAndEndDates={resetStartAndEndDates} setStartFilterDate={setStartFilterDate} setEndFilterDate={setEndFilterDate} startDateFilter={startDate} endDateFilter={endDate}/>
         <OrdersTable ordersToShow={ordersToShow} orders={props.orders} onChange={handleChange} todaysDate={todaysDate} startDate={startDate} endDate={endDate} startOfWeekDate={startOfWeekDate} endOfWeekDate={endOfWeekDate}/></div>
     }
