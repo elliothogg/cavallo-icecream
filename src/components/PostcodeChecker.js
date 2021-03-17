@@ -19,10 +19,20 @@ class PostcodeChecker extends Component {
   }
 
   displayResult() {
-    if (this.state.distance === "err")
+    if (this.state.distance === "err") {
+
       this.setState( {resultMessage: 'Please enter a valid Postcode'});
+
+    }
     else if (this.state.distance < 5) {
       this.props.setIsDelivery(true);
+
+      // update the deliverPostcode of customerDetails by the postcode that user input
+      // So we can use it in checkout later.
+      this.props.setCustomerDetails({
+        ...this.props.customerDetails,
+        deliveryPostcode: this.state.destination
+      });
     }
     else {
       this.setState( {resultMessage: 'Sorry, your address is too far away :( Alternatively, you can select collection.'});
