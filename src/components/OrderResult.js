@@ -4,7 +4,7 @@ import './OrderResult.css';
 function OrderResult(props) {
     const { orderID, orderTime } = props.location.state;
     const { TotalCost: totalCost, Items: orderItems } = props.customerOrder;
-    const { deliveryAddress, billingAddress } = props.customerDetails;
+    const { deliveryAddress, deliveryPostcode, billingAddress, billingPostcode } = props.customerDetails;
 
     return (
         <div id="orderResult" className="container-fluid">
@@ -74,6 +74,9 @@ function OrderResult(props) {
                                     <div className="col-6" style={{ paddingLeft: 0 }}>
                                         {billingAddress}
                                     </div>
+                                    <div className="col-6" style={{ paddingLeft: 0 }}>
+                                        {billingPostcode}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -85,6 +88,9 @@ function OrderResult(props) {
                                     <div className="row">
                                         <div className="col-6" style={{ paddingLeft: 0 }}>
                                             {deliveryAddress}
+                                        </div>
+                                        <div className="col-6" style={{ paddingLeft: 0 }}>
+                                            {deliveryPostcode}
                                         </div>
                                     </div>
                                 </div>
