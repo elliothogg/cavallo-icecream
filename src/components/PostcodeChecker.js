@@ -61,7 +61,7 @@ class PostcodeChecker extends Component {
 
   shopClosed() {
     let hour = this.props.currentTime.slice(11,13)
-    if (hour >= 11 && hour <= 18)
+    if (hour >= 11 && hour < 18)
       return <form id="postcode-form">
               <label htmlFor="destination">Enter Your Postcode: </label>
               <input
