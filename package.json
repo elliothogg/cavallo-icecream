@@ -19,14 +19,14 @@
     "react-webpack": "^0.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start-client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node-env-run server --exec nodemon | pino-colada",
-    "dev": "run-p server start"
+    "dev": "run-p server start",
+    "start": "cd server && node index.js"
   },
-  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": "react-app"
   },

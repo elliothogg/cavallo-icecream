@@ -1,7 +1,13 @@
 const express = require('express');
 const pino = require('express-pino-logger')();
-
+const path = require('path');
+const app = express();
 var bodyParser = require('body-parser');
+
+const PORT = process.env.PORT || 3001;
+
+const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath));
  
 
 const distanceAPI = require('./routes/distanceApi');
@@ -17,7 +23,7 @@ const popularFlavours = require('./routes/PopularFlavoursAPI');
 const deliveryInfo = require('./routes/deliveryInfo');
 const collectionInfo = require('./routes/collectionInfo');
 
-const app = express();
+
 app.use(pino);
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -36,8 +42,6 @@ app.use(popularFlavours);
 app.use(deliveryInfo);
 app.use(collectionInfo);
 
-app.listen(3001, () =>
-    console.log('Express server is running on localhost:3001')
+app.listen(PORT, () =>
+    console.log(`Express server is running on port ${PORT}!`)
   );
-
-
