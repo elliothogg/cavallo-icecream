@@ -5,7 +5,7 @@ import './App.css';
 import Order from './components/pages/Order';
 import Checkout from './components/pages/Checkout';
 import OrderConfirmation from './components/pages/OrderConfirmation';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, HashRouter } from 'react-router-dom';
 import CompanyPortal from './components/CompanyPortal/CompanyPortal';
 import MenuNoOrder from './components/MenuNoOrder';
 
@@ -265,7 +265,7 @@ class App extends React.Component {
     console.log(this.state.companyInfo.RestaurantName)
     return (
       <>
-        <Router>
+        <HashRouter>
           <Header restaurantName={this.state.companyInfo.RestaurantName} restaurantSlogan={this.state.companyInfo.Slogan} setIsDelivery={this.state.setIsDelivery}/>
           <Switch>
 
@@ -277,7 +277,7 @@ class App extends React.Component {
             <Route path='/menu' exact render={ () => <MenuNoOrder {...this.state} />} />
           </Switch>
         <Footer {...this.state} />
-        </Router>
+        </HashRouter>
       </>
     );
   }
