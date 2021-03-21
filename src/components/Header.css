@@ -17,6 +17,7 @@
   font-family: 'Lobster', cursive;
   text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
   margin-top: 15px;
+  cursor: default;
   
   text-decoration: underline overline dotted;
   
@@ -26,6 +27,7 @@
   margin-left: 80px;
   margin-top: 10px;
   font-size: 45px;
+  cursor: default;
   text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c, 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 1px 4px rgb(255, 20, 147), 18px 19px 9px rgb(255, 20, 147);
   color: #ffffff;
   font-family: 'Dancing Script', cursive;

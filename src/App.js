@@ -266,7 +266,7 @@ class App extends React.Component {
     return (
       <>
         <Router>
-          <Header restaurantName={this.state.companyInfo.RestaurantName} restaurantSlogan={this.state.companyInfo.Slogan}/>
+          <Header restaurantName={this.state.companyInfo.RestaurantName} restaurantSlogan={this.state.companyInfo.Slogan} setIsDelivery={this.state.setIsDelivery}/>
           <Switch>
 
             {/* Order, Checkout, and OrderConfirmation now receive all of App.js state (as props) */}
