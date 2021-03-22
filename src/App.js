@@ -55,6 +55,9 @@ class App extends React.Component {
         driverInstructions: ''
       },
 
+      orderID: '',
+      orderTime: '',
+
       setCustomerOrder: this.setCustomerOrder.bind(this),
       setPaymentDetails: this.setPaymentDetails.bind(this),
       setCustomerDetails: this.setCustomerDetails.bind(this),
@@ -62,7 +65,9 @@ class App extends React.Component {
       setIsDelivery: this.setIsDelivery.bind(this),
       confirmOrder: this.confirmOrder.bind(this),
       incrementItemCountUp: this.incrementItemCountUp.bind(this),
-      incrementItemCountDown: this.incrementItemCountDown.bind(this)
+      incrementItemCountDown: this.incrementItemCountDown.bind(this),
+      setOrderID: this.setOrderID.bind(this),
+      setOrderTime: this.setOrderTime.bind(this)
 
     }
   }
@@ -230,6 +235,14 @@ class App extends React.Component {
     this.setState({ customerDetails });
 
 
+  }
+
+  setOrderID(orderIDin) {
+    this.setState({orderID: orderIDin});
+  }
+
+  setOrderTime(orderTimein) {
+    this.setState({orderTime: orderTimein});
   }
 
   setPaymentDetails(paymentDetails) {

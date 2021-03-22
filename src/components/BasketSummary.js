@@ -90,10 +90,9 @@ function BasketSummary(props) {
                     setShowModal(true);
                     setModalMessage(`Pay failed. ${reason}`);
                 } else {
-                    history.push('/order-confirmation', {
-                        orderID,
-                        orderTime
-                    });
+                    props.setOrderID(orderID);
+                    props.setOrderTime(orderTime);
+                    history.push('/order-confirmation');
                 }
             })
             .catch((err) => {

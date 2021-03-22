@@ -2,7 +2,6 @@ import React from 'react';
 import './OrderResult.css';
 
 function OrderResult(props) {
-    const { orderID, orderTime } = props.location.state;
     const { TotalCost: totalCost, Items: orderItems } = props.customerOrder;
     const { deliveryAddress, deliveryPostcode, billingAddress, billingPostcode } = props.customerDetails;
 
@@ -12,7 +11,7 @@ function OrderResult(props) {
             <div id="resultContent">
                 <h2 className="mb-3 col-12">Order Details</h2>
                 <div className="col-12">
-                    Ordered on {orderTime} | Order # {orderID}
+                    Ordered on {props.orderTime || ''} | Order # {props.orderID || ''}
                 </div>
 
                 <hr className="col-10" style={{ marginLeft: '0.5rem' }} />
