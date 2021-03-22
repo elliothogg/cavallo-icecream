@@ -7,6 +7,7 @@ import CompanyPortalHeader from './CompanyPortalHeader';
 import PopularFlavoursTable from './PopularFlavoursTable';
 import PortalLogin from './PortalLogin';
 import PopularFlavoursChart from './PopularFlavoursChart';
+import DeliveryPostcodesChart from './DeliveryPostcodesChart';
 
 
 function CompanyPortal(props) {
@@ -42,7 +43,7 @@ function CompanyPortal(props) {
     
     if (page === 'products') return <><CompanyPortalHeader onChange={handleChange}/><ProductTable products={props.products}/><SizeTable products={props.products}/></>
     else if (page === 'orders') return <><CompanyPortalHeader onChange={handleChange}/><Orders orders={orders} currentTime={props.currentTime}/></>
-    else if (page === 'metrics') return <><CompanyPortalHeader onChange={handleChange}/><PopularFlavoursTable /><PopularFlavoursChart /></>
+    else if (page === 'metrics') return <><CompanyPortalHeader onChange={handleChange}/><PopularFlavoursTable /><PopularFlavoursChart /><DeliveryPostcodesChart /></>
     
   }
 

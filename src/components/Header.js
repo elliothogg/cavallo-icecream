@@ -16,7 +16,10 @@ function Header(props) {
     <>
       <nav className='navbar'>
         <div className='navbar-container'>
-          <h1 id = "rest-name">{props.restaurantName}</h1>
+
+          <Link to='/' onClick={closeMobileMenu}>
+           <h1 id = "rest-name" >{props.restaurantName}</h1>
+          </Link>
           <h2 id = "rest-slogan">{props.restaurantSlogan}</h2>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

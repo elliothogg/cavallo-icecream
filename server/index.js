@@ -22,7 +22,7 @@ const responseEachOrdersProductAPI = require('./routes/responseEachOrdersProduct
 const popularFlavours = require('./routes/PopularFlavoursAPI');
 const deliveryInfo = require('./routes/deliveryInfo');
 const collectionInfo = require('./routes/collectionInfo');
-
+const responseDeliveryDataAPI = require('./routes/responseDeliveryDataAPI.js');
 
 app.use(pino);
 
@@ -41,6 +41,7 @@ app.use(responseEachOrdersProductAPI);
 app.use(popularFlavours);
 app.use(deliveryInfo);
 app.use(collectionInfo);
+app.use(responseDeliveryDataAPI);
 
 app.listen(PORT, () =>
     console.log(`Express server is running on port ${PORT}!`)
