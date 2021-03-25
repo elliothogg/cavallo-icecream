@@ -43,6 +43,7 @@ function BasketSummary(props) {
     const hasProductsInCart = () => {
         return props.customerOrder.Items.length > 0;
     };
+    
     const handleCheckout = () => {
         if (!hasProductsInCart()) {
             setShowModal(true);
@@ -67,6 +68,12 @@ function BasketSummary(props) {
     // Then we can access orderID and orderTime by props.location.state in OrderResult component.
     // The confirmOrder is not used again in App.js. Maybe remove it later?
     const handleConfirmOrder = () => {
+        if (!hasProductsInCart()) {
+            setShowModal(true);
+            setModalMessage('Please add a product to your cart!');
+  
+            return;
+        }  
         if (!validateForm()) return;
 
         setShowLoading(true);
